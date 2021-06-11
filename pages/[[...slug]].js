@@ -43,7 +43,7 @@ export async function getStaticPaths(context) {
 
   const paths = pages.map((page) => {
     // Decompose the slug that was saved in Strapi
-    const slugArray = !page.slug ? false : page.slug.split("/")
+    const slugArray = !page.slug ? [] : page.slug.split("/")
 
     return {
       params: { slug: slugArray },
