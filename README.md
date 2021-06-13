@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  Identity and Access Management
+  Landing Site
 </h1>
 
 Presentational site for influencio.
