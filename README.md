@@ -1,4 +1,13 @@
-# Next frontend
+<p align="center">
+  <a href="https://influencio.dk">
+    <img alt="Influencio" src="https://storage.googleapis.com/assets.influencio.dk/logo/influencio-logo.png" width="100" />
+  </a>
+</p>
+<h1 align="center">
+  Landing Site
+</h1>
+
+Presentational site for influencio.
 
 This frontend relies on Next's [Static Generation](https://nextjs.org/docs/basic-features/pages) using [Strapi](https://strapi.io/) as the data source. Make sure Strapi is running in parallel when you run this app.
 
