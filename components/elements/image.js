@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import { mediaPropTypes } from "utils/types";
 
 const Image = ({ media, className }) => {
+  if (!media) {
+    console.warn('Missing media')
+    return null
+  }
+
   const { url, alternativeText } = media;
   const fullUrl = getStrapiMedia(url);
 
