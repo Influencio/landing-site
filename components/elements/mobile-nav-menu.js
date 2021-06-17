@@ -41,10 +41,19 @@ const MobileNavMenu = ({ navbar, closeSelf }) => {
               </li>
             ))}
           </ul>
-          <ButtonLink
-            button={navbar.button}
-            appearance={getButtonAppearance(navbar.button.type, "light")}
-          />
+          {
+            navbar.buttons?.length ? 
+            <div className='space-y-2 flex flex-col'>
+            {
+              navbar.buttons.map(btn => (
+                <ButtonLink
+                  button={btn}
+                  appearance={getButtonAppearance(btn.type, "light")}
+                />
+              )) 
+            }
+            </div>: null
+          }
         </div>
       </div>
     </div>
