@@ -102,7 +102,7 @@ Navbar.propTypes = {
       url: PropTypes.string,
     }),
     links: PropTypes.arrayOf(linkPropTypes),
-    button: buttonLinkPropTypes,
+    buttons: PropTypes.arrayOf(buttonLinkPropTypes),
   }),
   initialLocale: PropTypes.string,
 }
