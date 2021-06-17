@@ -61,15 +61,19 @@ const Navbar = ({ navbar, pageContext }) => {
               <MdMenu className="h-8 w-auto" />
             </button>
             {/* CTA button on desktop */}
-            {navbar.button && (
-              <div className="hidden md:block">
-                <ButtonLink
-                  button={navbar.button}
-                  appearance={getButtonAppearance(navbar.button.type, "light")}
-                  compact
-                />
+            {navbar.buttons && navbar.buttons.length ? (
+              <div className="md:flex hidden space-x-2">
+                {
+                  navbar.buttons.map(btn => (
+                    <ButtonLink
+                      button={btn}
+                      appearance={getButtonAppearance(btn.type, "light")}
+                      compact
+                    />
+                  ))
+                }
               </div>
-            )}
+            ) : null} 
             {/* Locale Switch Desktop */}
             {pageContext.localizations && (
               <div className="hidden md:block">
