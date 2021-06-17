@@ -66,6 +66,7 @@ const Navbar = ({ navbar, pageContext }) => {
                 {
                   navbar.buttons.map(btn => (
                     <ButtonLink
+                      key={btn.id}
                       button={btn}
                       appearance={getButtonAppearance(btn.type, "light")}
                       compact
