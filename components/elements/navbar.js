@@ -21,7 +21,7 @@ const Navbar = ({ navbar, pageContext }) => {
   return (
     <>
       {/* The actual navbar */}
-      <nav className="border-gray-200 border-b-2 py-6 sm:py-2">
+      <nav className="border-gray-200 border-b-2 py-6 sm:py-4">
         <div className="container flex flex-row items-center justify-between">
           {/* Content aligned to the left */}
           <div className="flex flex-row items-center">
@@ -29,7 +29,7 @@ const Navbar = ({ navbar, pageContext }) => {
               <a>
                 <Image
                   media={navbar.logo}
-                  className="h-8 w-auto object-contain"
+                  className="h-12 w-auto object-contain"
                 />
               </a>
             </Link>
