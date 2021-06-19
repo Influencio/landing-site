@@ -12,7 +12,7 @@ const Image = ({ media, className }) => {
   const fullUrl = getStrapiMedia(url);
 
   return (
-    <img src={fullUrl} alt={alternativeText || ""} className={className} />
+    <img src={fullUrl} alt={alternativeText || ""} className={className} style={{imageRendering: '-webkit-optimize-contrast'}} />
   );
 };
 
