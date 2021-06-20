@@ -7,6 +7,8 @@
   Landing Site
 </h1>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e0205e20-2f37-4bd7-8045-384b7a8091e6/deploy-status)](https://app.netlify.com/sites/stoic-elion-2a4c72/deploys)
+
 Presentational site for influencio.
 
 This frontend relies on Next's [Static Generation](https://nextjs.org/docs/basic-features/pages) using [Strapi](https://strapi.io/) as the data source. Make sure Strapi is running in parallel when you run this app.
