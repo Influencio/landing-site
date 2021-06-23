@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next",
     "develop": "next",
-    "build": "./slug.sh && next build",
+    "build": "chmod +x ./slug.sh && ./slug.sh && next build",
     "start": "next start"
   },
   "dependencies": {
