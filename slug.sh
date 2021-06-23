@@ -1,6 +1,6 @@
 echo $NODE_ENV
 
-if [[ "$NODE_ENV" == "production" ]]
+if [ "$NODE_ENV" == "production" ]
 then 
   echo "Running production version"
   rm ./pages/test-slug.js
