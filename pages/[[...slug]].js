@@ -41,16 +41,17 @@ export async function getStaticPaths(context) {
 
   const pages = await (await Promise.all(allPages)).flat()
 
-  const paths = pages.map((page) => {
-    // Decompose the slug that was saved in Strapi
-    const slugArray = !page.slug ? [] : page.slug.split("/")
+  const paths = []
+  // pages.map((page) => {
+  //   // Decompose the slug that was saved in Strapi
+  //   const slugArray = !page.slug ? [] : page.slug.split("/")
 
-    return {
-      params: { slug: slugArray },
-      // Specify the locale to render
-      locale: page.locale,
-    }
-  })
+  //   return {
+  //     params: { slug: slugArray },
+  //     // Specify the locale to render
+  //     locale: page.locale,
+  //   }
+  // })
 
   return { paths, fallback: true }
 }
