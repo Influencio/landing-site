@@ -1,4 +1,4 @@
-if ["$NODE_ENV" == "production"] 
+if [ "$NODE_ENV" == "production" ]
 then 
   rm ./pages/test-slug.js
 else
