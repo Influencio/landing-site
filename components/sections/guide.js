@@ -14,7 +14,7 @@ const Guide = ({ data }) => {
           marginBottom: 50
         }}
       >
-        <h3>{data.title}</h3>
+        <h3 className='text-3xl font-bold my-2'>{data.title}</h3>
         <Select data={data.select.data} />
 
         <FeatureRowsGroup data={data.content[0]} beforeEach={StepCount} />
@@ -24,9 +24,9 @@ const Guide = ({ data }) => {
 };
 
 const StepCount = (_, index) => (
-  <div className="text-lg text-center m-8">
+  <div className="text-lg text-center">
     <h5>STEP</h5>
-    <h2 className="text-4xl font-bold">{index}</h2>
+    <h2 className="text-4xl font-bold">{'0' + (index + 1)}</h2>
   </div>
 );
 
