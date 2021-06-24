@@ -7,7 +7,7 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
   return (
     <div className="container flex flex-col gap-12 py-12">
       {data.features.map((feature, index) => (
-        <>
+        <div key={feature.id}>
           {/* Tile */}
           {beforeEach ? beforeEach(feature, index) : null}
           {/* Content */}
@@ -20,7 +20,6 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
                 "lg:flex-row-reverse": index % 2 === 1,
               }
             )}
-            key={feature.id}
           >
             {/* Text section */}
             <div className="w-full lg:w-6/12 lg:pr-6 text-lg">
@@ -55,7 +54,7 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
               )}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
