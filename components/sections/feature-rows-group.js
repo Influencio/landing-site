@@ -34,11 +34,15 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
                 </CustomLink>
               ) : null}
             </div>
+
+            {/* Separator */}
+            {feature.separator ? <Line /> : null}
+
             {/* Media section */}
-            <div className="w-full sm:9/12 lg:w-4/12 max-h-full">
+            <div className={`w-full sm:9/12 ${feature.separator ? 'lg:w-6/12' : 'lg:w-4/12'} max-h-full`}>
               {/* Images */}
               {feature.media.mime.startsWith("image") && (
-                <Image media={feature.media} className="w-full h-auto" />
+                <Image media={feature.media} className={`w-full h-auto ${feature.separator ? 'p-6' : ''}`} />
               )}
               {/* Videos */}
               {feature.media.mime.startsWith("video") && (
@@ -56,5 +60,11 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
     </div>
   );
 };
+
+const Line = () => (
+  <div
+    className="border-dotted border-l-8 border-gray-200 h-64 hidden lg:block mx-8"
+  />
+);
 
 export default FeatureRowsGroup;
