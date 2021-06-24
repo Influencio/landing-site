@@ -2,8 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import { useRouter } from "next/router"
 import PropTypes from "prop-types"
 import Link from "next/link"
-
-import WorldIcon from "./icons/world"
+import {FaGlobe} from 'react-icons/fa'
 
 import { useOnClickOutside } from "../utils/hooks"
 import {
@@ -73,7 +72,7 @@ const LocaleSwitch = ({ pageContext }) => {
         className="hover:bg-primary-50 hover:text-primary-600 focus:bg-primary-50 focus:text-primary-600 focus:outline-none flex items-center justify-between px-2 py-2 cursor-pointer h-full rounded-md w-20"
         onClick={() => setShowing(!showing)}
       >
-        <WorldIcon />
+        <FaGlobe className='text-xl text-primary-600' />
         <span className="capitalize">{locale}</span>
         <MdExpandMore className="ml-1 text-primary-600" />
       </button>
