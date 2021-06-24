@@ -2,19 +2,19 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
-const Select = ({ data }) => {
+const Select = ({ data, onChange }) => {
   const [selected, setSelected] = useState(data.length ? data[0] : null);
 
-  const handleSelect = (value, res) => {
-    console.log(value, res);
+  const handleSelect = res => {
     setSelected(res);
+    onChange && onChange(res);
   };
 
   return (
     <div className="w-72">
       <Listbox
         value={selected}
-        onChange={(res) => handleSelect(res.value, res)}
+        onChange={handleSelect}
       >
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
