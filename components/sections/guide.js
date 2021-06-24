@@ -17,10 +17,17 @@ const Guide = ({ data }) => {
         <h3>{data.title}</h3>
         <Select data={data.select.data} />
 
-        <FeatureRowsGroup data={data.content[0]} />
+        <FeatureRowsGroup data={data.content[0]} beforeEach={StepCount} />
       </div>
     </div>
   );
 };
+
+const StepCount = (_, index) => (
+  <div className="text-lg text-center m-8">
+    <h5>STEP</h5>
+    <h2 className="text-4xl font-bold">{index}</h2>
+  </div>
+);
 
 export default Guide
