@@ -10,7 +10,7 @@ const Layout = ({ children, global, pageContext }) => {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       {/* Aligned to the top */}
-      <div className="flex-1">
+      <div className="flex-1" style={{ backgroundColor: pageContext.backgroundColor || 'white' }}>
         {notificationBanner && bannerIsShown && (
           <NotificationBanner
             data={notificationBanner}
