@@ -73,7 +73,7 @@ export async function getStaticProps(context) {
   }
 
   // We have the required page data, pass it to the page component
-  const { contentSections, metadata, localizations, backgroundColor } = pageData
+  const { contentSections, metadata, localizations, backgroundColor=null } = pageData
 
   return {
     props: {
