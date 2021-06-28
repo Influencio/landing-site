@@ -1,5 +1,4 @@
 import ErrorPage from "next/error"
-import { getPageData, getGlobalData } from "utils/api"
 import Sections from "@/components/sections"
 import { useRouter } from "next/router"
 import Layout from "@/components/layout"

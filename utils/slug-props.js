@@ -1,3 +1,5 @@
+import { getPageData, getGlobalData } from "./api"
+
 export default async function(context) {
   const { params, locale, locales, defaultLocale, preview = null } = context
 
