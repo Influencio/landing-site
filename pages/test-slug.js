@@ -4,6 +4,10 @@ import Sections from "@/components/sections"
 import { useRouter } from "next/router"
 import Layout from "@/components/layout"
 
+// Export getServerSideProps to enable SSR
+import getServerProps from '../utils/slug-props';
+export const getServerSideProps = getServerProps
+
 // The file is called [[...slug]].js because we're using Next's
 // optional catch all routes feature. See the related docs:
 // https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
@@ -29,44 +33,6 @@ const DynamicPage = ({ sections, preview, global, pageContext }) => {
       <Sections sections={sections} preview={preview} />
     </Layout>
   )
-}
-
-export async function getServerSideProps(context) {
-  const { params, locale, locales, defaultLocale, preview = null } = context
-
-  const globalLocale = await getGlobalData(locale)
-
-  // Fetch pages. Include drafts if preview mode is on
-  const pageData = await getPageData(
-    { slug: !params.slug ? [""] : params.slug },
-    locale,
-    preview
-  )
-
-  if (pageData == null) {
-    // Giving the page no props will trigger a 404 page
-    return { props: {} }
-  }
-
-  // We have the required page data, pass it to the page component
-  const { contentSections, metadata, localizations, backgroundColor=null } = pageData
-
-  return {
-    props: {
-      preview,
-      sections: contentSections,
-      metadata,
-      global: globalLocale,
-      pageContext: {
-        slug: pageData.slug,
-        locale: pageData.locale,
-        locales,
-        defaultLocale,
-        localizations,
-        backgroundColor
-      },
-    },
-  }
 }
 
 export default DynamicPage
