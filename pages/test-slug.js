@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
   }
 
   // We have the required page data, pass it to the page component
-  const { contentSections, metadata, localizations } = pageData
+  const { contentSections, metadata, localizations, backgroundColor=null } = pageData
 
   return {
     props: {
@@ -63,6 +63,7 @@ export async function getServerSideProps(context) {
         locales,
         defaultLocale,
         localizations,
+        backgroundColor
       },
     },
   }
