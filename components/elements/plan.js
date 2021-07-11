@@ -33,7 +33,7 @@ const Plan = ({ title, link, linkTitle, price, subtitle, benefits, annually, han
           <Link
             href={link || ''}
           >
-            <span className="bg-blue-400 py-4 px-12 rounded-lg text-white text-lg hover:text-gray-400">
+            <span className="bg-blue-400 py-4 px-12 rounded-lg text-white text-lg cursor-pointer hover:text-gray-100">
               {linkTitle || ''}
             </span>
           </Link>
