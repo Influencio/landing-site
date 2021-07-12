@@ -2,8 +2,8 @@
   "name": "cms-strapi",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
-    "develop": "next",
+    "dev": "export NODE_ENV=development && next",
+    "develop": "export NODE_ENV=development && next",
     "build": "chmod +x ./slug.sh && ./slug.sh && next build",
     "start": "next start"
   },
