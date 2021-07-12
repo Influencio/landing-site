@@ -50,6 +50,30 @@ export async function getPageData(params, locale, preview) {
   return pagesData[0]
 }
 
+/**
+ *
+ * @param {object} params The router params object with slug: { slug: [<slug>] }
+ * @param {string} locale The current locale specified in router.locale
+ * @param {boolean} preview router isPreview value
+ */
+ export async function getCustomPageData(params, locale, preview) {
+  const slug = params.slug.join("/")
+  // Find the pages that match this slug
+  const pagesData = await fetchAPI(
+    `/custom-pages?slug=${slug}&_locale=${locale}&status=published${
+      preview ? "&status=draft" : ""
+    }`
+  )
+
+  // Make sure we found something, otherwise return null
+  if (pagesData == null || pagesData.length === 0) {
+    return null
+  }
+
+  // Return the first item since there should only be one result per slug
+  return pagesData[0]
+}
+
 // Get site data from Strapi (metadata, navbar, footer...)
 export async function getGlobalData(locale) {
   const global = await fetchAPI(`/global?_locale=${locale}`)
