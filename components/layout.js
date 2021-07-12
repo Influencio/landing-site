@@ -3,7 +3,7 @@ import Footer from "./elements/footer"
 import NotificationBanner from "./elements/notification-banner"
 import { useState } from "react"
 
-const Layout = ({ children, global, pageContext }) => {
+const Layout = ({ children, global, pageContext, disableNavbar=false, disableFooter=false }) => {
   const { navbar, footer, notificationBanner } = global
 
   const [bannerIsShown, setBannerIsShown] = useState(true)
@@ -17,14 +17,15 @@ const Layout = ({ children, global, pageContext }) => {
             closeSelf={() => setBannerIsShown(false)}
           />
         )}
-        <Navbar
-          navbar={navbar}
-          pageContext={pageContext}
-        />
+        {
+          disableNavbar ? null : <Navbar navbar={navbar} pageContext={pageContext} />
+        }
         <div>{children}</div>
       </div>
-      {/* Aligned to the bottom */}
-      <Footer footer={footer} />
+
+      {
+        disableFooter ? null : <Footer footer={footer} />
+      }
     </div>
   )
 }
