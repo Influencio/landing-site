@@ -6,7 +6,7 @@ import Input from 'components/atomic/input';
 import Button from 'components/elements/button';
 
 const Influencer = ({ metadata, global, pageContext }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const { control, handleSubmit, formState: { errors }, watch } = useForm();
   const onSubmit = data => console.log(data);
 
   return (
@@ -16,7 +16,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
 
       <h1 className='title my-32 text-center'>INFLUENCIO</h1>
 
-      <div className='flex w-full flex-col items-center'>
+      <div className='flex w-full flex-col items-center mb-10'>
 
         <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-screen-sm space-y-4'>
           <Controller
@@ -40,7 +40,23 @@ const Influencer = ({ metadata, global, pageContext }) => {
             control={control}
             defaultValue=''
             rules={{ required: true }}
-            render={({ field }) => <Input id='email' label='E-mail' placeholder='email@example.com' type='email' error={errors?.email} {...field} />}
+            render={({ field }) => <Input autoComplete='email' id='email' label='E-mail' placeholder='email@example.com' type='email' error={errors?.email} {...field} />}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=''
+            rules={{ required: true }}
+            render={({ field }) => <Input autoComplete='new-password' id='password' label='Password' placeholder='••••••••••' type='password' error={errors?.password} {...field} />}
+          />
+
+          <Controller
+            name="confirm"
+            control={control}
+            defaultValue=''
+            rules={{ required: true, validate: (value) => value === watch('password') || 'Passwords do not match' }}
+            render={({ field }) => <Input autoComplete='new-password' id='confirm' label='Confirm Password' placeholder='••••••••••' type='password' error={errors?.confirm} {...field} />}
           />
 
           <Button appearance='dark' compact type='submit' 
