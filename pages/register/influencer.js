@@ -3,9 +3,10 @@ import { getCustomPageData, getGlobalData } from "utils/api"
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import Input from 'components/atomic/input';
+import Button from 'components/elements/button';
 
 const Influencer = ({ metadata, global, pageContext }) => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
 
   return (
@@ -15,16 +16,39 @@ const Influencer = ({ metadata, global, pageContext }) => {
 
       <h1 className='title my-32 text-center'>INFLUENCIO</h1>
 
-      <div className='flex w-full h-full lg:flex-row flex-col'>
+      <div className='flex w-full h-full lg:flex-row flex-col justify-center'>
 
-        <form onSubmit={handleSubmit(onSubmit)} className='max-w-screen-md'>
+        <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-screen-sm space-y-4'>
           <Controller
             name="name.givenName"
             control={control}
-            render={({ field }) => <Input placeholder='Given name' {...field} />}
+            defaultValue=''
+            rules={{ required: true }}
+            render={({ field }) => <Input id='givenName' label='First name' placeholder='Given name' error={errors?.name?.givenName} {...field} />}
           />
 
-          <input type='submit'/>
+          <Controller
+            name="name.familyName"
+            control={control}
+            defaultValue=''
+            rules={{ required: true }}
+            render={({ field }) => <Input id='familyName' label='Last name' placeholder='Family name' error={errors?.name?.familyName} {...field} />}
+          />
+
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=''
+            rules={{ required: true }}
+            render={({ field }) => <Input id='email' label='E-mail' placeholder='email@example.com' type='email' error={errors?.email} {...field} />}
+          />
+
+          <Button appearance='dark' compact type='submit' 
+          // disabled={isSubmitting}
+          //         loading={loading}
+                  >
+            Register
+          </Button>
         </form>
       </div>
     </Layout>
