@@ -4,6 +4,8 @@ import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import Input from 'components/atomic/input';
 import Button from 'components/elements/button';
+import Link from 'next/link';
+import { loginUrl } from 'utils/links';
 
 const Influencer = ({ metadata, global, pageContext }) => {
   const { control, handleSubmit, formState: { errors }, watch } = useForm();
@@ -66,7 +68,9 @@ const Influencer = ({ metadata, global, pageContext }) => {
                   >
             Register
           </Button>
+
         </form>
+        <Link href={loginUrl}>Already have an account? Login here</Link>
       </div>
     </Layout>
   )
