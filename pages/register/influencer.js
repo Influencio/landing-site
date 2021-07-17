@@ -14,7 +14,8 @@ const Influencer = ({ metadata, global, pageContext }) => {
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <h1 className='title my-32 text-center'>INFLUENCIO</h1>
+      <h1 className='title mt-16 text-center'>INFLUENCIO</h1>
+      <h2 className='text-2xl my-8 text-center'>Accelerate your Influencer career</h2>
 
       <div className='flex w-full flex-col items-center mb-10'>
 
