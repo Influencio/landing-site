@@ -16,7 +16,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
 
       <h1 className='title my-32 text-center'>INFLUENCIO</h1>
 
-      <div className='flex w-full h-full lg:flex-row flex-col justify-center'>
+      <div className='flex w-full flex-col justify-center'>
 
         <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-screen-sm space-y-4'>
           <Controller
