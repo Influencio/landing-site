@@ -22,7 +22,7 @@ const Input = React.forwardRef((props, ref) => {
         }
       </div>
       {
-        error ? <p className="text-red-500 text-xs italic">{error.type === 'required' ? `${label} is required` : null}</p> : null
+        error ? <p className="text-red-500 text-xs italic">{error.message || (error.type === 'required' ? `${label} is required` : null)}</p> : null
       }
     </div>
 )})
