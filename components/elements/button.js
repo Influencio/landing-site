@@ -10,6 +10,7 @@ const Button = ({
   handleClick,
   loading = false,
   type,
+  children
 }) => {
   return (
     <button link={button} onClick={handleClick} type={type}>
@@ -46,7 +47,7 @@ const Button = ({
         )}
       >
         {loading && <Loader />}
-        {button.text}
+        {button?.text || children}
       </div>
     </button>
   )
