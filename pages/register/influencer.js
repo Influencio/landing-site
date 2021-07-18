@@ -1,4 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
+import { useMutation } from "react-query";
 import { getCustomPageData, getGlobalData } from "utils/api"
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
@@ -7,9 +8,20 @@ import Button from 'components/elements/button';
 import Link from 'next/link';
 import { loginUrl } from 'utils/links';
 
+const postUser = async user => {
+    user.role = 'influencer'
+    return await (await fetch("https://auth.influencio.dk/auth/auth/register", {
+      method: "POST",
+      body: JSON.stringify(user)
+    })).json();
+  }
+
 const Influencer = ({ metadata, global, pageContext }) => {
+  const mutation = useMutation((user) => postUser(user));
+  const { isLoading, isError, error, isSuccess } = mutation;
+
   const { control, handleSubmit, formState: { errors }, watch } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => mutation.mutate(data);;
 
   return (
     <Layout global={global} pageContext={pageContext}>
