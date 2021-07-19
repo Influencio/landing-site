@@ -84,7 +84,15 @@ const Influencer = ({ metadata, global, pageContext }) => {
             rules={{ required: true, validate: (value) => value === watch('password') || 'Passwords do not match' }}
             render={({ field }) => <Input autoComplete='new-password' id='confirm' label='Confirm Password' placeholder='••••••••••' type='password' error={errors?.confirm} {...field} />}
           />
-          
+
+          {
+            isError ? 
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
+              <div>Something went wrong when creating your account: <span className='font-bold'>{error.message}</span></div> 
+            </div>: null
+          }
+
+
           <Button 
             appearance='dark' 
             compact 
