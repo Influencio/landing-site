@@ -10,14 +10,25 @@ import { loginUrl } from 'utils/links';
 
 const postUser = async user => {
     user.role = 'influencer'
-    return await (await fetch("https://auth.influencio.dk/auth/auth/register", {
+
+    const res = await fetch("https://auth.staging.influencio.dk/auth/auth/register", {
       method: "POST",
-      body: JSON.stringify(user)
-    })).json();
+      body: JSON.stringify(user),
+      headers: {"content-type": "application/json"}
+    })
+
+    const json = await res.json();
+    
+    if (!res.ok) {
+      throw new Error(json?.message)
+    }
+
+    return json;
   }
 
 const Influencer = ({ metadata, global, pageContext }) => {
   const mutation = useMutation((user) => postUser(user));
+  console.log("🚀 ~ file: influencer.js ~ line 21 ~ Influencer ~ mutation", mutation)
   const { isLoading, isError, error, isSuccess } = mutation;
 
   const { control, handleSubmit, formState: { errors }, watch } = useForm();
@@ -73,11 +84,14 @@ const Influencer = ({ metadata, global, pageContext }) => {
             rules={{ required: true, validate: (value) => value === watch('password') || 'Passwords do not match' }}
             render={({ field }) => <Input autoComplete='new-password' id='confirm' label='Confirm Password' placeholder='••••••••••' type='password' error={errors?.confirm} {...field} />}
           />
-
-          <Button appearance='dark' compact type='submit' 
-          // disabled={isSubmitting}
-          //         loading={loading}
-                  >
+          
+          <Button 
+            appearance='dark' 
+            compact 
+            type='submit' 
+            disabled={isLoading}
+            loading={isLoading}
+          >
             Register
           </Button>
 
