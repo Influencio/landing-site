@@ -10,10 +10,11 @@ const Button = ({
   handleClick,
   loading = false,
   type,
-  children
+  children,
+  disabled=false
 }) => {
   return (
-    <button link={button} onClick={handleClick} type={type}>
+    <button disabled={disabled} link={button} onClick={handleClick} type={type}>
       <div
         className={classNames(
           // Common classes
@@ -43,6 +44,9 @@ const Button = ({
           // Specific to when the button is white outlines
           {
             'text-white border-white': appearance === 'white-outline',
+          },
+          {
+            'opacity-80 cursor-not-allowed': disabled
           }
         )}
       >
