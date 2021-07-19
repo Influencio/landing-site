@@ -1,4 +1,3 @@
-import { getCustomPageData, getGlobalData } from "utils/api"
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import textMap from 'utils/text-map';
