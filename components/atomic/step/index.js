@@ -4,8 +4,8 @@ import {GoCheck} from 'react-icons/go'
 
 const Steps = ({ steps, currentStep=2 }) => {
   return (
-    <div className="max-w-xl mx-auto my-4 pb-4">	
-      <div className="flex pb-3">
+    <div className="w-full my-4 pb-4">	
+      <div className="w-full flex pb-3">
 
         {
           steps.map((step, i) => (
@@ -130,7 +130,7 @@ const Step = ({ step, currentStep, last=false, index }) => {
       {!last ? (
         <div
           style={{ marginTop: -20 }}
-          className="mx-3 w-1/6 align-center items-center align-middle content-center flex"
+          className="mx-3 w-full align-center items-center align-middle content-center flex"
         >
           <div className="w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
             <div
