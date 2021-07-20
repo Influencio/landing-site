@@ -13,7 +13,7 @@ export const getStaticProps = getCustomProps(['register', 'influencer'])
 const postUser = async user => {
     user.role = 'influencer'
 
-    const res = await fetch("https://auth.staging.influencio.dk/auth/auth/register", {
+    const res = await fetch("https://auth.influencio.dk/auth/auth/register", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {"content-type": "application/json"}
