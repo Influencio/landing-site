@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
+import { AiOutlineEyeInvisible, AiOutlineEye, AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai'
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix } = props;
+  const { label, type, id, error, suffix, validateicon, value } = props;
 
   const originalInputType = type || 'text';
   const [inputType, setInputType] = useState(type || 'text')
 
   const getSuffix = () => {
     const suffixes = [];
+
+    if (validateicon) {
+      if (value || error) {
+        suffixes.push(error ? <AiFillCloseCircle className='text-red-500' /> : <AiFillCheckCircle className='text-green-500' />)
+      }
+    }
+
     if (originalInputType === 'password') {
       suffixes.push(inputType === 'password' ? <AiOutlineEyeInvisible key='visible' onClick={() => setInputType('text')} className="cursor-pointer" />
       : <AiOutlineEye key='visible' onClick={() => setInputType('password')} className="cursor-pointer" />);
