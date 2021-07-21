@@ -12,7 +12,7 @@ const Input = React.forwardRef((props, ref) => {
 
     if (validateicon) {
       if (value || error) {
-        suffixes.push(error ? <AiFillCloseCircle className='text-red-500' /> : <AiFillCheckCircle className='text-green-500' />)
+        suffixes.push(error ? <AiFillCloseCircle key='validateIcon' className='text-red-500' /> : <AiFillCheckCircle key='validateIcon' className='text-green-500' />)
       }
     }
 
