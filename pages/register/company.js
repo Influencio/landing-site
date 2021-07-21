@@ -83,26 +83,31 @@ const Company = ({ metadata, global, pageContext }) => {
 
   const steps = [
     {
-      content: <PricingContent plans={pageContext.plans} />,
-      title: 'Select Plan',
-      icon: <BiSelectMultiple />
+      content: (
+        <div>
+          <h3 className="text-3xl font-bold text-center">Choose the plan that works best for you</h3>
+          <PricingContent plans={pageContext.plans} />
+        </div>
+      ),
+      title: "Select Plan",
+      icon: <BiSelectMultiple />,
     },
     {
       content: <div>Something</div>,
-      title: 'testtesttest',
-      icon: <AiOutlineUser />
+      title: "testtesttest",
+      icon: <AiOutlineUser />,
     },
     {
       content: <div>Something</div>,
-      title: 'testtesttest',
-      icon: <BiDollarCircle />
+      title: "testtesttest",
+      icon: <BiDollarCircle />,
     },
     {
       content: <div>Something</div>,
-      title: 'testtesttest',
-      icon: <AiOutlineSmile />
-    }
-  ]
+      title: "testtesttest",
+      icon: <AiOutlineSmile />,
+    },
+  ];
 
   return (
     <Layout global={global} pageContext={pageContext}>
