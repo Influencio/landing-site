@@ -1,27 +1,28 @@
-import React from 'react'
-import classNames from 'classnames'
-import {GoCheck} from 'react-icons/go'
-import { Transition } from '@headlessui/react';
+import React from "react";
+import classNames from "classnames";
+import { GoCheck } from "react-icons/go";
+import { Transition } from "@headlessui/react";
 
-const Steps = ({ steps, currentStep=2 }) => {
+const Steps = ({ steps, currentStep = 2 }) => {
   return (
-    <div className="w-full my-4 pb-4">	
+    <div className="w-full my-4 pb-4">
       <div className="w-full flex pb-3">
-
-        {
-          steps.map((step, i) => (
-            <Step key={i} step={step} currentStep={currentStep} last={i === steps.length - 1} index={i} />
-          ))
-        }
-
+        {steps.map((step, i) => (
+          <Step
+            key={i}
+            step={step}
+            currentStep={currentStep}
+            last={i === steps.length - 1}
+            index={i}
+          />
+        ))}
       </div>
       {steps[currentStep].content}
     </div>
-  )
-}
+  );
+};
 
-const Step = ({ step, currentStep, last=false, index }) => {
-
+const Step = ({ step, currentStep, last = false, index }) => {
   return (
     <>
       <div className="relative" style={{ minWidth: 100 }}>
@@ -47,20 +48,20 @@ const Step = ({ step, currentStep, last=false, index }) => {
               enterFrom="opacity-0"
               enterTo="opacity-100"
             >
-            <div
-              style={{
-                top: -5,
-                right: -5,
-              }}
-              className={classNames(
-                "absolute h-6 w-6 bg-blue-500 rounded-full text-lg text-white flex justify-center items-center",
-                // {
-                //   hidden: index >= currentStep,
-                // }
-              )}
-            >
-              <GoCheck />
-            </div>
+              <div
+                style={{
+                  top: -5,
+                  right: -5,
+                }}
+                className={classNames(
+                  "absolute h-6 w-6 bg-blue-500 rounded-full text-lg text-white flex justify-center items-center"
+                  // {
+                  //   hidden: index >= currentStep,
+                  // }
+                )}
+              >
+                <GoCheck />
+              </div>
             </Transition>
           </div>
         </div>
@@ -84,8 +85,6 @@ const Step = ({ step, currentStep, last=false, index }) => {
       ) : null}
     </>
   );
-}
+};
 
-
-
-export default Steps
+export default Steps;
