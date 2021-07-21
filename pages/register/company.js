@@ -184,7 +184,7 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
               label="Name"
               placeholder="Company Name"
               error={errors?.company?.name}
-              suffix={<BiSearchAlt />}
+              suffix={<BiSearchAlt key='companyNameSearch'/>}
               {...field}
             />
           )}
