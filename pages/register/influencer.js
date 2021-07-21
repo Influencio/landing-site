@@ -13,7 +13,7 @@ export const getStaticProps = getCustomProps(['register', 'influencer'])
 const postUser = async user => {
     user.role = 'influencer'
 
-    const res = await fetch("https://auth.influencio.dk/auth/auth/register", {
+    const res = await fetch("http://localhost:3001/auth/register", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {"content-type": "application/json"}
@@ -30,11 +30,10 @@ const postUser = async user => {
 
 const Influencer = ({ metadata, global, pageContext }) => {
   const mutation = useMutation((user) => postUser(user));
-  console.log("🚀 ~ file: influencer.js ~ line 21 ~ Influencer ~ mutation", mutation)
   const { isLoading, isError, error, isSuccess } = mutation;
 
   const { control, handleSubmit, formState: { errors }, watch } = useForm();
-  const onSubmit = data => mutation.mutate(data);;
+  const onSubmit = data => mutation.mutate(data);
 
   return (
     <Layout global={global} pageContext={pageContext}>
