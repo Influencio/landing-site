@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import {GoCheck} from 'react-icons/go'
+import { Transition } from '@headlessui/react';
 
 const Steps = ({ steps, currentStep=2 }) => {
   return (
@@ -40,6 +41,12 @@ const Step = ({ step, currentStep, last=false, index }) => {
           >
             <span>{step.icon}</span>
 
+            <Transition
+              show={index < currentStep}
+              enter="transition-opacity duration-500"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+            >
             <div
               style={{
                 top: -5,
@@ -47,13 +54,14 @@ const Step = ({ step, currentStep, last=false, index }) => {
               }}
               className={classNames(
                 "absolute h-6 w-6 bg-blue-500 rounded-full text-lg text-white flex justify-center items-center",
-                {
-                  hidden: index >= currentStep,
-                }
+                // {
+                //   hidden: index >= currentStep,
+                // }
               )}
             >
               <GoCheck />
             </div>
+            </Transition>
           </div>
         </div>
         <div className="text-center">{step.title}</div>
