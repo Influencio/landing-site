@@ -137,7 +137,8 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
     control,
     handleSubmit,
     formState: { errors },
-    watch,
+    trigger,
+    getValues
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
@@ -284,9 +285,11 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
           rules={{
             required: true,
             validate: (value) =>
-              value === watch("password") || "Passwords do not match",
+              value === getValues("user.password") || "Passwords do not match",
           }}
-          render={({ field }) => (
+          render={({ field }) => {
+            const { onChange, onBlur, ref, value } = field
+            return (
             <Input
               autoComplete="new-password"
               id="confirm"
@@ -294,9 +297,16 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
               placeholder="••••••••••"
               type="password"
               error={errors?.user?.confirm}
-              {...field}
+              ref={ref}
+              onBlur={onBlur}
+              onChange={value => {
+                onChange(value)
+                trigger('user.confirm')
+              }}
+              validateicon={1}
+              value={value}
             />
-          )}
+          )}}
         />
 
         {false ? (
