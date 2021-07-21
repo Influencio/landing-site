@@ -22,7 +22,7 @@ const Plan = ({ title, link, linkTitle, price, subtitle, benefits, annually, han
         <h3 className="text-2xl mb-3">{title}</h3>
         {handleSelect ? (
           <div
-            className="bg-blue-400 py-4 px-12 rounded-lg text-white text-lg hover:text-gray-400 cursor-pointer"
+            className="bg-blue-400 py-4 px-12 rounded-lg text-white text-lg cursor-pointer hover:opacity-80 transition-opacity duration-200"
             onClick={() =>
               handleSelect(annually ? price.annually : price.monthly)
             }
@@ -33,7 +33,7 @@ const Plan = ({ title, link, linkTitle, price, subtitle, benefits, annually, han
           <Link
             href={link || ''}
           >
-            <span className="bg-blue-400 py-4 px-12 rounded-lg text-white text-lg cursor-pointer hover:text-gray-100">
+            <span className="bg-blue-400 py-4 px-12 rounded-lg text-white text-lg cursor-pointer hover:opacity-80 transition-opacity duration-200">
               {linkTitle || ''}
             </span>
           </Link>
