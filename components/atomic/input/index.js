@@ -14,12 +14,15 @@ const Input = React.forwardRef((props, ref) => {
       }
       <div className='relative flex items-center'>
         <input ref={ref} {...props} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${error ? 'border-red-500' : ''}`} type={inputType} />
-        {
-          originalInputType === 'password' ? (
-            inputType === 'password' ? <AiOutlineEyeInvisible onClick={() => setInputType('text')} className="cursor-pointer absolute right-4 text-gray-600 text-xl" />
-            : <AiOutlineEye onClick={() => setInputType('password')} className="cursor-pointer absolute right-4 text-gray-600 text-xl" />
-          ) : null
-        }
+        <div className='absolute right-4 text-gray-600 text-xl'>
+          {
+            originalInputType === 'password' ? (
+              inputType === 'password' ? <AiOutlineEyeInvisible onClick={() => setInputType('text')} className="cursor-pointer" />
+              : <AiOutlineEye onClick={() => setInputType('password')} className="cursor-pointer" />
+            ) : null
+          }
+        </div>
+
       </div>
       {
         error ? <p className="text-red-500 text-xs italic">{error.message || (error.type === 'required' ? `${label} is required` : null)}</p> : null
