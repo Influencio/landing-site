@@ -13,7 +13,7 @@ const Plans = ({ annually, handleSelect, plansToExclude=[], plans }) => {
       monthly: p.price,
       annually: p.priceAnnually,
     },
-    link: `/register/company?${querystring.stringify({ title: p.name, price: annually ? p.priceAnnually : p.monthly, annually, action: 'select-plan' })}`,
+    link: `/register/company?${querystring.stringify({ title: p.name, price: annually ? p.priceAnnually : p.price, annually, action: 'select-plan' })}`,
     subtitle: p.description,
     benefits: p.features.map(f => f.name),
     isRecommended: p.isRecommended
