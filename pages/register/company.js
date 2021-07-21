@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Steps from 'components/atomic/step';
-import {BiSelectMultiple, BiDollarCircle} from 'react-icons/bi'
+import {BiSelectMultiple, BiDollarCircle, BiSearchAlt} from 'react-icons/bi'
 import {AiOutlineUser, AiOutlineSmile} from 'react-icons/ai'
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
@@ -170,6 +170,7 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
               label="Name"
               placeholder="Company Name"
               error={errors?.company?.name}
+              suffix={<BiSearchAlt />}
               {...field}
             />
           )}
