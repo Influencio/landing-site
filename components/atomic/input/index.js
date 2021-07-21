@@ -2,10 +2,22 @@ import React, { useState } from 'react'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error } = props;
+  const { label, type, id, error, suffix } = props;
 
   const originalInputType = type || 'text';
   const [inputType, setInputType] = useState(type || 'text')
+
+  const getSuffix = () => {
+    const suffixes = [];
+    if (originalInputType === 'password') {
+      suffixes.push(inputType === 'password' ? <AiOutlineEyeInvisible key='visible' onClick={() => setInputType('text')} className="cursor-pointer" />
+      : <AiOutlineEye key='visible' onClick={() => setInputType('password')} className="cursor-pointer" />);
+    }
+
+    if (suffix) suffixes.push(suffix)
+
+    return suffixes;
+  }
 
   return (
     <div>
@@ -14,12 +26,9 @@ const Input = React.forwardRef((props, ref) => {
       }
       <div className='relative flex items-center'>
         <input ref={ref} {...props} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${error ? 'border-red-500' : ''}`} type={inputType} />
-        <div className='absolute right-4 text-gray-600 text-xl'>
+        <div className='flex items-center space-x-2 absolute right-4 text-gray-600 text-xl'>
           {
-            originalInputType === 'password' ? (
-              inputType === 'password' ? <AiOutlineEyeInvisible onClick={() => setInputType('text')} className="cursor-pointer" />
-              : <AiOutlineEye onClick={() => setInputType('password')} className="cursor-pointer" />
-            ) : null
+            getSuffix()
           }
         </div>
 
