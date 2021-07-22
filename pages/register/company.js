@@ -30,7 +30,7 @@ export const getStaticProps = async (context) => {
 
   // Get tax id types
   const taxIdTypesRaw = await (await fetch(`${urls.landing}/static/tax-id-countries.json`, {headers: {"content-type": "application/json"}})).json()
-  const taxIdTypes = taxIdTypesRaw.map(t => ({ key: t.code + t.country, value: t.code, name: t.country + (t.version ? ` (${t.version})` : '') }))
+  const taxIdTypes = taxIdTypesRaw.map(t => ({ key: t.code + '.' + t.country, value: t.code, name: t.country + (t.version ? ` (${t.version})` : '') }))
 
   if (pageData == null) {
     // Giving the page no props will trigger a 404 page
@@ -481,7 +481,6 @@ const Pay = ({ taxIdTypes }) => {
           <Controller
             name="tax_id_type"
             control={control}
-            defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
               <Select
@@ -490,6 +489,7 @@ const Pay = ({ taxIdTypes }) => {
                 error={errors?.tax_id_type}
                 data={taxIdTypes}
                 width='full'
+                defaultValue={taxIdTypes.find(t => t.key.split('.')[1] === 'Denmark')}
                 {...field}
               />
             )}
