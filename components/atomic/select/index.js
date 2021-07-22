@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
-const Select = ({ data, onChange }) => {
+const Select = ({ data, onChange, label, id }) => {
   const [selected, setSelected] = useState(data.length ? data[0] : null);
 
   const handleSelect = res => {
@@ -12,6 +12,15 @@ const Select = ({ data, onChange }) => {
 
   return (
     <div className="w-72">
+      {label ? (
+        <label
+          htmlFor={id}
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          {label}
+        </label>
+      ) : null}
+      
       <Listbox
         value={selected}
         onChange={handleSelect}
