@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
-const Select = ({ data, onChange, label, id }) => {
+const Select = ({ data, onChange, label, id, width }) => {
   const [selected, setSelected] = useState(data.length ? data[0] : null);
 
   const handleSelect = res => {
@@ -11,7 +11,7 @@ const Select = ({ data, onChange, label, id }) => {
   };
 
   return (
-    <div className="w-72">
+    <div className={`w-${width || '72'}`}>
       {label ? (
         <label
           htmlFor={id}
@@ -20,7 +20,7 @@ const Select = ({ data, onChange, label, id }) => {
           {label}
         </label>
       ) : null}
-      
+
       <Listbox
         value={selected}
         onChange={handleSelect}
