@@ -499,7 +499,7 @@ const Pay = ({ taxIdTypes, onSuccess }) => {
                 error={errors?.tax_id_type}
                 data={taxIdTypes}
                 width='full'
-                defaultValue={taxIdTypes.find(t => t.key.split('.')[1] === 'Denmark')}
+                defaultValue={taxIdTypes.find(t => t.name === 'Denmark')}
                 {...field}
               />
             )}
