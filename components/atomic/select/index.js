@@ -2,8 +2,8 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
-const Select = ({ data, onChange, label, id, width }) => {
-  const [selected, setSelected] = useState(data.length ? data[0] : null);
+const Select = ({ data, onChange, label, id, width, defaultValue, defaultValueIndex }) => {
+  const [selected, setSelected] = useState(defaultValue ? defaultValue : data.length ? data[defaultValueIndex || 0] : null);
 
   const handleSelect = res => {
     setSelected(res);
