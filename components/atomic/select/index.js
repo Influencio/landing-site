@@ -1,14 +1,19 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
 const Select = ({ data, onChange, label, id, width, defaultValue, defaultValueIndex }) => {
-  const [selected, setSelected] = useState(defaultValue ? defaultValue : data.length ? data[defaultValueIndex || 0] : null);
+  const [selected, setSelected] = useState(null);
 
   const handleSelect = res => {
     setSelected(res);
     onChange && onChange(res);
   };
+
+  useEffect(() => {
+    handleSelect(defaultValue ? defaultValue : data[defaultValueIndex || 0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={`w-${width || '72'}`}>
