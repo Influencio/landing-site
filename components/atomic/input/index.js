@@ -51,7 +51,7 @@ const Input = React.forwardRef((props, ref) => {
   };
 
   return (
-    <div>
+    <div className='w-full'>
       {label ? (
         <label
           htmlFor={id}
