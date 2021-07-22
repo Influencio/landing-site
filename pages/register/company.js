@@ -501,6 +501,10 @@ const Pay = () => {
           />
         </div>
 
+        {/* TODO: Add stripe payment integration */}
+
+        
+        {/* TODO: Add apply discount search/button */}
         <Button type='submit' appearance='dark' compact>
           Pay
         </Button>
