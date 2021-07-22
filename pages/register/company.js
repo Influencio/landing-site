@@ -112,8 +112,8 @@ const Company = ({ metadata, global, pageContext }) => {
       icon: <AiOutlineUser />,
     },
     {
-      content: <div>Something</div>,
-      title: "testtesttest",
+      content: <Pay />,
+      title: "Pay",
       icon: <BiDollarCircle />,
     },
     {
@@ -362,5 +362,151 @@ const ValidCompanyName = ({ isNameValid }) => {
     </div>
   );
 };
+
+const Pay = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <div className="text-center flex flex-col items-center">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-screen-sm space-y-4 text-left my-4"
+      >
+        <div className='flex w-full md:space-x-8 flex-col space-y-4 md:space-y-0 md:flex-row'>
+          <Controller
+            name="address.city"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                id="city"
+                label="City"
+                error={errors?.address?.city}
+                {...field}
+              />
+            )}
+          />
+
+          <Controller
+            name="address.country"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                id="country"
+                label="Country"
+                error={errors?.address?.country}
+                {...field}
+              />
+            )}
+          />
+        </div>
+
+        <Controller
+          name="address.line1"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="line1"
+              label="Address Line 1"
+              error={errors?.address?.line1}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="address.line2"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              id="line2"
+              label="Address Line 2"
+              error={errors?.address?.line2}
+              {...field}
+            />
+          )}
+        />
+
+        <div className='flex w-full md:space-x-8 flex-col space-y-4 md:space-y-0 md:flex-row'>
+          <Controller
+            name="address.postal_code"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                id="postal_code"
+                label="Postal Code"
+                error={errors?.address?.postal_code}
+                {...field}
+              />
+            )}
+          />
+
+          <Controller
+            name="address.state"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                id="state"
+                label="State"
+                error={errors?.address?.state}
+                {...field}
+              />
+            )}
+          />
+        </div>
+
+        <div className='flex w-full md:space-x-8 flex-col space-y-4 md:space-y-0 md:flex-row'>
+          <Controller
+            name="tax_id_type"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                id="tax_id_type"
+                label="Tax ID type"
+                error={errors?.tax_id_type}
+                {...field}
+              />
+            )}
+          />
+
+          <Controller
+            name="tax_id"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                id="tax_id"
+                label="Tax ID"
+                error={errors?.tax_id}
+                {...field}
+              />
+            )}
+          />
+        </div>
+
+        <Button type='submit' appearance='dark' compact>
+          Pay
+        </Button>
+      </form>
+    </div>
+  )
+}
 
 export default Company;
