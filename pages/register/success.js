@@ -24,8 +24,7 @@ const Success = ({ metadata, global, pageContext }) => {
 
         <div className='text-lg my-3'>{shortTexts.registerSuccessCTA}</div>
         <Button
-          id='registerSuccess'
-          button={{url: loginUrl, text: 'Login'}}
+          button={{url: loginUrl, text: 'Login', id: 'registerSuccess'}}
           appearance='dark'
           compact
         />
