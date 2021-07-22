@@ -1,8 +1,9 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, forwardRef } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
-const Select = ({ data, onChange, label, id, width, defaultValue, defaultValueIndex }) => {
+const Select = forwardRef((props, ref) => {
+  const { data, onChange, label, id, width, defaultValue, defaultValueIndex } = props
   const [selected, setSelected] = useState(null);
 
   const handleSelect = res => {
@@ -16,7 +17,7 @@ const Select = ({ data, onChange, label, id, width, defaultValue, defaultValueIn
   }, [])
 
   return (
-    <div className={`w-${width || '72'}`}>
+    <div ref={ref} className={`w-${width || '72'}`}>
       {label ? (
         <label
           htmlFor={id}
@@ -79,6 +80,6 @@ const Select = ({ data, onChange, label, id, width, defaultValue, defaultValueIn
       </Listbox>
     </div>
   );
-};
+});
 
 export default Select;
