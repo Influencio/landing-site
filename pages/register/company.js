@@ -9,7 +9,9 @@ import PricingContent from "@/components/elements/pricing-content";
 import { useRouter } from "next/router";
 import { useForm, Controller } from "react-hook-form";
 import Input from "components/atomic/input";
+import Select from "components/atomic/select";
 import Button from "components/elements/button";
+import urls from 'utils/urls'
 
 export const getStaticProps = async (context) => {
   const { locale, locales, defaultLocale, preview = null } = context;
@@ -23,7 +25,12 @@ export const getStaticProps = async (context) => {
     preview
   );
 
+  // Get pricing data from pricing page
   const priceData = await getPageData({ slug: ["pricing"] }, locale, preview);
+
+  // Get tax id types
+  const taxIdTypesRaw = await (await fetch(`${urls.landing}/static/tax-id-countries.json`, {headers: {"content-type": "application/json"}})).json()
+  const taxIdTypes = taxIdTypesRaw.map(t => ({ key: t.code + t.country, value: t.code, name: t.country + (t.version ? ` (${t.version})` : '') }))
 
   if (pageData == null) {
     // Giving the page no props will trigger a 404 page
@@ -60,6 +67,7 @@ export const getStaticProps = async (context) => {
         plans: priceData.contentSections.find(
           (section) => section.__component === "sections.pricing"
         ).plans,
+        taxIdTypes
       },
     },
   };
@@ -112,7 +120,7 @@ const Company = ({ metadata, global, pageContext }) => {
       icon: <AiOutlineUser />,
     },
     {
-      content: <Pay />,
+      content: <Pay taxIdTypes={pageContext.taxIdTypes} />,
       title: "Pay",
       icon: <BiDollarCircle />,
     },
@@ -363,7 +371,7 @@ const ValidCompanyName = ({ isNameValid }) => {
   );
 };
 
-const Pay = () => {
+const Pay = ({ taxIdTypes }) => {
   const {
     control,
     handleSubmit,
@@ -476,10 +484,12 @@ const Pay = () => {
             defaultValue=""
             rules={{ required: true }}
             render={({ field }) => (
-              <Input
+              <Select
                 id="tax_id_type"
                 label="Tax ID type"
                 error={errors?.tax_id_type}
+                data={taxIdTypes}
+                width='full'
                 {...field}
               />
             )}
