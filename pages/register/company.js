@@ -120,13 +120,20 @@ const Company = ({ metadata, global, pageContext }) => {
       icon: <AiOutlineUser />,
     },
     {
-      content: <Pay taxIdTypes={pageContext.taxIdTypes} />,
+      content: (
+        <Pay
+          taxIdTypes={pageContext.taxIdTypes}
+          onSuccess={() => {
+            setTimeout(() => router.push("/register/success"), 300)
+            setCurrentStep(currentStep+1)
+          }}
+        />
+      ),
       title: "Pay",
       icon: <BiDollarCircle />,
     },
     {
-      content: <div>Something</div>,
-      title: "testtesttest",
+      title: "Done",
       icon: <AiOutlineSmile />,
     },
   ];
@@ -371,13 +378,16 @@ const ValidCompanyName = ({ isNameValid }) => {
   );
 };
 
-const Pay = ({ taxIdTypes }) => {
+const Pay = ({ taxIdTypes, onSuccess }) => {
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    onSuccess(data)
+  }
 
   return (
     <div className="text-center flex flex-col items-center">
