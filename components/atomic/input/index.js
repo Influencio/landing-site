@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AiOutlineEyeInvisible,
   AiOutlineEye,
@@ -6,12 +6,20 @@ import {
   AiFillCheckCircle,
 } from "react-icons/ai";
 import { BiSearchAlt } from 'react-icons/bi'
+import useDebounce from "hooks/useDebounce";
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix, validateicon, value } = props;
+  const { label, type, id, error, suffix, validateicon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder } = props;
 
   const originalInputType = type || "text";
   const [inputType, setInputType] = useState(type || "text");
+
+  // Search handlers
+  const [searchQuery, setSearchQuery] = useState(null);
+  const debouncedSearchTerm = useDebounce(searchQuery, debounceDelay ?? 1000);
+  useEffect(() => {
+    onSearch && onSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   const getSuffix = () => {
     const suffixes = [];
@@ -55,6 +63,13 @@ const Input = React.forwardRef((props, ref) => {
     return suffixes;
   };
 
+  const handleOnChange = event => {
+    if (originalInputType === 'search') {
+      setSearchQuery(event.target.value)
+    }
+    onChange && onChange(event)
+  }
+
   return (
     <div className='w-full'>
       {label ? (
@@ -68,11 +83,16 @@ const Input = React.forwardRef((props, ref) => {
       <div className="relative flex items-center">
         <input
           ref={ref}
-          {...props}
+          value={value}
+          autoComplete={autoComplete}
+          id={id}
+          onBlur={onBlur}
+          placeholder={placeholder}
           className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
             error ? "border-red-500" : ""
           }`}
           type={inputType}
+          onChange={handleOnChange}
         />
         <div className="flex items-center space-x-2 absolute right-4 text-gray-600 text-xl">
           {getSuffix()}
