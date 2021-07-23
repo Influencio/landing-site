@@ -200,6 +200,7 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
               placeholder="Company Name"
               error={errors?.company?.name}
               type='search'
+              onSearch={value => console.log('value', value)}
               {...field}
             />
           )}
