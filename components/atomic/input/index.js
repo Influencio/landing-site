@@ -8,9 +8,10 @@ import {
 import { BiSearchAlt } from 'react-icons/bi'
 import useDebounce from "hooks/useDebounce";
 import Loader from 'components/elements/loader';
+import Button from "components/elements/button";
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading } = props;
+  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading, enterButton, onSubmit } = props;
 
   const originalInputType = type || "text";
   const [inputType, setInputType] = useState(type || "text");
@@ -71,8 +72,13 @@ const Input = React.forwardRef((props, ref) => {
     onChange && onChange(event)
   }
 
+  const handleEnterButtonClick = event => {
+    event.preventDefault();
+    onSubmit && onSubmit(searchQuery)
+  }
+
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {label ? (
         <label
           htmlFor={id}
@@ -81,23 +87,36 @@ const Input = React.forwardRef((props, ref) => {
           {label}
         </label>
       ) : null}
-      <div className="relative flex items-center">
-        <input
-          ref={ref}
-          value={value}
-          autoComplete={autoComplete}
-          id={id}
-          onBlur={onBlur}
-          placeholder={placeholder}
-          className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-            error ? "border-red-500" : ""
-          }`}
-          type={inputType}
-          onChange={handleOnChange}
-        />
-        <div className="flex items-center space-x-2 absolute right-4 text-gray-600 text-xl">
-          {getSuffix()}
+      <div className="flex w-full">
+        <div className="relative flex items-center w-full">
+          <input
+            ref={ref}
+            value={value}
+            autoComplete={autoComplete}
+            id={id}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              error ? "border-red-500" : ""
+            } ${enterButton ? "rounded-r-none" : ""}`}
+            type={inputType}
+            onChange={handleOnChange}
+          />
+          <div className="flex items-center space-x-2 absolute right-4 text-gray-600 text-xl">
+            {getSuffix()}
+          </div>
         </div>
+        {enterButton ? (
+          <Button
+            compact
+            appearance="dark"
+            className="rounded-l-none border"
+            handleClick={handleEnterButtonClick}
+            loading={isLoading}
+          >
+            {enterButton}
+          </Button>
+        ) : null}
       </div>
       {error ? (
         <p className="text-red-500 text-xs italic">
