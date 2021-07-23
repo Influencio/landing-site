@@ -11,14 +11,15 @@ const Button = ({
   loading = false,
   type,
   children,
-  disabled=false
+  disabled=false,
+  className
 }) => {
   return (
     <button disabled={disabled} link={button} onClick={handleClick} type={type}>
       <div
         className={classNames(
           // Common classes
-          'flex w-full justify-center lg:w-auto text-center uppercase tracking-wide font-semibold text-base md:text-sm border-2 rounded-lg',
+          `flex w-full justify-center lg:w-auto text-center uppercase tracking-wide font-semibold text-base md:text-sm border-2 rounded-lg ${className}`,
           // Full-size button
           {
             'px-8 py-4': compact === false,
