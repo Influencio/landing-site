@@ -9,7 +9,7 @@ import { BiSearchAlt } from 'react-icons/bi'
 import useDebounce from "hooks/useDebounce";
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix, validateicon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder } = props;
+  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder } = props;
 
   const originalInputType = type || "text";
   const [inputType, setInputType] = useState(type || "text");
@@ -24,7 +24,7 @@ const Input = React.forwardRef((props, ref) => {
   const getSuffix = () => {
     const suffixes = [];
 
-    if (validateicon) {
+    if (validateIcon) {
       if (value || error) {
         suffixes.push(
           error ? (

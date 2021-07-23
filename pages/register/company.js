@@ -332,7 +332,7 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
                   onChange(value);
                   trigger("user.confirm");
                 }}
-                validateicon={1}
+                validateIcon={1}
                 value={value}
               />
             );
