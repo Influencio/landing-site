@@ -522,6 +522,23 @@ const Pay = ({ taxIdTypes, onSuccess }) => {
           />
         </div>
 
+        <Controller
+          name="code"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              id="discountCode"
+              label="Discount Code"
+              placeholder="WELCOME20"
+              type='search'
+              enterButton='Apply'
+              onSubmit={search => console.log('submit', search)}
+              {...field}
+            />
+          )}
+        />
+
         {/* TODO: Add stripe payment integration */}
 
         
