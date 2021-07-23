@@ -7,9 +7,10 @@ import {
 } from "react-icons/ai";
 import { BiSearchAlt } from 'react-icons/bi'
 import useDebounce from "hooks/useDebounce";
+import Loader from 'components/elements/loader';
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder } = props;
+  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading } = props;
 
   const originalInputType = type || "text";
   const [inputType, setInputType] = useState(type || "text");
@@ -55,7 +56,7 @@ const Input = React.forwardRef((props, ref) => {
     }
 
     if (originalInputType === 'search') {
-      suffixes.push(<BiSearchAlt />)
+      suffixes.push(isLoading ? <Loader /> : <BiSearchAlt />)
     }
 
     if (suffix) suffixes.push(suffix);
