@@ -57,7 +57,7 @@ const Input = React.forwardRef((props, ref) => {
     }
 
     if (originalInputType === 'search') {
-      suffixes.push(isLoading ? <Loader /> : <BiSearchAlt />)
+      suffixes.push(isLoading ? <Loader key='searchLoading' /> : <BiSearchAlt key='searchIcon' />)
     }
 
     if (suffix) suffixes.push(suffix);
