@@ -5,6 +5,7 @@ import {
   AiFillCloseCircle,
   AiFillCheckCircle,
 } from "react-icons/ai";
+import { BiSearchAlt } from 'react-icons/bi'
 
 const Input = React.forwardRef((props, ref) => {
   const { label, type, id, error, suffix, validateicon, value } = props;
@@ -43,6 +44,10 @@ const Input = React.forwardRef((props, ref) => {
           />
         )
       );
+    }
+
+    if (originalInputType === 'search') {
+      suffixes.push(<BiSearchAlt />)
     }
 
     if (suffix) suffixes.push(suffix);
