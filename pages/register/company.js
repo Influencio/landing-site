@@ -173,7 +173,7 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
   return (
     <div className="text-center flex flex-col items-center">
       <h3 className="text-3xl font-bold">
-        Selected plan: {selectedPlan.title}
+        Selected plan: {selectedPlan?.title}
       </h3>
       <p>{selectedPlan?.price}</p>
       <p
