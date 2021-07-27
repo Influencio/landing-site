@@ -53,7 +53,7 @@ const style = css`
   margin: 0;
 }
 .react-datetime-picker__inputGroup__input:invalid {
-  background: rgba(255, 0, 0, 0.1);
+  ${tw`bg-gray-100`}
 }
 .react-datetime-picker__inputGroup__input--hasLeadingZero {
   margin-left: -0.54em;
