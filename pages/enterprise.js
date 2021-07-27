@@ -6,6 +6,7 @@ import Select from "components/atomic/select";
 import Datetime from 'components/atomic/datetime';
 import Button from "components/elements/button";
 import { useForm, Controller } from "react-hook-form";
+import { format } from 'date-fns'
 
 import getCustomProps from "utils/custom-page-props";
 export const getStaticProps = getCustomProps(['enterprise'])
@@ -43,6 +44,10 @@ const ContactUsForm = () => {
     formState: { errors }
   } = useForm();
   const onSubmit = (data) => {
+    data.time = format(data.time, 'dd MMMM yyyy @ HH:mm')
+    data.industry = data.industry.value
+    data.phone = data.phone.number
+    data.size = data.size.value
     console.log(data);
   }
 
