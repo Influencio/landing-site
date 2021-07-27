@@ -118,9 +118,17 @@ const style = css`
   `
 
 const Datetime = React.forwardRef((props, ref) => {
-  
+  const { label, id } = props;
   return (
     <div ref={ref}>
+      {label ? (
+        <label
+          htmlFor={id}
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          {label}
+        </label>
+      ) : null}
       <DateTimePicker
         css={style}
         className='w-full'
