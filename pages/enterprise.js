@@ -188,6 +188,11 @@ const ContactUsForm = () => {
           Schedule
         </Button>
       </form>
+      <p className='text-gray-600'>
+        We will communicate with you about the information you've requested and
+        other Influencio services. The use of your information is governed by
+        Influencio’s Privacy Policy.
+      </p>
     </div>
   )
 }
