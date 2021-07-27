@@ -25,20 +25,20 @@ const style = css`
   display: flex;
   flex-grow: 1;
   flex-shrink: 0;
-  ${tw`border relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm`}
+  ${tw`border items-center relative w-full py-2 pl-3 text-left bg-white rounded-lg shadow cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm`}
 }
 .react-datetime-picker__inputGroup {
   min-width: calc(4px + (4px * 3) +  0.54em * 6  +  0.217em * 2);
   flex-grow: 1;
   padding: 0 2px;
+  height: 18px;
 }
 .react-datetime-picker__inputGroup__divider {
-  padding: 1px 0;
+  padding: 1px 5px;
   white-space: pre;
 }
 .react-datetime-picker__inputGroup__input {
   min-width: 0.54em;
-  height: calc(100% - 2px);
   position: relative;
   padding: 1px;
   border: 0;
@@ -66,7 +66,9 @@ const style = css`
 .react-datetime-picker__button {
   border: 0;
   background: transparent;
-  padding: 4px 6px;
+  height: 14px;
+  width: 14px;
+  margin-right: 10px;
 }
 .react-datetime-picker__button:enabled {
   cursor: pointer;
@@ -77,6 +79,11 @@ const style = css`
 }
 .react-datetime-picker__button:disabled .react-datetime-picker__button__icon {
   stroke: #6d6d6d;
+}
+.react-datetime-picker__button__icon {
+  height: 14px;
+  width: 14px;
+  stroke: #9CA3AF;
 }
 .react-datetime-picker__button svg {
   display: inherit;
@@ -117,6 +124,7 @@ const Datetime = React.forwardRef((props, ref) => {
       <DateTimePicker
         css={style}
         className='w-full'
+        format='dd/MM/y HH:mm'
         {...props}
       />
     </div>
