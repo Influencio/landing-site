@@ -1,15 +1,23 @@
 import React from 'react'
+import Seo from "@/components/elements/seo"
+import Layout from "@/components/layout"
 import Input from "components/atomic/input";
 import Select from "components/atomic/select";
 import Datetime from 'components/atomic/datetime';
 import Button from "components/elements/button";
 import { useForm, Controller } from "react-hook-form";
 
-const Enterprise = () => {
+import getCustomProps from "utils/custom-page-props";
+export const getStaticProps = getCustomProps(['enterprise'])
+
+const Enterprise = ({ metadata, global, pageContext }) => {
   const bgColor = '#2B3856'
 
   return (
-    <div className='min-h-screen'>
+    <Layout global={global} pageContext={pageContext}>
+      {/* Add meta tags for SEO*/}
+      <Seo metadata={metadata} />
+
       <div className={`h-16 w-screen text-white text-xl text-right flex justify-end items-center pr-8`} style={{ backgroundColor: bgColor }}>influencio enterprise</div>
 
       <div className='h-full grid grid-cols-2'>
@@ -24,7 +32,7 @@ const Enterprise = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 
