@@ -2,6 +2,7 @@ import React from 'react'
 import Input from "components/atomic/input";
 import Select from "components/atomic/select";
 import Datetime from 'components/atomic/datetime';
+import Button from "components/elements/button";
 import { useForm, Controller } from "react-hook-form";
 
 const Enterprise = () => {
@@ -169,6 +170,10 @@ const ContactUsForm = () => {
             />
           )}
         />
+
+        <Button type='submit' appearance='dark' compact>
+          Schedule
+        </Button>
       </form>
     </div>
   )
