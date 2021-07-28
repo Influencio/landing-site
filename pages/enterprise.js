@@ -15,7 +15,7 @@ const Enterprise = ({ metadata, global, pageContext }) => {
   const bgColor = '#2B3856'
 
   return (
-    <Layout global={global} pageContext={pageContext}>
+    <Layout global={global} pageContext={pageContext} className='h-full'>
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
