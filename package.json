@@ -1,5 +1,5 @@
 {
-  "name": "cms-strapi",
+  "name": "influencio",
   "version": "1.0.0",
   "scripts": {
     "dev": "export NODE_ENV=development && next",
@@ -31,9 +31,7 @@
     "react-icons": "^3.11.0",
     "react-markdown": "^4.3.1",
     "react-query": "^3.19.0",
-    "yup": "^0.32.8"
-  },
-  "devDependencies": {
+    "yup": "^0.32.8",
     "@emotion/babel-plugin": "^11.3.0",
     "autoprefixer": "^10.2.6",
     "babel-plugin-macros": "^3.1.0",
@@ -42,6 +40,8 @@
     "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^2.2.7",
     "twin.macro": "^2.6.2"
+  },
+  "devDependencies": {
   },
   "babelMacros": {
     "twin": {
