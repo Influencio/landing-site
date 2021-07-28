@@ -29,8 +29,8 @@ export const getStaticProps = async (context) => {
   const priceData = await getPageData({ slug: ["pricing"] }, locale, preview);
 
   // Get tax id types
-  const taxIdTypesRaw = await (await fetch(`${urls.landing}/static/tax-id-countries.json`, {headers: {"content-type": "application/json"}})).json()
-  const taxIdTypes = taxIdTypesRaw.map(t => ({ key: t.code + '.' + t.country, value: t.code, name: t.country + (t.version ? ` (${t.version})` : '') }))
+  // const taxIdTypesRaw = await (await fetch(`${urls.landing}/static/tax-id-countries.json`, {headers: {"content-type": "application/json"}})).json()
+  const taxIdTypes = {} // taxIdTypesRaw.map(t => ({ key: t.code + '.' + t.country, value: t.code, name: t.country + (t.version ? ` (${t.version})` : '') }))
 
   if (pageData == null) {
     // Giving the page no props will trigger a 404 page
