@@ -6,7 +6,7 @@ module.exports = {
   target: "serverless",
   future: { webpack5: true },
   webpack: config => {
-    config.resolve.fallback = { fs: false, module: false }
+    config.resolve.fallback = { fs: false, module: false, path: false }
 
     return config
   },
