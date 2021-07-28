@@ -55,7 +55,7 @@ const ContactUsForm = () => {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-screen-sm space-y-4 my-4"
+        className="w-full space-y-4 my-4"
       >
         <div className='flex w-full md:space-x-8 flex-col space-y-4 md:space-y-0 md:flex-row'>
           <Controller
