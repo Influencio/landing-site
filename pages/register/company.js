@@ -12,6 +12,7 @@ import Input from "components/atomic/input";
 import Select from "components/atomic/select";
 import Button from "components/elements/button";
 import urls from 'utils/urls'
+import { useQuery } from "react-query";
 
 export const getStaticProps = async (context) => {
   const { locale, locales, defaultLocale, preview = null } = context;
@@ -161,6 +162,8 @@ const Company = ({ metadata, global, pageContext }) => {
 };
 
 const RegisterCompany = ({ selectedPlan, changePlan }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const {
     control,
     handleSubmit,
@@ -169,6 +172,21 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
     getValues,
   } = useForm();
   const onSubmit = (data) => console.log(data);
+
+  const fetchSearch = async () => (
+    await (await fetch(`${urls.accounts}/company/registered?name=${searchTerm}`)).json()
+  )
+
+  const { data, isSuccess, refetch, isFetching } = useQuery('isRegistered', fetchSearch, {
+    efetchOnWindowFocus: false,
+    enabled: false
+  })
+
+  useEffect(() => {
+    if (searchTerm) {
+      refetch();
+    }
+  }, [searchTerm])
 
   return (
     <div className="text-center flex flex-col items-center">
@@ -200,11 +218,16 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
               placeholder="Company Name"
               error={errors?.company?.name}
               type='search'
-              onSearch={value => console.log('value', value)}
+              isLoading={isFetching}
+              onSearch={value => setSearchTerm(value)}
               {...field}
             />
           )}
         />
+
+        {
+          isSuccess && data ? <ValidCompanyName isNameValid={!data.isRegistered} /> : null
+        }
 
         <Controller
           name="company.country"
@@ -355,7 +378,7 @@ const RegisterCompany = ({ selectedPlan, changePlan }) => {
           appearance="dark"
           compact
           type="submit"
-          // disabled={isLoading}
+          disabled={!data || data.isRegistered}
           // loading={isLoading}
         >
           Register
