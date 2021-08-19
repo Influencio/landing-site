@@ -13,6 +13,7 @@ export default {
   hydra: 'https://auth.influencio.dk/hydra',
   helios: 'https://auth.influencio.dk/helios',
   auth: 'https://auth.influencio.dk/auth',
+  accounts: 'https://api.influencio.dk/accounts',
   webApp: 'https://influencio.dk',
   landing: getLanding()
 }
