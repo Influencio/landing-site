@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useMutation } from "react-query";
 import Seo from "@/components/elements/seo"
@@ -6,14 +7,17 @@ import Input from 'components/atomic/input';
 import Button from 'components/elements/button';
 import Link from 'next/link';
 import { loginUrl } from 'utils/links';
+import urls from 'utils/urls';
+import { useRouter } from 'next/router'
 
-import getCustomProps from "utils/custom-page-props";;
+import getCustomProps from "utils/custom-page-props";
+
 export const getStaticProps = getCustomProps(['register', 'influencer'])
 
 const postUser = async user => {
     user.role = 'influencer'
 
-    const res = await fetch("http://localhost:3001/auth/register", {
+    const res = await fetch(`${urls.auth}/auth/register`, {
       method: "POST",
       body: JSON.stringify(user),
       headers: {"content-type": "application/json"}
@@ -29,8 +33,16 @@ const postUser = async user => {
   }
 
 const Influencer = ({ metadata, global, pageContext }) => {
+  const router = useRouter()
+
   const mutation = useMutation((user) => postUser(user));
   const { isLoading, isError, error, isSuccess } = mutation;
+  
+  useEffect(() => {
+    if (isSuccess) {
+      router.push('/register/success')
+    }
+  }, [isSuccess])
 
   const { control, handleSubmit, formState: { errors }, watch } = useForm();
   const onSubmit = data => mutation.mutate(data);
@@ -98,7 +110,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
             appearance='dark' 
             compact 
             type='submit' 
-            disabled={isLoading}
+            disabled={isLoading || isSuccess}
             loading={isLoading}
           >
             Register
