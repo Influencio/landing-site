@@ -13,6 +13,7 @@ import Select from "components/atomic/select";
 import Button from "components/elements/button";
 import urls from 'utils/urls'
 import { useQuery } from "react-query";
+import Loader from "@/components/elements/loader";
 
 export const getStaticProps = async (context) => {
   const { locale, locales, defaultLocale, preview = null } = context;
@@ -136,6 +137,7 @@ const Company = ({ metadata, global, pageContext }) => {
     {
       title: "Done",
       icon: <AiOutlineSmile />,
+      content: <Redirect />
     },
   ];
 
@@ -160,6 +162,12 @@ const Company = ({ metadata, global, pageContext }) => {
     </Layout>
   );
 };
+
+const Redirect = () => {
+  const router = useRouter();
+  router.push('/register/success')
+  return <div className='flex space-x-2'><span>Loading</span><Loader /></div>;
+}
 
 const RegisterCompany = ({ selectedPlan, changePlan }) => {
   const [searchTerm, setSearchTerm] = useState('');
