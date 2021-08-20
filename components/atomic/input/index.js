@@ -11,7 +11,7 @@ import Loader from 'components/elements/loader';
 import Button from "components/elements/button";
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading, enterButton, onSubmit } = props;
+  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading, enterButton, onSubmit, description } = props;
 
   const originalInputType = type || "text";
   const [inputType, setInputType] = useState(type || "text");
@@ -118,6 +118,7 @@ const Input = React.forwardRef((props, ref) => {
           </Button>
         ) : null}
       </div>
+      {description ? <small className='text-gray-500'>{description}</small> : null}
       {error ? (
         <p className="text-red-500 text-xs italic">
           {error.message ||

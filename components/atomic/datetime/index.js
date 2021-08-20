@@ -118,7 +118,7 @@ const style = css`
   `
 
 const Datetime = React.forwardRef((props, ref) => {
-  const { label, id } = props;
+  const { label, id, description } = props;
   return (
     <div ref={ref}>
       {label ? (
@@ -135,6 +135,7 @@ const Datetime = React.forwardRef((props, ref) => {
         format='dd/MM/y HH:mm'
         {...props}
       />
+      {description ? <small className='text-gray-500'>{description}</small> : null}
     </div>
   )
 })
