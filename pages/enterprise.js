@@ -77,7 +77,7 @@ const ContactUsForm = ({ buttonText, disclaimer, submitSuccessText, submitFailTe
 
     return json;
   });
-  const { isLoading, isError, error, isSuccess } = mutation;
+  const { isLoading, isError, isSuccess } = mutation;
 
   const {
     control,
