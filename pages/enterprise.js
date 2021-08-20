@@ -6,6 +6,7 @@ import Select from "components/atomic/select";
 import Datetime from 'components/atomic/datetime';
 import Button from "components/elements/button";
 import { useForm, Controller } from "react-hook-form";
+import textMap from 'utils/text-map';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -18,22 +19,25 @@ export const getStaticProps = getCustomProps(['enterprise'])
 const Enterprise = ({ metadata, global, pageContext }) => {
   const bgColor = '#2B3856'
 
+  const shortTexts = textMap(pageContext.texts.shortTexts)
+  const longTexts = textMap(pageContext.texts.longTexts)
+
   return (
     <Layout global={global} pageContext={pageContext} className='h-full'>
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <div className={`h-16 w-screen text-white text-xl text-right flex justify-end items-center pr-8`} style={{ backgroundColor: bgColor }}>influencio enterprise</div>
+      <div className={`h-16 w-screen text-white text-xl text-right flex justify-end items-center pr-8`} style={{ backgroundColor: bgColor }}>{shortTexts.banner}</div>
 
       <div className='h-full grid grid-cols-2'>
         <div className='h-full col-span-2 md:col-span-1 p-8 md:p-16' style={{ backgroundColor: bgColor }}>
-          <h1 className='text-6xl text-white'>We’re here for you at every touch point.</h1>
-          <p className='text-lg text-white mt-6'>Schedule a call to learn how Influencio Enterprise can help your business build, grow, and manage enduring partnerships with influencers.</p>
+          <h1 className='text-6xl text-white'>{shortTexts.title}</h1>
+          <p className='text-lg text-white mt-6'>{longTexts.subtitle}</p>
         </div>
         <div className='h-full col-span-2 md:col-span-1 p-12 md:p-24'>
           <div className='max-w-4xl'>
-            <h2 className='text-3xl mb-4'>Let’s talk influencer strategy</h2>
-            <ContactUsForm />
+            <h2 className='text-3xl mb-4'>{shortTexts.formTitle}</h2>
+            <ContactUsForm buttonText={shortTexts.submitButton} disclaimer={longTexts.disclaimer} />
           </div>
         </div>
       </div>
@@ -41,7 +45,7 @@ const Enterprise = ({ metadata, global, pageContext }) => {
   )
 }
 
-const ContactUsForm = () => {
+const ContactUsForm = ({ buttonText, disclaimer }) => {
   const timezone = dayjs.tz.guess()
 
   const {
@@ -192,14 +196,10 @@ const ContactUsForm = () => {
         />
 
         <Button type='submit' appearance='dark' compact>
-          Schedule
+          {buttonText}
         </Button>
       </form>
-      <p className='text-gray-600'>
-        We will communicate with you about the information you've requested and
-        other Influencio services. The use of your information is governed by
-        Influencio’s Privacy Policy.
-      </p>
+      <p className='text-gray-600'>{disclaimer}</p>
     </div>
   )
 }
