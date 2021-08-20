@@ -87,7 +87,6 @@ const ContactUsForm = ({ buttonText, disclaimer, submitSuccessText, submitFailTe
   const onSubmit = (data) => {
     data.time = dayjs(data.time).format('dddd DD MMMM YYYY @ HH:mm') + ` (${timezone})`
     data.industry = data.industry.value
-    data.phone = data.phone.number
     data.size = data.size.value
     mutation.mutate(data);
   }
