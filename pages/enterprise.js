@@ -6,6 +6,8 @@ import Select from "components/atomic/select";
 import Datetime from 'components/atomic/datetime';
 import Button from "components/elements/button";
 import { useForm, Controller } from "react-hook-form";
+import { useMutation } from "react-query";
+import urls from 'utils/urls';
 import textMap from 'utils/text-map';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc'
@@ -48,6 +50,22 @@ const Enterprise = ({ metadata, global, pageContext }) => {
 const ContactUsForm = ({ buttonText, disclaimer }) => {
   const timezone = dayjs.tz.guess()
 
+  const mutation = useMutation(async data => {
+    const res = await fetch(`${urls.accounts}/company/open/contact-us`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {"content-type": "application/json"}
+    })
+    const json = await res.json();
+    
+    if (!res.ok) {
+      throw new Error(json?.message)
+    }
+
+    return json;
+  });
+  const { isLoading, isError, error, isSuccess } = mutation;
+
   const {
     control,
     handleSubmit,
@@ -58,7 +76,7 @@ const ContactUsForm = ({ buttonText, disclaimer }) => {
     data.industry = data.industry.value
     data.phone = data.phone.number
     data.size = data.size.value
-    console.log(data);
+    mutation.mutate(data);
   }
 
   return (
@@ -195,7 +213,15 @@ const ContactUsForm = ({ buttonText, disclaimer }) => {
           )}
         />
 
-        <Button type='submit' appearance='dark' compact>
+        {
+          isSuccess ? <div className='bg-green-200 border-2 border-green-300 text-green-700 p-2 mt-2 rounded'>Meeting has been scheduled</div> : null
+        }
+
+        {
+          isError ? <div className='bg-red-200 border-2 border-red-300 text-gray-700 p-2 mt-2 rounded'>Something went wrong when creating your meeting. Try again later</div> : null
+        }
+
+        <Button type='submit' appearance='dark' compact loading={isLoading} disabled={isSuccess || isLoading}>
           {buttonText}
         </Button>
       </form>
