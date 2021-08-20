@@ -6,7 +6,11 @@ import Select from "components/atomic/select";
 import Datetime from 'components/atomic/datetime';
 import Button from "components/elements/button";
 import { useForm, Controller } from "react-hook-form";
-import { format } from 'date-fns'
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 import getCustomProps from "utils/custom-page-props";
 export const getStaticProps = getCustomProps(['enterprise'])
@@ -38,13 +42,15 @@ const Enterprise = ({ metadata, global, pageContext }) => {
 }
 
 const ContactUsForm = () => {
+  const timezone = dayjs.tz.guess()
+
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useForm();
   const onSubmit = (data) => {
-    data.time = format(data.time, 'dd MMMM yyyy @ HH:mm')
+    data.time = dayjs(data.time).format('dddd DD MMMM YYYY @ HH:mm') + ` (${timezone})`
     data.industry = data.industry.value
     data.phone = data.phone.number
     data.size = data.size.value
@@ -179,6 +185,7 @@ const ContactUsForm = () => {
               id="time"
               label="Date & time"
               error={errors?.time}
+              description={'Timezone: ' + timezone}
               {...field}
             />
           )}
