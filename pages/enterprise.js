@@ -25,29 +25,42 @@ const Enterprise = ({ metadata, global, pageContext }) => {
   const longTexts = textMap(pageContext.texts.longTexts)
 
   return (
-    <Layout global={global} pageContext={pageContext} className='h-full'>
+    <Layout global={global} pageContext={pageContext} className="h-full">
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <div className={`h-16 w-screen text-white text-xl text-right flex justify-end items-center pr-8`} style={{ backgroundColor: bgColor }}>{shortTexts.banner}</div>
+      <div
+        className={`h-16 w-screen text-white text-xl text-right flex justify-end items-center pr-8`}
+        style={{ backgroundColor: bgColor }}
+      >
+        {shortTexts.banner}
+      </div>
 
-      <div className='h-full grid grid-cols-2'>
-        <div className='h-full col-span-2 md:col-span-1 p-8 md:p-16' style={{ backgroundColor: bgColor }}>
-          <h1 className='text-6xl text-white'>{shortTexts.title}</h1>
-          <p className='text-lg text-white mt-6'>{longTexts.subtitle}</p>
+      <div className="h-full grid grid-cols-2">
+        <div
+          className="h-full col-span-2 md:col-span-1 p-8 md:p-16"
+          style={{ backgroundColor: bgColor }}
+        >
+          <h1 className="text-6xl text-white">{shortTexts.title}</h1>
+          <p className="text-lg text-white mt-6">{longTexts.subtitle}</p>
         </div>
-        <div className='h-full col-span-2 md:col-span-1 p-12 md:p-24'>
-          <div className='max-w-4xl'>
-            <h2 className='text-3xl mb-4'>{shortTexts.formTitle}</h2>
-            <ContactUsForm buttonText={shortTexts.submitButton} disclaimer={longTexts.disclaimer} />
+        <div className="h-full col-span-2 md:col-span-1 p-12 md:p-24">
+          <div className="max-w-4xl">
+            <h2 className="text-3xl mb-4">{shortTexts.formTitle}</h2>
+            <ContactUsForm
+              buttonText={shortTexts.submitButton}
+              disclaimer={longTexts.disclaimer}
+              submitSuccessText={shortTexts.submitSuccess}
+              submitFailText={shortTexts.submitFail}
+            />
           </div>
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
-const ContactUsForm = ({ buttonText, disclaimer }) => {
+const ContactUsForm = ({ buttonText, disclaimer, submitSuccessText, submitFailText }) => {
   const timezone = dayjs.tz.guess()
 
   const mutation = useMutation(async data => {
@@ -214,11 +227,11 @@ const ContactUsForm = ({ buttonText, disclaimer }) => {
         />
 
         {
-          isSuccess ? <div className='bg-green-200 border-2 border-green-300 text-green-700 p-2 mt-2 rounded'>Meeting has been scheduled</div> : null
+          isSuccess ? <div className='bg-green-200 border-2 border-green-300 text-green-700 p-2 mt-2 rounded'>{submitSuccessText}</div> : null
         }
 
         {
-          isError ? <div className='bg-red-200 border-2 border-red-300 text-gray-700 p-2 mt-2 rounded'>Something went wrong when creating your meeting. Try again later</div> : null
+          isError ? <div className='bg-red-200 border-2 border-red-300 text-gray-700 p-2 mt-2 rounded'>{submitFailText}</div> : null
         }
 
         <Button type='submit' appearance='dark' compact loading={isLoading} disabled={isSuccess || isLoading}>
