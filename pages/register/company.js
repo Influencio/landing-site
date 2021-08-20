@@ -82,6 +82,15 @@ const Company = ({ metadata, global, pageContext }) => {
   const router = useRouter();
 
   useEffect(() => {
+    const curStep = localStorage.getItem('currentStep')
+    const plan = localStorage.getItem('selectedPlan')
+    if (curStep) {
+      setCurrentStep(parseInt(curStep))
+      setSelectedPlan(JSON.parse(plan))
+    }
+  }, [])
+
+  useEffect(() => {
     const { title, price, annually, action } = router.query;
     if (action === "select-plan" && (currentStep === 0 || currentStep === 1)) {
       handleSelectPlan(title, price, annually);
@@ -93,10 +102,17 @@ const Company = ({ metadata, global, pageContext }) => {
   };
 
   const handleSelectPlan = (title, price, annually) => {
+    if (currentStep > 1) return;
+
     const obj = { title, price, annually };
     setSelectedPlan(obj);
     setCurrentStep(1);
   };
+
+  useEffect(() => {
+    localStorage.setItem('currentStep', currentStep)
+    localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan))
+  }, [currentStep])
 
   const steps = [
     {
