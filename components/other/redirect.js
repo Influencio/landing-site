@@ -4,13 +4,12 @@ import { useRouter } from "next/router";
 
 import tw, { css } from 'twin.macro'
 
-const Redirect = () => {
-  const redirectCooldown = 1000;
+const Redirect = ({ redirectCooldown=1000 }) => {
   const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => router.push("/register/success"), redirectCooldown);
-  });
+  }, []);
   return (
     <div className="flex items-center justify-center w-full">
       <div tw="space-y-2 text-center w-full max-w-sm">
