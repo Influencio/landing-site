@@ -12,7 +12,7 @@ import Input from "components/atomic/input";
 import Select from "components/atomic/select";
 import Button from "components/elements/button";
 import urls from 'utils/urls'
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import Redirect from 'components/other/redirect'
 
 export const getStaticProps = async (context) => {
@@ -126,7 +126,7 @@ const Company = ({ metadata, global, pageContext }) => {
           <h3 className="text-3xl font-bold text-center">
             Choose the plan that works best for you
           </h3>
-          <PricingContent plans={pageContext.plans} />
+          <PricingContent plans={pageContext?.plans} />
         </div>
       ),
       title: "Select Plan",
@@ -194,6 +194,24 @@ const Company = ({ metadata, global, pageContext }) => {
 const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
+  const postCompany = async data => {
+    const res = await fetch(`${urls.auth}/auth/register/company`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {"content-type": "application/json"}
+    })
+
+    const json = await res.json();
+    
+    if (!res.ok) {
+      throw new Error(json?.message)
+    }
+
+    onSuccess && onSuccess()
+
+    return json; 
+  }
+
   const {
     control,
     handleSubmit,
@@ -201,7 +219,9 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
     trigger,
     getValues,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => mutation.mutate(data)
+
+  const mutation = useMutation((data) => postCompany(data));
 
   const fetchSearch = async () => (
     await (await fetch(`${urls.accounts}/company/registered?name=${searchTerm}`)).json()
@@ -392,14 +412,14 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
           }}
         />
 
-        {false ? (
+        {mutation.isError ? (
           <div
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
             role="alert"
           >
             <div>
               Something went wrong when creating your account:{" "}
-              <span className="font-bold">{error.message}</span>
+              <span className="font-bold">{mutation.error?.message}</span>
             </div>
           </div>
         ) : null}
@@ -408,8 +428,8 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
           appearance="dark"
           compact
           type="submit"
-          disabled={!data || data.isRegistered}
-          // loading={isLoading}
+          disabled={!data || data.isRegistered || mutation.isSuccess || mutation.isLoading}
+          loading={mutation.isLoading}
         >
           Register
         </Button>
