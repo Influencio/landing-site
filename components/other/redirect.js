@@ -7,13 +7,13 @@ const Redirect = ({ redirectCooldown=1000, title='Redirecting you', stuckText='S
   const router = useRouter();
 
   useEffect(() => {
-    // setTimeout(() => router.push("/register/success"), redirectCooldown);
+    setTimeout(() => router.push("/register/success"), redirectCooldown);
   }, []);
   return (
     <div className="flex items-center justify-center w-full">
       <div className="space-y-2 text-center w-full px-8" css={css`max-width: 400px`}>
         <h4 className="text-xl font-bold">{title}</h4>
-        <div className="h-3 mt-2 relative w-12 rounded-full overflow-hidden">
+        <div className="h-3 mt-2 relative w-12 rounded-full overflow-hidden w-full">
           <div className="w-full h-full bg-gray-200 absolute"></div>
           <div
             className="h-full bg-blue-500 absolute"
