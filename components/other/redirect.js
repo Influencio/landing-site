@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { css } from 'twin.macro'
 
-const Redirect = ({ redirectCooldown=1000 }) => {
+const Redirect = ({ redirectCooldown=1000, title='Redirecting you', stuckText='Stuck? Click here' }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Redirect = ({ redirectCooldown=1000 }) => {
   return (
     <div className="flex items-center justify-center w-full">
       <div className="space-y-2 text-center w-full max-w-lg px-8">
-        <h4 className="text-xl font-bold">Redirecting you</h4>
+        <h4 className="text-xl font-bold">{title}</h4>
         <div className="h-3 mt-2 relative w-12 rounded-full overflow-hidden">
           <div className="w-full h-full bg-gray-200 absolute"></div>
           <div
@@ -37,7 +37,7 @@ const Redirect = ({ redirectCooldown=1000 }) => {
           />
         </div>
         <div onClick={() => router.push("/register/success")}>
-          Stuck? Click here
+          {stuckText}
         </div>
       </div>
     </div>
