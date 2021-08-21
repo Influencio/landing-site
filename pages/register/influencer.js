@@ -44,7 +44,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
     }
   }, [isSuccess])
 
-  const { control, handleSubmit, formState: { errors }, watch } = useForm();
+  const { control, handleSubmit, formState: { errors }, watch, trigger } = useForm();
   const onSubmit = data => mutation.mutate(data);
 
   return (
@@ -139,18 +139,27 @@ const Influencer = ({ metadata, global, pageContext }) => {
               validate: (value) =>
                 value === watch("password") || "Passwords do not match",
             }}
-            render={({ field }) => (
+            render={({ field }) => {
+              const { onChange, onBlur, ref, value } = field;
+            return (
               <Input
-                validateIcon={1}
                 autoComplete="new-password"
                 id="confirm"
                 label="Confirm Password"
                 placeholder="••••••••••"
                 type="password"
                 error={errors?.confirm}
-                {...field}
+                validateIcon={1}
+                ref={ref}
+                onBlur={onBlur}
+                onChange={(value) => {
+                  onChange(value);
+                  trigger("confirm");
+                }}
+                validateIcon={1}
+                value={value}
               />
-            )}
+            )}}
           />
 
           {isError ? (
