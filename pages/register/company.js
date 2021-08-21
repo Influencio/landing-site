@@ -94,7 +94,7 @@ const Company = ({ metadata, global, pageContext }) => {
   useEffect(() => {
     const { title, price, annually, action, skipPayment } = router.query;
     if (action === "select-plan" && (currentStep === 0 || currentStep === 1)) {
-      handleSelectPlan(title, price, annually, skipPayment);
+      handleSelectPlan(title, price, annually, skipPayment === 'true');
     }
   }, [router.query]);
 
@@ -132,7 +132,10 @@ const Company = ({ metadata, global, pageContext }) => {
       content: (
         <RegisterCompany
           selectedPlan={selectedPlan}
-          changePlan={() => setCurrentStep(0)}
+          changePlan={() => {
+            setSelectedPlan(null)
+            setCurrentStep(0)
+          }}
           onSuccess={() => {
             setCurrentStep(selectedPlan.skipPayment ? 3 : 2)
           }}
@@ -153,6 +156,7 @@ const Company = ({ metadata, global, pageContext }) => {
       ),
       title: "Pay",
       icon: <BiDollarCircle />,
+      disabled: selectedPlan?.skipPayment
     },
     {
       title: "Done",
