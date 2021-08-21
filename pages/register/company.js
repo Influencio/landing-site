@@ -110,6 +110,12 @@ const Company = ({ metadata, global, pageContext }) => {
   };
 
   useEffect(() => {
+    if (currentStep === steps.length - 1) {
+      localStorage.setItem('currentStep', 0)
+      localStorage.setItem('selectedPlan', null)
+      return
+    }
+
     localStorage.setItem('currentStep', currentStep)
     localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan))
   }, [currentStep])
