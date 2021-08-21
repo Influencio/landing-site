@@ -13,6 +13,7 @@ import Select from "components/atomic/select";
 import Button from "components/elements/button";
 import urls from 'utils/urls'
 import { useQuery, useMutation } from "react-query";
+import textMap from 'utils/text-map';
 import Redirect from 'components/other/redirect'
 
 export const getStaticProps = async (context) => {
@@ -79,6 +80,8 @@ const Company = ({ metadata, global, pageContext }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
+  const shortTexts = textMap(pageContext.texts.shortTexts)
+  
   const router = useRouter();
 
   useEffect(() => {
@@ -123,13 +126,11 @@ const Company = ({ metadata, global, pageContext }) => {
     {
       content: (
         <div>
-          <h3 className="text-3xl font-bold text-center">
-            Choose the plan that works best for you
-          </h3>
+          <h3 className="text-3xl font-bold text-center">{shortTexts.selectPlanTitle}</h3>
           <PricingContent plans={pageContext?.plans} />
         </div>
       ),
-      title: "Select Plan",
+      title: shortTexts.step1Title,
       icon: <BiSelectMultiple />,
     },
     {
@@ -143,9 +144,10 @@ const Company = ({ metadata, global, pageContext }) => {
           onSuccess={() => {
             setCurrentStep(selectedPlan.skipPayment ? 3 : 2)
           }}
+          shortTexts={shortTexts}
         />
       ),
-      title: "Register",
+      title: shortTexts.step2Title,
       icon: <AiOutlineUser />,
     },
     {
@@ -155,16 +157,17 @@ const Company = ({ metadata, global, pageContext }) => {
           onSuccess={() => {
             setCurrentStep(currentStep+1)
           }}
+          shortTexts={shortTexts}
         />
       ),
-      title: "Pay",
+      title: shortTexts.step3Title,
       icon: <BiDollarCircle />,
       disabled: selectedPlan?.skipPayment
     },
     {
-      title: "Done",
+      title: shortTexts.step4Title,
       icon: <AiOutlineSmile />,
-      content: <Redirect />
+      content: <Redirect title={shortTexts.redirectTitle} stuckText={shortTexts.redirectStuck} />
     },
   ];
 
@@ -173,10 +176,8 @@ const Company = ({ metadata, global, pageContext }) => {
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <h1 className="title mt-16 text-center">INFLUENCIO</h1>
-      <h2 className="text-2xl my-8 text-center">
-        Make the most of your marketing budget
-      </h2>
+      <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
+      <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
       <div className="flex flex-col items-center">
         <div className="max-w-screen-xl w-full">
@@ -191,7 +192,7 @@ const Company = ({ metadata, global, pageContext }) => {
 };
 
 
-const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
+const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const postCompany = async data => {
@@ -241,21 +242,21 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
   return (
     <div className="text-center flex flex-col items-center">
       <h3 className="text-3xl font-bold">
-        Selected plan: {selectedPlan?.title}
+        {shortTexts.selectedPlan} {selectedPlan?.title}
       </h3>
       <p>{selectedPlan?.price}</p>
       <p
         className="my-2 text-lg cursor-pointer text-blue-800"
         onClick={changePlan}
       >
-        Change plan
+        {shortTexts.changePlan}
       </p>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-screen-sm space-y-4 text-left my-4"
       >
-        <h4 className="text-xl font-bold">Company data</h4>
+        <h4 className="text-xl font-bold">{shortTexts.companyData}</h4>
         <Controller
           name="company.name"
           control={control}
@@ -267,17 +268,21 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
               label="Name"
               placeholder="Company Name"
               error={errors?.company?.name}
-              type='search'
+              type="search"
               isLoading={isFetching}
-              onSearch={value => setSearchTerm(value)}
+              onSearch={(value) => setSearchTerm(value)}
               {...field}
             />
           )}
         />
 
-        {
-          isSuccess && data ? <ValidCompanyName isNameValid={!data.isRegistered} /> : null
-        }
+        {isSuccess && data ? (
+          <ValidCompanyName
+            isNameValid={!data.isRegistered}
+            failure={shortTexts.nameNotAvailable}
+            success={shortTexts.nameAvailable}
+          />
+        ) : null}
 
         <Controller
           name="company.country"
@@ -311,7 +316,7 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
           )}
         />
 
-        <h4 className="text-xl font-bold">Your data</h4>
+        <h4 className="text-xl font-bold">{shortTexts.yourData}</h4>
         <Controller
           name="user.name.givenName"
           control={control}
@@ -418,7 +423,7 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
             role="alert"
           >
             <div>
-              Something went wrong when creating your account:{" "}
+              {shortTexts.registerErrorMessage}{" "}
               <span className="font-bold">{mutation.error?.message}</span>
             </div>
           </div>
@@ -428,31 +433,36 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
           appearance="dark"
           compact
           type="submit"
-          disabled={!data || data.isRegistered || mutation.isSuccess || mutation.isLoading}
+          disabled={
+            !data ||
+            data.isRegistered ||
+            mutation.isSuccess ||
+            mutation.isLoading
+          }
           loading={mutation.isLoading}
         >
-          Register
+          {shortTexts.submitRegisterButton}
         </Button>
       </form>
     </div>
   );
 };
 
-const ValidCompanyName = ({ isNameValid }) => {
+const ValidCompanyName = ({ isNameValid, failure, success }) => {
   if (isNameValid === null) return null;
 
   return !isNameValid ? (
     <div className="bg-red-200 border-2 border-red-300 text-gray-700 p-2 mt-2 rounded">
-      A company with this name has already been registered
+      {failure}
     </div>
   ) : (
     <div className="bg-green-200 border-2 border-green-300 text-green-700 p-2 mt-2 rounded">
-      The name is available!
+      {success}
     </div>
   );
 };
 
-const Pay = ({ taxIdTypes, onSuccess }) => {
+const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
   const {
     control,
     handleSubmit,
@@ -615,11 +625,11 @@ const Pay = ({ taxIdTypes, onSuccess }) => {
         {/* TODO: Add stripe payment integration */}
 
         <Button type='submit' appearance='dark' compact>
-          Pay
+          {shortTexts.submitPayButton}
         </Button>
       </form>
 
-      <div onClick={onSuccess} className='text-center cursor-pointer text-gray-600'>Skip for now</div>
+      <div onClick={onSuccess} className='text-center cursor-pointer text-gray-600'>{shortTexts.skipPayment}</div>
     </div>
   )
 }
