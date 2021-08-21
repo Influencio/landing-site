@@ -91,9 +91,9 @@ const Company = ({ metadata, global, pageContext }) => {
   }, [])
 
   useEffect(() => {
-    const { title, price, annually, action } = router.query;
+    const { title, price, annually, action, skipPayment } = router.query;
     if (action === "select-plan" && (currentStep === 0 || currentStep === 1)) {
-      handleSelectPlan(title, price, annually);
+      handleSelectPlan(title, price, annually, skipPayment);
     }
   }, [router.query]);
 
@@ -101,10 +101,10 @@ const Company = ({ metadata, global, pageContext }) => {
     setCurrentStep(step);
   };
 
-  const handleSelectPlan = (title, price, annually) => {
+  const handleSelectPlan = (title, price, annually, skipPayment) => {
     if (currentStep > 1) return;
 
-    const obj = { title, price, annually };
+    const obj = { title, price, annually, skipPayment };
     setSelectedPlan(obj);
     setCurrentStep(1);
   };
@@ -132,6 +132,9 @@ const Company = ({ metadata, global, pageContext }) => {
         <RegisterCompany
           selectedPlan={selectedPlan}
           changePlan={() => setCurrentStep(0)}
+          onSuccess={() => {
+            setCurrentStep(selectedPlan.skipPayment ? 3 : 2)
+          }}
         />
       ),
       title: "Register",
@@ -185,7 +188,7 @@ const Redirect = () => {
   return <div className='flex space-x-2'><span>Loading</span><Loader /></div>;
 }
 
-const RegisterCompany = ({ selectedPlan, changePlan }) => {
+const RegisterCompany = ({ selectedPlan, changePlan, onSuccess }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const {
