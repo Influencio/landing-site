@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { loginUrl } from 'utils/links';
 import urls from 'utils/urls';
 import { useRouter } from 'next/router'
+import textMap from 'utils/text-map';
 
 import getCustomProps from "utils/custom-page-props";
 
@@ -35,6 +36,8 @@ const postUser = async user => {
 const Influencer = ({ metadata, global, pageContext }) => {
   const router = useRouter()
 
+  const shortTexts = textMap(pageContext.texts.shortTexts)
+
   const mutation = useMutation((user) => postUser(user));
   const { isLoading, isError, error, isSuccess } = mutation;
   
@@ -52,10 +55,8 @@ const Influencer = ({ metadata, global, pageContext }) => {
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <h1 className="title mt-16 text-center">INFLUENCIO</h1>
-      <h2 className="text-2xl my-8 text-center">
-        Accelerate your Influencer career
-      </h2>
+      <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
+      <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
       <div className="flex w-full flex-col items-center mb-10">
         <form
@@ -168,7 +169,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
               role="alert"
             >
               <div>
-                Something went wrong when creating your account:{" "}
+                {shortTexts.errorMessage}{" "}
                 <span className="font-bold">{error.message}</span>
               </div>
             </div>
@@ -181,10 +182,10 @@ const Influencer = ({ metadata, global, pageContext }) => {
             disabled={isLoading || isSuccess}
             loading={isLoading}
           >
-            Register
+            {shortTexts.submitButton}
           </Button>
         </form>
-        <Link href={loginUrl}>Already have an account? Login here</Link>
+        <Link href={loginUrl}>{shortTexts.loginLink}</Link>
       </div>
     </Layout>
   );
