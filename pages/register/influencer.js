@@ -52,75 +52,133 @@ const Influencer = ({ metadata, global, pageContext }) => {
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <h1 className='title mt-16 text-center'>INFLUENCIO</h1>
-      <h2 className='text-2xl my-8 text-center'>Accelerate your Influencer career</h2>
+      <h1 className="title mt-16 text-center">INFLUENCIO</h1>
+      <h2 className="text-2xl my-8 text-center">
+        Accelerate your Influencer career
+      </h2>
 
-      <div className='flex w-full flex-col items-center mb-10'>
-
-        <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-screen-sm space-y-4'>
+      <div className="flex w-full flex-col items-center mb-10">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-screen-sm space-y-4"
+        >
           <Controller
             name="name.givenName"
             control={control}
-            defaultValue=''
+            defaultValue=""
             rules={{ required: true }}
-            render={({ field }) => <Input id='givenName' label='First name' placeholder='Given name' error={errors?.name?.givenName} {...field} />}
+            render={({ field }) => (
+              <Input
+                id="givenName"
+                label="First name"
+                placeholder="Given name"
+                error={errors?.name?.givenName}
+                {...field}
+              />
+            )}
           />
 
           <Controller
             name="name.familyName"
             control={control}
-            defaultValue=''
+            defaultValue=""
             rules={{ required: true }}
-            render={({ field }) => <Input id='familyName' label='Last name' placeholder='Family name' error={errors?.name?.familyName} {...field} />}
+            render={({ field }) => (
+              <Input
+                id="familyName"
+                label="Last name"
+                placeholder="Family name"
+                error={errors?.name?.familyName}
+                {...field}
+              />
+            )}
           />
 
           <Controller
             name="email"
             control={control}
-            defaultValue=''
+            defaultValue=""
             rules={{ required: true }}
-            render={({ field }) => <Input autoComplete='email' id='email' label='E-mail' placeholder='email@example.com' type='email' error={errors?.email} {...field} />}
+            render={({ field }) => (
+              <Input
+                autoComplete="email"
+                id="email"
+                label="E-mail"
+                placeholder="email@example.com"
+                type="email"
+                error={errors?.email}
+                {...field}
+              />
+            )}
           />
 
           <Controller
             name="password"
             control={control}
-            defaultValue=''
+            defaultValue=""
             rules={{ required: true }}
-            render={({ field }) => <Input autoComplete='new-password' id='password' label='Password' placeholder='••••••••••' type='password' error={errors?.password} {...field} />}
+            render={({ field }) => (
+              <Input
+                autoComplete="new-password"
+                id="password"
+                label="Password"
+                placeholder="••••••••••"
+                type="password"
+                error={errors?.password}
+                {...field}
+              />
+            )}
           />
 
           <Controller
             name="confirm"
             control={control}
-            defaultValue=''
-            rules={{ required: true, validate: (value) => value === watch('password') || 'Passwords do not match' }}
-            render={({ field }) => <Input autoComplete='new-password' id='confirm' label='Confirm Password' placeholder='••••••••••' type='password' error={errors?.confirm} {...field} />}
+            defaultValue=""
+            rules={{
+              required: true,
+              validate: (value) =>
+                value === watch("password") || "Passwords do not match",
+            }}
+            render={({ field }) => (
+              <Input
+                validateIcon={1}
+                autoComplete="new-password"
+                id="confirm"
+                label="Confirm Password"
+                placeholder="••••••••••"
+                type="password"
+                error={errors?.confirm}
+                {...field}
+              />
+            )}
           />
 
-          {
-            isError ? 
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" role="alert">
-              <div>Something went wrong when creating your account: <span className='font-bold'>{error.message}</span></div> 
-            </div>: null
-          }
+          {isError ? (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
+              role="alert"
+            >
+              <div>
+                Something went wrong when creating your account:{" "}
+                <span className="font-bold">{error.message}</span>
+              </div>
+            </div>
+          ) : null}
 
-
-          <Button 
-            appearance='dark' 
-            compact 
-            type='submit' 
+          <Button
+            appearance="dark"
+            compact
+            type="submit"
             disabled={isLoading || isSuccess}
             loading={isLoading}
           >
             Register
           </Button>
-
         </form>
         <Link href={loginUrl}>Already have an account? Login here</Link>
       </div>
     </Layout>
-  )
+  );
 }
 
 export default Influencer
