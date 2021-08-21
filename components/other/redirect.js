@@ -7,7 +7,7 @@ const Redirect = ({ redirectCooldown=1000, title='Redirecting you', stuckText='S
   const router = useRouter();
 
   useEffect(() => {
-    setTimeout(() => router.push("/register/success"), redirectCooldown);
+    // setTimeout(() => router.push("/register/success"), redirectCooldown);
   }, []);
   return (
     <div className="flex items-center justify-center w-full">
