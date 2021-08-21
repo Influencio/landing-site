@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-
-import tw, { css } from 'twin.macro'
+import { css } from 'twin.macro'
 
 const Redirect = ({ redirectCooldown=1000 }) => {
   const router = useRouter();
@@ -12,7 +11,7 @@ const Redirect = ({ redirectCooldown=1000 }) => {
   }, []);
   return (
     <div className="flex items-center justify-center w-full">
-      <div tw="space-y-2 text-center w-full max-w-sm">
+      <div className="space-y-2 text-center w-full max-w-lg px-8">
         <h4 className="text-xl font-bold">Redirecting you</h4>
         <div className="h-3 mt-2 relative w-12 rounded-full overflow-hidden">
           <div className="w-full h-full bg-gray-200 absolute"></div>
