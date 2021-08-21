@@ -149,7 +149,6 @@ const Company = ({ metadata, global, pageContext }) => {
         <Pay
           taxIdTypes={pageContext.taxIdTypes}
           onSuccess={() => {
-            setTimeout(() => router.push("/register/success"), 300)
             setCurrentStep(currentStep+1)
           }}
         />
