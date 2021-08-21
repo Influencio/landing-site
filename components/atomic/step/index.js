@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { GoCheck } from "react-icons/go";
+import { AiOutlineClose } from "react-icons/ai";
 import { Transition } from "@headlessui/react";
 
 const Steps = ({ steps, currentStep = 2 }) => {
@@ -14,6 +15,7 @@ const Steps = ({ steps, currentStep = 2 }) => {
             currentStep={currentStep}
             last={i === steps.length - 1}
             index={i}
+            disabled={step.disabled}
           />
         ))}
       </div>
@@ -22,10 +24,15 @@ const Steps = ({ steps, currentStep = 2 }) => {
   );
 };
 
-const Step = ({ step, currentStep, last = false, index }) => {
+const Step = ({ step, currentStep, last = false, index, disabled=false }) => {
   return (
     <>
-      <div className="relative my-4 flex md:flex-col items-center" style={{ minWidth: 100 }}>
+      <div
+        className={classNames("relative my-4 flex md:flex-col items-center", {
+          "opacity-60": disabled,
+        })}
+        style={{ minWidth: 100 }}
+      >
         <div className="md:flex-1">
           <div
             className={classNames(
@@ -42,31 +49,43 @@ const Step = ({ step, currentStep, last = false, index }) => {
           >
             <span>{step.icon}</span>
 
-            <Transition
-              show={index < currentStep}
-              enter="transition-opacity duration-500"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-            >
+            {disabled ? (
               <div
                 style={{
                   top: -5,
                   right: -5,
                 }}
-                className="absolute h-6 w-6 bg-blue-500 rounded-full text-lg text-white flex justify-center items-center"
+                className="absolute h-6 w-6 bg-gray-500 rounded-full text-lg text-white flex justify-center items-center"
               >
-                <GoCheck />
+                <AiOutlineClose />
               </div>
-            </Transition>
+            ) : (
+              <Transition
+                show={index < currentStep}
+                enter="transition-opacity duration-500"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+              >
+                <div
+                  style={{
+                    top: -5,
+                    right: -5,
+                  }}
+                  className="absolute h-6 w-6 bg-blue-500 rounded-full text-lg text-white flex justify-center items-center"
+                >
+                  <GoCheck />
+                </div>
+              </Transition>
+            )}
           </div>
         </div>
-        <div className="text-left ml-3 md:ml-0 md:text-center font-bold text-xl md:text-base">{step.title}</div>
+        <div className="text-left ml-3 md:ml-0 md:text-center font-bold text-xl md:text-base">
+          {step.title}
+        </div>
       </div>
 
       {!last ? (
-        <div
-          className="mx-3 w-2 md:w-full align-center items-center align-middle content-center flex md:mt-[-20px] ml-[25px] md:ml-0"
-        >
+        <div className="mx-3 w-2 md:w-full align-center items-center align-middle content-center flex md:mt-[-20px] ml-[25px] md:ml-0">
           <div className="h-4 md:h-2 w-full bg-gray-300 rounded items-center align-middle align-center flex-1">
             <div
               className={`${
