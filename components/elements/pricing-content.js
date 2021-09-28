@@ -13,7 +13,7 @@ const PricingContent = ({ handleSelect, plansToExclude, plans }) => {
         <Switch
           checked={annually}
           onChange={setAnnually}
-          className={`${annually ? 'bg-primary-500' : 'bg-primary-300'}
+          className={`${annually ? 'bg-blue-500' : 'bg-blue-300'}
             relative inline-flex flex-shrink-0 h-[32px] w-[66px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
         >
           <span className="sr-only">Use setting</span>

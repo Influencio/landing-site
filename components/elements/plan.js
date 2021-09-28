@@ -15,7 +15,7 @@ const Plan = ({ title, link, linkTitle, price, subtitle, benefits, annually, han
       },
       // Recommended plan
       {
-        "bg-primary-50 text-primary-900 border-primary-300": isRecommended,
+        "bg-blue-50 text-blue-900 border-blue-300": isRecommended,
       }
     )}>
       <div className="flex flex-col">
