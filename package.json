@@ -36,10 +36,5 @@
     "tailwindcss": "^2.2.7",
     "yup": "^0.32.8"
   },
-  "devDependencies": {},
-  "babelMacros": {
-    "twin": {
-      "preset": "emotion"
-    }
-  }
+  "devDependencies": {}
 }
