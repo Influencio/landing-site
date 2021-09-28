@@ -183,3 +183,24 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: white;
   border: thin solid #a0a096;
 }
+
+/* Animations */
+
+@keyframes expandWidth {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 10%;
+  }
+  75% {
+    width: 85%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.bg-black {
+  background-color: black;
+}
