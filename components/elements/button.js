@@ -30,17 +30,20 @@ const Button = ({
           },
           // Specific to when the button is fully dark
           {
-            'bg-primary-600 text-white border-primary-600':
+            'bg-blue-600 text-white border-blue-600':
               appearance === 'dark',
           },
           // Specific to when the button is dark outlines
           {
-            'text-primary-600 border-primary-600':
+            'text-blue-600 border-blue-600':
               appearance === 'dark-outline',
+          },
+          {
+            'bg-black text-white border-black': appearance === 'black',
           },
           // Specific to when the button is fully white
           {
-            'bg-white text-primary-600 border-white': appearance === 'white',
+            'bg-white text-blue-600 border-white': appearance === 'white',
           },
           // Specific to when the button is white outlines
           {
@@ -65,6 +68,7 @@ Button.propTypes = {
     'white-outline',
     'white',
     'dark-outline',
+    'black'
   ]),
   compact: PropTypes.bool,
 }
