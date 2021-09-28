@@ -2,15 +2,24 @@ import Image from "./image";
 import PropTypes from "prop-types";
 import { linkPropTypes, mediaPropTypes } from "utils/types";
 import CustomLink from "./custom-link";
+import { AiOutlineInstagram } from 'react-icons/ai'
 
 const Footer = ({ footer }) => {
   return (
-    <footer className="pt-12 bg-gray-100">
-      <div className="container flex flex-col lg:flex-row lg:justify-between">
-        <div>
+    <footer className="pt-12 bg-white flex flex-col items-center w-full">
+      <div className="max-w-screen-lg flex flex-col lg:flex-row lg:justify-between mb-32 w-full">
+        <div className='space-y-4 text-gray-600 w-48'>
           {footer.logo && (
-            <Image media={footer.logo} className="h-8 w-auto object-contain" />
+            <Image media={footer.logo} className="h-12 w-auto object-contain" />
           )}
+          <p>Your Professional Influencer Community</p>
+          <div>
+            <p>Influencio ApS</p>
+            <p>Copenhagen</p>
+            <p>VAT no: 42044687</p>
+          </div>
+
+          <a href='mailto:admin@influencio.dk'>admin@influencio.dk</a>
         </div>
         <nav className="flex flex-wrap flex-row lg:gap-20 items-start lg:justify-end mb-10">
           {footer.columns.map((footerColumn) => (
@@ -34,8 +43,14 @@ const Footer = ({ footer }) => {
           ))}
         </nav>
       </div>
-      <div className="text-sm bg-gray-200 py-6 text-gray-700">
-        <div className="container">{footer.smallText}</div>
+      <div className="bg-gray-200 px-2 text-gray-700 flex items-end w-full">
+        <div className="container my-6 text-sm">{footer.smallText}</div>
+        
+        <div>
+          <a href='https://www.instagram.com/influenc.io/' className='text-5xl text-black'>
+            <AiOutlineInstagram className='bg-white p-1' />
+          </a>
+        </div>
       </div>
     </footer>
   );
