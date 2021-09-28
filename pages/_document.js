@@ -1,12 +1,10 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { extractCritical } from '@emotion/server'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     const page = await ctx.renderPage()
-    const styles = extractCritical(page.html)
-    return { ...initialProps, ...page, ...styles }
+    return { ...initialProps, ...page }
   }
 
   render() {
@@ -14,7 +12,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <style
-            data-emotion-css={this.props.ids.join(' ')}
             dangerouslySetInnerHTML={{ __html: this.props.css }}
           />
         </Head>
