@@ -11,6 +11,7 @@ const TestimonialsGroup = ({ data }) => {
   return (
     <section className="text-lg pt-12 pb-16 flex mx-auto max-w-screen-xl justify-around">
       <div>
+      <h4 className='text-xl text-blue-500'>{data.subTitle}</h4>
       <h2 className="title">{data.title}</h2>
       <p className="text-gray-700 mb-4">{data.description}</p>
       {/* Change selected testimonial (only if there is more than one) */}
