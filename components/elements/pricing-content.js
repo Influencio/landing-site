@@ -16,7 +16,7 @@ const PricingContent = ({ handleSelect, plansToExclude, plans }) => {
           className={`${annually ? 'bg-blue-500' : 'bg-blue-300'}
             relative inline-flex flex-shrink-0 h-[32px] w-[66px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
         >
-          <span className="sr-only">Use setting</span>
+          <span className="sr-only">pay annually</span>
           <span
             aria-hidden="true"
             className={`${annually ? 'translate-x-9' : 'translate-x-0'}
