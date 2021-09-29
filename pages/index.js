@@ -57,6 +57,19 @@ const Landing = ({ metadata, global, pageContext }) => {
         <HowDoesItWork />
       </div>
 
+      <div className='flex justify-center'>
+        <div className='flex max-w-screen-xl'>
+          <img style={{ maxWidth: 'unset'}} className='w-6/12' src={`${urls.landing}/images/alizee-baudez-a4Nid9fLLlo-unsplash 1.png`} />
+          <div className='bg-black text-white w-6/12 flex flex-col p-8 justify-center items-center'>
+            <div className='justify-center items-center flex flex-col max-w-lg text-center space-y-4'>
+              <h3 className='text-3xl font-bold'>Are you a business?</h3>
+              <p className='text-lg'>Schedule a meeting with one of our experts and take a guided tour through the platform.</p>
+              <Button appearance='white'>BOOK A MEETING NOW</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className='flex w-full my-16 justify-center'>
         <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-center'>
           <div className='p-8'>
