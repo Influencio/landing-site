@@ -32,6 +32,16 @@ const testimonialData = {
   ]
 }
 
+const featureRowsData = {
+  features: [
+    {
+      id: "test", 
+      title: 'Discover your next influencers',
+      description: 'Influencio provides rich insights into influencers including audience demographics, content style, brand affinity, relevant KPI’s, and our exclusive resumé function. '
+    }
+  ]
+}
+
 const Businesses = ({ metadata, global, pageContext }) => {
   return (
     <Layout global={global} pageContext={pageContext}>
