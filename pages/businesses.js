@@ -4,7 +4,9 @@ import textMap from 'utils/text-map';
 import imageMap from 'utils/image-map';
 import Link from "next/link"
 import TestimonialGroup from 'components/sections/testimonials-group.js'
+import FeatureRowsGroup from "@/components/sections/feature-rows-group";
 import urls from 'utils/urls'
+import ButtonLink from "@/components/elements/button-link";
 
 import getCustomProps from "utils/custom-page-props";;
 export const getStaticProps = getCustomProps(['register'])
@@ -35,9 +37,16 @@ const testimonialData = {
 const featureRowsData = {
   features: [
     {
-      id: "test", 
+      id: "1", 
       title: 'Discover your next influencers',
-      description: 'Influencio provides rich insights into influencers including audience demographics, content style, brand affinity, relevant KPI’s, and our exclusive resumé function. '
+      description: 'Influencio provides rich insights into influencers including audience demographics, content style, brand affinity, relevant KPI’s, and our exclusive resumé function. ',
+      customMedia: <div>test</div>
+    },
+    {
+      id: "2", 
+      title: 'Post and manage your campaigns',
+      description: 'Generate awareness around your brand directly on the platform by offering influencers the opportunity to join your campaigns. ',
+      customMedia: <div>test</div>
     }
   ]
 }
@@ -49,10 +58,11 @@ const Businesses = ({ metadata, global, pageContext }) => {
       <Seo metadata={metadata} />
 
       <div className='flex justify-center items-center flex-wrap my-8 container'>
-        <div className='max-w-screen-lg w-full md:w-8/12'>
+        <div className='max-w-screen-lg w-full md:w-8/12 space-y-4 flex flex-col items-start'>
           <p className='text-blue-600'>JUMP START YOUR GROWTH.</p>
           <h1 className='text-6xl font-bold'>Scale your business with influencer marketing</h1>
           <h3 className='text-xl'>Discover influencers for your brand, post and monitor campaigns, give reviews, generate awareness, and boost sales through authentic collaborations — all within a single platform.</h3>
+          <ButtonLink appearance='black' link='/register/company'>GET FREE ACCESS NOW</ButtonLink>
         </div>
 
         <div className='max-w-screen-lg w-full md:w-4/12 space-x-2 flex'>
@@ -61,6 +71,8 @@ const Businesses = ({ metadata, global, pageContext }) => {
           <img src={`${urls.landing}/images/pexels-fauxels-3183188 3.png`} style={{height: 'max-content'}} className='w-4/12' />
         </div>
       </div>
+
+      <FeatureRowsGroup data={featureRowsData} />
 
       <TestimonialGroup data={testimonialData} />
     </Layout>
