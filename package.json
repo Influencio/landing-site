@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "export NODE_ENV=development && next",
     "develop": "export NODE_ENV=development && next",
-    "build": "chmod +x ./slug.sh && ./slug.sh && next build",
+    "build": "chmod +x ./slug.sh && ./slug.sh && next build && next export",
     "start": "next start"
   },
   "dependencies": {
