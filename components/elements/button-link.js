@@ -22,6 +22,9 @@ const ButtonContent = ({ button, appearance, compact }) => {
         {
           "bg-blue-600 text-white border-blue-600": appearance === "dark",
         },
+        {
+          "bg-black text-white border-black": appearance === "black",
+        },
         // Specific to when the button is dark outlines
         {
           "text-blue-600 border-blue-600": appearance === "dark-outline",
@@ -41,10 +44,10 @@ const ButtonContent = ({ button, appearance, compact }) => {
   );
 };
 
-const ButtonLink = ({ button, appearance, compact = false }) => {
+const ButtonLink = ({ button, appearance, compact = false, link, children }) => {
   return (
-    <CustomLink link={button}>
-      <ButtonContent button={button} appearance={appearance} compact={compact} />
+    <CustomLink link={button || {url: link}}>
+      <ButtonContent button={button || {text: children}} appearance={appearance} compact={compact} />
     </CustomLink>
   );
 };
@@ -56,6 +59,7 @@ ButtonLink.propTypes = {
     "white-outline",
     "white",
     "dark-outline",
+    "black"
   ]),
   compact: PropTypes.bool,
 };
