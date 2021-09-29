@@ -12,7 +12,7 @@ import getCustomProps from "utils/custom-page-props";
 import Button from "@/components/elements/button";
 import ButtonLink from "@/components/elements/button-link";
 
-export const getStaticProps = getCustomProps(['register'])
+export const getStaticProps = getCustomProps(['/'])
 
 const Landing = ({ metadata, global, pageContext }) => {
   return (
