@@ -4,7 +4,6 @@ module.exports = {
     defaultLocale: "en",
   },
   target: "serverless",
-  future: { webpack5: true },
   webpack: config => {
     config.resolve.fallback = { fs: false, module: false, path: false }
 
