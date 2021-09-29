@@ -8,8 +8,10 @@ import urls from 'utils/urls'
 import { AiOutlineRight, AiOutlineUnorderedList, AiOutlineDollar, AiOutlineSearch, AiOutlineUserAdd, AiOutlineBarChart } from 'react-icons/ai'
 import { VscMegaphone } from 'react-icons/vsc';
 
-import getCustomProps from "utils/custom-page-props";import Button from "@/components/elements/button";
-;
+import getCustomProps from "utils/custom-page-props";
+import Button from "@/components/elements/button";
+import ButtonLink from "@/components/elements/button-link";
+
 export const getStaticProps = getCustomProps(['register'])
 
 const Landing = ({ metadata, global, pageContext }) => {
@@ -53,6 +55,16 @@ const Landing = ({ metadata, global, pageContext }) => {
 
       <div className='flex justify-center'>
         <HowDoesItWork />
+      </div>
+
+      <div>
+        <div className='px-8 md:px-16 py-32 bg-gray-300 space-y-12'>
+          <h2 className='text-4xl md:text-7xl font-bold'>Join your professional influencer community now.</h2>
+          <div className='space-x-8 flex'>
+            <ButtonLink link='/register/company' appearance='black'>For businesses</ButtonLink>
+            <ButtonLink link='register/influencer' appearance='black'>For influencers</ButtonLink>
+          </div>
+        </div>
       </div>
     </Layout>
   )
