@@ -84,22 +84,43 @@ const ImageChange = () => {
   const [influencer, setInfluencer] = useState(true);
 
   const ChangeBtn = () => {
-
     return (
-      <div className='flex absolute bottom-0 left-0'>
-        <div onClick={() => setInfluencer(!influencer)} className='p-4 bg-white text-black cursor-pointer'>{"<"}</div>
-        <div onClick={() => setInfluencer(!influencer)} className='p-4 bg-black text-white cursor-pointer'>{">"}</div>
+      <div className="flex absolute bottom-0 left-0">
+        <div
+          onClick={() => setInfluencer(!influencer)}
+          className="p-4 bg-white text-black cursor-pointer"
+        >
+          {"<"}
+        </div>
+        <div
+          onClick={() => setInfluencer(!influencer)}
+          className="p-4 bg-black text-white cursor-pointer"
+        >
+          {">"}
+        </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
-    <div className='relative w-full h-96 min-w-64' style={{ backgroundImage: `url("${urls.landing}/images/${influencer ? "pexels-plann-4549414 1.png" : "Businesses image.png"}")` }}>
-      <h4 className='text-xl font-bold text-white m-4 uppercase'>{influencer ? "For Influencers" : "for businesses"}</h4>
+    <div className="relative w-full h-96 min-w-64">
+      <h4 className="text-xl font-bold text-white m-4 uppercase absolute">
+        {influencer ? "For Influencers" : "for businesses"}
+      </h4>
+      <Link href={`/register/${influencer ? "influencer" : "company"}`}>
+        <div
+          className="w-full h-full cursor-pointer"
+          style={{
+            backgroundImage: `url("${urls.landing}/images/${
+              influencer ? "pexels-plann-4549414 1.png" : "Businesses image.png"
+            }")`,
+          }}
+        ></div>
+      </Link>
       <ChangeBtn />
     </div>
-  )
-}
+  );
+};
 
 const HowDoesItWork = () => {
   const [influencer, setInfluencer] = useState(true);
