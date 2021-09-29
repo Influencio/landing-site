@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "export NODE_ENV=development && next",
     "develop": "export NODE_ENV=development && next",
-    "build": "chmod +x ./slug.sh && ./slug.sh && next build && next export",
+    "build": "chmod +x ./slug.sh && ./slug.sh && next build",
     "start": "next start"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
     "dayjs": "^1.10.6",
     "formik": "^2.2.6",
     "js-cookie": "^2.2.1",
-    "next": "^10.0.0",
+    "next": "^11.1.2",
     "next-seo": "^4.7.1",
     "postcss": "^8.3.2",
     "postcss-flexbugs-fixes": "4.2.1",
@@ -26,9 +26,9 @@
     "postcss-preset-env": "^6.7.0",
     "prop-types": "^15.7.2",
     "query-string": "^7.0.1",
-    "react": "^17.0.0",
+    "react": "^17.0.2",
     "react-datetime-picker": "^3.3.0",
-    "react-dom": "^17.0.0",
+    "react-dom": "^17.0.2",
     "react-hook-form": "^7.11.1",
     "react-icons": "^3.11.0",
     "react-markdown": "^4.3.1",
