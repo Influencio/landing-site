@@ -39,19 +39,7 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
 
             {/* Media section */}
             <div className={`w-full sm:9/12 ${feature.separator ? 'lg:w-6/12' : 'lg:w-4/12'} max-h-full`}>
-              {/* Images */}
-              {feature.media.mime.startsWith("image") && (
-                <Image media={feature.media} className={`w-full h-auto ${feature.separator ? 'p-6' : ''}`} />
-              )}
-              {/* Videos */}
-              {feature.media.mime.startsWith("video") && (
-                <Video
-                  media={feature.media}
-                  className="w-full h-auto"
-                  autoPlay
-                  controls={false}
-                />
-              )}
+              <Media feature={feature} />
             </div>
           </div>
         </div>
@@ -65,5 +53,26 @@ const Line = () => (
     className="border-dotted border-l-8 border-gray-200 h-64 hidden lg:block mx-8"
   />
 );
+
+const Media = ({ feature }) => {
+  if (feature.customMedia) {
+    return feature.customMedia
+  }
+
+  if (feature.media.mime.startsWith("image")) {
+    return (
+    <Image media={feature.media} className={`w-full h-auto ${feature.separator ? 'p-6' : ''}`} />
+  )}
+
+  if (feature.media.mime.startsWith("video")) {
+    return (
+    <Video
+      media={feature.media}
+      className="w-full h-auto"
+      autoPlay
+      controls={false}
+    />
+  )}
+}
 
 export default FeatureRowsGroup;
