@@ -38,9 +38,9 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='flex w-full my-16 justify-center'>
-        <div className='flex w-full max-w-screen-xl flex-col md:flex-row'>
+        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32'>
           <div className='p-8'>
-            <h3 className='text-3xl my-3'>Influencer marketing is a two-way street</h3>
+            <h3 className='text-4xl my-3 font-bold'>Influencer marketing is a two-way street</h3>
             <strong>All-in-one and more to come</strong>
             <p>Influencio is for both influencers and businesses. Our mission is not only to simplify influencer marketing for brands, but to build a place for influencers to express all the work that happens behind the scenes.</p>
           </div>
@@ -55,6 +55,17 @@ const Landing = ({ metadata, global, pageContext }) => {
 
       <div className='flex justify-center'>
         <HowDoesItWork />
+      </div>
+
+      <div className='flex w-full my-16 justify-center'>
+        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-center'>
+          <div className='p-8'>
+            <h3 className='text-4xl my-3 font-bold'>Find influencers with experience in your market</h3>
+            {/* TODO: Add tags */}
+          </div>
+
+          <img style={{ maxWidth: 400 }} className='w-full' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.45 1.png`} />
+        </div>
       </div>
 
       <div>
