@@ -9,9 +9,9 @@ const TestimonialsGroup = ({ data }) => {
   const selectedTestimonial = data.testimonials[selectedTestimonialIndex];
 
   return (
-    <section className="text-lg pt-12 pb-16 flex mx-auto max-w-screen-xl justify-around">
+    <section className="text-lg pt-12 pb-16 flex flex-col md:flex-row mx-auto max-w-screen-xl justify-around container">
       <div>
-      <h4 className='text-xl text-blue-500'>{data.subTitle}</h4>
+      <h4 className='text-lg text-blue-500 uppercase'>{data.subTitle}</h4>
       <h2 className="title">{data.title}</h2>
       <p className="text-gray-700 mb-4">{data.description}</p>
       {/* Change selected testimonial (only if there is more than one) */}
@@ -43,7 +43,7 @@ const TestimonialsGroup = ({ data }) => {
       }
       </div>
       {/* Current testimonial card */}
-      <div className="max-w-lg w-8/12 sm:w-8/12 bg-white shadow-md sm:shadow-xl rounded-lg flex flex-col items-center text-left">
+      <div className="max-w-lg w-full sm:w-8/12 bg-white shadow-md sm:shadow-xl rounded-lg flex flex-col items-center text-left">
         <Image
           media={selectedTestimonial.picture}
           className="h-24 w-24"
