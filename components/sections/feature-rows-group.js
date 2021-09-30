@@ -6,7 +6,7 @@ import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 const FeatureRowsGroup = ({ data, beforeEach }) => {
   return (
-    <div className="container flex flex-col gap-12 py-12">
+    <div className="container flex flex-col gap-36 py-12">
       {data.features.map((feature, index) => (
         <div key={feature.id}>
           {/* Tile */}
