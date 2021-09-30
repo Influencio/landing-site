@@ -31,8 +31,10 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
               {/* Features feautes */}
               {
                 feature?.checks?.length ? feature.checks.map(check => (
-                  <div className='flex space-x-3 items-center leading-10'>
-                    <AiOutlineCheckCircle className='text-blue-500 text-3xl' />
+                  <div className='flex space-x-3 items-center leading-5 h-16'>
+                    <div className='h-8 w-8'>
+                      <AiOutlineCheckCircle className='text-blue-500 h-8 w-8' />
+                    </div>
                     <div className='text-gray-600'>{check}</div>
                   </div>
                 )) : null
