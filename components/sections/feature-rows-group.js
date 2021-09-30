@@ -2,6 +2,7 @@ import classNames from "classnames";
 import Image from "../elements/image";
 import Video from "../elements/video";
 import CustomLink from "../elements/custom-link";
+import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 const FeatureRowsGroup = ({ data, beforeEach }) => {
   return (
@@ -23,8 +24,20 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
           >
             {/* Text section */}
             <div className="w-full lg:w-6/12 lg:pr-6 text-lg">
-              <h4 className="text-2xl font-bold">{feature.title}</h4>
+              <h5 className='text-lg text-blue-500 uppercase'>{feature.subTitle}</h5>
+              <h4 className="text-3xl font-bold">{feature.title}</h4>
               <p className="my-3">{feature.description}</p>
+
+              {/* Features feautes */}
+              {
+                feature?.checks?.length ? feature.checks.map(check => (
+                  <div className='flex space-x-3 items-center leading-10'>
+                    <AiOutlineCheckCircle className='text-blue-500 text-3xl' />
+                    <div className='text-gray-600'>{check}</div>
+                  </div>
+                )) : null
+              }
+
               {feature.link ? (
                 <CustomLink link={feature.link}>
                   <div className="text-blue-600 with-arrow hover:underline">
