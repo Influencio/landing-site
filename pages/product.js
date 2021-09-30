@@ -6,7 +6,9 @@ import Link from "next/link"
 import urls from 'utils/urls'
 import FeatureRowsGroup from "@/components/sections/feature-rows-group";
 
-import getCustomProps from "utils/custom-page-props";;
+import getCustomProps from "utils/custom-page-props";
+import ButtonLink from "@/components/elements/button-link";
+
 export const getStaticProps = getCustomProps(['product'])
 
 const featureRowsData = {
@@ -79,6 +81,18 @@ const Product = ({ metadata, global, pageContext }) => {
       </div>
 
       <FeatureRowsGroup data={featureRowsData} />
+
+      <div className='flex flex-col text-center items-center py-36'>
+        <div className='max-w-screen-sm flex flex-col items-center'>
+
+          <div className='space-y-4 mb-12'>
+            <h2 className='text-7xl font-bold'>Get started</h2>
+            <h4 className='text-3xl'>Create your influencer campaign today, with Influencio.</h4>
+          </div>
+
+          <ButtonLink link='/register'>TRY NOW - IT'S FREE</ButtonLink>
+        </div>
+      </div>
 
     </Layout>
   )
