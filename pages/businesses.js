@@ -39,14 +39,54 @@ const featureRowsData = {
     {
       id: "1", 
       title: 'Discover your next influencers',
+      subTitle: 'more than a directory.',
       description: 'Influencio provides rich insights into influencers including audience demographics, content style, brand affinity, relevant KPI’s, and our exclusive resumé function. ',
-      customMedia: <div>test</div>
+      customMedia: <img src={`${urls.landing}/images/Group 671.svg`} />,
+      checks: [
+        'Filter your search by 10+ audience and influencer criteria',
+        'Search through a network of active users and not a directory',
+        'Get instant access to influencers’ media kit',
+        'Compare your influencer’s target audience with your brand’s'
+      ]
     },
     {
       id: "2", 
       title: 'Post and manage your campaigns',
+      subTitle: 'streamlined workflows.',
       description: 'Generate awareness around your brand directly on the platform by offering influencers the opportunity to join your campaigns. ',
-      customMedia: <div>test</div>
+      customMedia: <img src={`${urls.landing}/images/Group 672.svg`} />,
+      checks: [
+        'End your manual search for influencers and let them come to you',
+        'Create your own community of influencers',
+        'Manage all communications in one place',
+        'Full control over your campaign guidelines'
+      ]
+    },
+    {
+      id: "3", 
+      title: 'Track performance with data-driven reporting',
+      subTitle: 'powerful performance insights.',
+      description: 'Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.',
+      customMedia: <img src={`${urls.landing}/images/Group 673.svg`} />,
+      checks: [
+        'Automized tracking of content made by your influencers',
+        'Track and measure performance of influencer content',
+        'Use our storage system “Cloud Content” for content approval',
+        'Download all content made by influencers'
+      ]
+    },
+    {
+      id: "4", 
+      title: 'Verify quality through reviews',
+      subTitle: 'generating transparency.',
+      description: 'Influencio strives to generate transparency in the influencer marketing industry, and one way is by creating a review-oriented community.',
+      customMedia: <img src={`${urls.landing}/images/Group 674.svg`} />,
+      checks: [
+        'Read reviews and ratings made by other companies',
+        'Give your influencers reviews on their profiles',
+        'Help influencers grow and evolve',
+        'Contribute to generating transparency'
+      ]
     }
   ]
 }
@@ -59,7 +99,7 @@ const Businesses = ({ metadata, global, pageContext }) => {
 
       <div className='flex justify-center items-center flex-wrap my-8 container'>
         <div className='max-w-screen-lg w-full md:w-8/12 space-y-4 flex flex-col items-start'>
-          <p className='text-blue-600'>JUMP START YOUR GROWTH.</p>
+          <p className='text-blue-500'>JUMP START YOUR GROWTH.</p>
           <h1 className='text-6xl font-bold'>Scale your business with influencer marketing</h1>
           <h3 className='text-xl'>Discover influencers for your brand, post and monitor campaigns, give reviews, generate awareness, and boost sales through authentic collaborations — all within a single platform.</h3>
           <ButtonLink appearance='black' link='/register/company'>GET FREE ACCESS NOW</ButtonLink>
@@ -73,7 +113,7 @@ const Businesses = ({ metadata, global, pageContext }) => {
       </div>
 
       <FeatureRowsGroup data={featureRowsData} />
-
+      
       <TestimonialGroup data={testimonialData} />
     </Layout>
   )
