@@ -154,7 +154,7 @@ const HowDoesItWork = () => {
   const [influencer, setInfluencer] = useState(true);
 
   const Element = ({ title, text, icon }) => (
-    <div className='w-3/12'>
+    <div>
       <div className='bg-white text-black text-4xl flex justify-center items-center h-16 w-16 rounded-full my-4'>{icon}</div>
       <h5 className='text-xl font-bold uppercase'>{title}</h5>
       <div className='text-gray-300'>{text}</div>
@@ -165,7 +165,7 @@ const HowDoesItWork = () => {
     <div className='text-white bg-black p-16 max-w-screen-xl my-16 relative'>
       <h3 className='text-3xl font-bold my-2'>How does it work?</h3>
 
-      <div className='flex space-x-4'>
+      <div className='grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-4'>
         {
           influencer ? (
             <>
