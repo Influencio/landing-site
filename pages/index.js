@@ -31,10 +31,12 @@ const Landing = ({ metadata, global, pageContext }) => {
         </div>
       </div>
 
-      <div className='bg-black flex justify-around p-8 flex-wrap'>
-        <Info num={1} title='Explore' text='Explore and connect with inspiring, creative, and professional influencers.' />
-        <Info num={2} title='Create' text='Create lasting, impactful, and authentic collaborations together.' />
-        <Info num={3} title='Influence' text='Share experiences, know-how, and expertise with your network and influence each other.' />
+      <div className='bg-black'>
+        <div className='container flex justify-around p-8 flex-wrap'>
+          <Info num={1} title='Explore' text='Explore and connect with inspiring, creative, and professional influencers.' />
+          <Info num={2} title='Create' text='Create lasting, impactful, and authentic collaborations together.' />
+          <Info num={3} title='Influence' text='Share experiences, know-how, and expertise with your network and influence each other.' />
+        </div>
       </div>
 
       <div className='flex w-full my-16 justify-center'>
@@ -82,11 +84,13 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div>
-        <div className='px-8 md:px-16 py-32 bg-gray-300 space-y-12'>
-          <h2 className='text-4xl md:text-7xl font-bold'>Join your professional influencer community now.</h2>
-          <div className='space-x-8 flex'>
-            <ButtonLink link='/register/company' appearance='black'>For businesses</ButtonLink>
-            <ButtonLink link='register/influencer' appearance='black'>For influencers</ButtonLink>
+        <div className='bg-gray-300'>
+          <div className='container px-8 md:px-16 py-32 space-y-12'>
+            <h2 className='text-4xl md:text-7xl font-bold'>Join your professional influencer community now.</h2>
+            <div className='space-x-8 flex'>
+              <ButtonLink link='/register/company' appearance='black'>For businesses</ButtonLink>
+              <ButtonLink link='register/influencer' appearance='black'>For influencers</ButtonLink>
+            </div>
           </div>
         </div>
       </div>
