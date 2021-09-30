@@ -97,8 +97,8 @@ const Businesses = ({ metadata, global, pageContext }) => {
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <div className='flex justify-center items-center flex-wrap my-8 container'>
-        <div className='max-w-screen-lg w-full md:w-8/12 space-y-4 flex flex-col items-start'>
+      <div className='flex justify-between items-center flex-wrap my-8 container'>
+        <div className='max-w-screen-lg w-full md:w-7/12 space-y-4 flex flex-col items-start'>
           <p className='text-blue-500'>JUMP START YOUR GROWTH.</p>
           <h1 className='text-6xl font-bold'>Scale your business with influencer marketing</h1>
           <h3 className='text-xl'>Discover influencers for your brand, post and monitor campaigns, give reviews, generate awareness, and boost sales through authentic collaborations — all within a single platform.</h3>
