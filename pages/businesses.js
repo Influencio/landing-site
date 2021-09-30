@@ -113,7 +113,11 @@ const Businesses = ({ metadata, global, pageContext }) => {
       </div>
 
       <FeatureRowsGroup data={featureRowsData} />
-      
+
+      <div className='flex justify-center w-full my-24'>
+        <ButtonLink link='/register/company' appearance='black'>GET STARTED TODAY</ButtonLink>
+      </div>
+
       <TestimonialGroup data={testimonialData} />
     </Layout>
   )
