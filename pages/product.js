@@ -1,3 +1,5 @@
+import { useState } from "react";
+import classnames from 'classnames'
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import textMap from 'utils/text-map';
@@ -5,6 +7,7 @@ import imageMap from 'utils/image-map';
 import Link from "next/link"
 import urls from 'utils/urls'
 import FeatureRowsGroup from "@/components/sections/feature-rows-group";
+import { Tab } from '@headlessui/react'
 
 import getCustomProps from "utils/custom-page-props";
 import ButtonLink from "@/components/elements/button-link";
@@ -69,6 +72,8 @@ const Product = ({ metadata, global, pageContext }) => {
         </div>
       </div>
 
+      <BrahTabs />
+
       <div className='container my-24'>
         <h3 className='text-3xl w-full md:w-6/12'>Create impactful and lasting collaborations with influencers</h3>
 
@@ -95,6 +100,71 @@ const Product = ({ metadata, global, pageContext }) => {
       </div>
 
     </Layout>
+  )
+}
+
+const BrahTabs = () => {
+
+  let [categories] = useState({
+    Experience: {
+      title: 'Evaluate your influencers based on experience',
+      text: 'Data reveals how influencers perform, experience demonstrates who they are. Evaluate influencers through their online media kits showing previous collaborations, and understand whether their commercial profile is a good fit for your brand. ',
+      image: `${urls.landing}/images/Group 743.png`
+    },
+    Insights: {
+      title: 'Make decisions based on powerful insights',
+      text: 'Invest in influencers who are strongly engaged with their audience and continuously captivate new followers. We provide all the analytics needed to aid your decision-making process, before investing time, effort, and money.',
+      image: `${urls.landing}/images/campaign-creators-pypeCEaJeZY-unsplash 1.png`
+    },
+    Content: {
+      title: 'Evaluate influencers on their content style',
+      text: 'Remember the media kits we touched base on before? Well, they also include all the content an influencer has made in collaboration with a business. This gives you insight into how an influencer creates sponsored content, and saves you time on manual searches.',
+      image: `${urls.landing}/images/gabrielle-henderson-bmUa09zy2ZQ-unsplash (1) 1.png`
+    },
+    Reviews: {
+      title: 'Make decisions based on reviews and ratings',
+      text: 'Read the reviews and ratings made by other businesses to gain a better understanding of the influencers you wish to work with.',
+      image: `${urls.landing}/images/charles-deluvio-Lks7vei-eAg-unsplash 1.png`
+    },
+  })
+
+  return (
+    <div className="container w-full px-2 py-16 sm:px-0">
+      <Tab.Group>
+        <Tab.List className="flex p-1 space-x-1 rounded-xl">
+          {Object.keys(categories).map((category) => (
+            <Tab
+              key={category}
+              className={({ selected }) =>
+                classnames(
+                  'w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg',
+                  selected
+                    ? 'bg-gray-100 shadow'
+                    : 'hover:bg-white/[0.12] hover:text-gray-500'
+                )
+              }
+            >
+              {category}
+            </Tab>
+          ))}
+        </Tab.List>
+        <Tab.Panels className="mt-2">
+          {Object.values(categories).map((el, idx) => (
+            <Tab.Panel
+              key={idx}
+            >
+              <div className='mt-6 grid grid-rows-2 md:grid-rows-1 grid-flow-col gap-12'>
+                <img src={el.image} />
+                <div className='p-8 max-w-6/12'>
+                  <h3 className='font-bold text-3xl'>{el.title}</h3>
+                  <p className='text-gray-600 text-lg mt-4'>{el.text}</p>
+                </div>
+              </div>
+            </Tab.Panel>
+          ))}
+        </Tab.Panels>
+      </Tab.Group>
+    </div>
   )
 }
 
