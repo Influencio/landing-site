@@ -27,6 +27,18 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+      'spring-wood': {
+        '50': '#f6f4ee',
+        '100': '#f1ede4',
+        '200': '#e3dbc9',
+        '300': '#cec1a1',
+        '400': '#b8a475',
+        '500': '#97814e',
+        '600': '#76653d',
+        '700': '#5b4e2f',
+        '800': '#4d4228',
+        '900': '#403721',
+      },
     },
     spacing: {
       px: '1px',
