@@ -4,7 +4,7 @@ import { buttonLinkPropTypes } from "utils/types";
 import Link from "next/link";
 import CustomLink from "./custom-link";
 
-const ButtonContent = ({ button, appearance, compact }) => {
+const ButtonContent = ({ button, appearance, compact, xl }) => {
   return (
     <div
       className={classNames(
@@ -36,6 +36,12 @@ const ButtonContent = ({ button, appearance, compact }) => {
         // Specific to when the button is white outlines
         {
           "text-white border-white": appearance === "white-outline",
+        },
+        {
+          "text-black bg-spring-wood-100 border-spring-wood-100": appearance === "spring-wood",
+        },
+        {
+          "text-xl px-12 py-6": xl === true
         }
       )}
     >
@@ -44,10 +50,10 @@ const ButtonContent = ({ button, appearance, compact }) => {
   );
 };
 
-const ButtonLink = ({ button, appearance, compact = false, link, children }) => {
+const ButtonLink = ({ button, appearance, compact = false, link, children, xl }) => {
   return (
     <CustomLink link={button || {url: link}}>
-      <ButtonContent button={button || {text: children}} appearance={appearance} compact={compact} />
+      <ButtonContent button={button || {text: children}} appearance={appearance} compact={compact} xl={xl} />
     </CustomLink>
   );
 };
@@ -59,9 +65,11 @@ ButtonLink.propTypes = {
     "white-outline",
     "white",
     "dark-outline",
-    "black"
+    "black",
+    "spring-wood"
   ]),
   compact: PropTypes.bool,
+  xl: PropTypes.bool
 };
 
 export default ButtonLink;
