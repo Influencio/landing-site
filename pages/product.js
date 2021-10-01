@@ -131,16 +131,16 @@ const BrahTabs = () => {
   return (
     <div className="container w-full px-2 py-16 sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex p-1 space-x-1 rounded-xl">
+        <Tab.List className="flex p-1 space-x-4 rounded-xl">
           {Object.keys(categories).map((category) => (
             <Tab
               key={category}
               className={({ selected }) =>
                 classnames(
-                  'w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg',
+                  'w-full py-2.5 text-sm leading-5 font-medium text-gray-700 border-b-2 text-left',
                   selected
-                    ? 'bg-gray-100 shadow'
-                    : 'hover:bg-white/[0.12] hover:text-gray-500'
+                    ? 'border-black'
+                    : 'hover:bg-white/[0.12] hover:text-gray-500 border-gray-300'
                 )
               }
             >
