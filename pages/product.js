@@ -75,7 +75,7 @@ const Product = ({ metadata, global, pageContext }) => {
       <BrahTabs />
 
       <div className='container my-24 max-w-screen-lg'>
-        <h3 className='text-3xl w-full md:w-6/12'>Create impactful and lasting collaborations with influencers</h3>
+        <h3 className='text-3xl w-full md:w-6/12 font-bold'>Create impactful and lasting collaborations with influencers</h3>
 
         <div className='mt-4 grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-4'>
           <InfoBox title='Create a free campaign' text='Take 5 minutes to create and post a campaign and start recruting influencers for impactful and lasting collaborations now.' num='01' />
