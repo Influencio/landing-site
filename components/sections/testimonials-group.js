@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import Image from "../elements/image";
 import CustomLink from "../elements/custom-link";
+import { VscQuote } from 'react-icons/vsc'
 
 const TestimonialsGroup = ({ data }) => {
   // Only show one testimonial at a time
@@ -9,7 +10,7 @@ const TestimonialsGroup = ({ data }) => {
   const selectedTestimonial = data.testimonials[selectedTestimonialIndex];
 
   return (
-    <section className="text-lg pt-12 pb-16 flex flex-col md:flex-row mx-auto max-w-screen-xl justify-around container">
+    <section className="text-lg pt-12 pb-16 flex flex-col md:flex-row mx-auto max-w-screen-xl justify-around container space-x-0 md:space-x-32">
       <div>
       <h4 className='text-lg text-blue-500 uppercase'>{data.subTitle}</h4>
       <h2 className="title">{data.title}</h2>
@@ -54,7 +55,11 @@ const TestimonialsGroup = ({ data }) => {
               media={selectedTestimonial.logo}
               className="h-8 w-auto mb-6 sm:mb-10 mt-2 sm:mt-0"
             />
-            <p className="italic mb-6">"{selectedTestimonial.text}"</p>
+            <div className="italic mb-6 relative">
+              <VscQuote className='absolute top-[-20px] left-0 text-5xl text-gray-200 z-10' />
+              <VscQuote className='absolute bottom-[-10px] right-0 text-5xl text-gray-200 z-10 scale-y-[-1] scale-x-[-1]' />
+              <div className='z-20 relative'>{selectedTestimonial.text}</div>
+            </div>
             <p className="font-bold text-base sm:text-sm">
               {selectedTestimonial.authorName}
             </p>
