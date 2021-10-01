@@ -98,14 +98,14 @@ const Businesses = ({ metadata, global, pageContext }) => {
       <Seo metadata={metadata} />
 
       <div className='flex justify-between items-center flex-wrap my-8 container'>
-        <div className='max-w-screen-lg w-full md:w-7/12 space-y-4 flex flex-col items-start'>
+        <div className='max-w-screen-md w-full md:w-7/12 space-y-4 flex flex-col items-start'>
           <p className='text-blue-500'>JUMP START YOUR GROWTH.</p>
-          <h1 className='text-6xl font-bold'>Scale your business with influencer marketing</h1>
+          <h1 className='text-5xl md:text-7xl'>Scale your business with influencer marketing</h1>
           <h3 className='text-xl'>Discover influencers for your brand, post and monitor campaigns, give reviews, generate awareness, and boost sales through authentic collaborations — all within a single platform.</h3>
           <ButtonLink appearance='black' link='/register/company'>GET FREE ACCESS NOW</ButtonLink>
         </div>
 
-        <div className='max-w-screen-lg w-full md:w-4/12 space-x-2 flex'>
+        <div className='max-w-screen-lg w-full md:w-4/12 space-x-2 flex mt-6'>
           <img src={`${urls.landing}/images/pexels-fauxels-3183188 1.png`} style={{height: 'max-content'}} className='w-4/12' />
           <img src={`${urls.landing}/images/pexels-fauxels-3183188 2.png`} style={{height: 'max-content'}} className='w-4/12 mt-10' />
           <img src={`${urls.landing}/images/pexels-fauxels-3183188 3.png`} style={{height: 'max-content'}} className='w-4/12' />
