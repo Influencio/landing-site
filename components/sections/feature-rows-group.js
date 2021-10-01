@@ -24,7 +24,7 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
           >
             {/* Text section */}
             <div className="w-full lg:w-6/12 lg:pr-6 text-lg">
-              <h5 className='text-lg text-blue-500 uppercase'>{feature.subTitle}</h5>
+              <h5 className='text-lg text-blue-500 uppercase font-bold'>{feature.subTitle}</h5>
               <h4 className="text-3xl font-bold">{feature.title}</h4>
               <p className="my-3">{feature.description}</p>
 

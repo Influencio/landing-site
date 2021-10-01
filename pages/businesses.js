@@ -99,7 +99,7 @@ const Businesses = ({ metadata, global, pageContext }) => {
 
       <div className='flex justify-between items-center flex-wrap my-8 container'>
         <div className='max-w-screen-md w-full md:w-7/12 space-y-4 flex flex-col items-start'>
-          <p className='text-blue-500'>JUMP START YOUR GROWTH.</p>
+          <p className='text-blue-500 font-bold'>JUMP START YOUR GROWTH.</p>
           <h1 className='text-5xl md:text-7xl'>Scale your business with influencer marketing</h1>
           <h3 className='text-xl'>Discover influencers for your brand, post and monitor campaigns, give reviews, generate awareness, and boost sales through authentic collaborations — all within a single platform.</h3>
           <ButtonLink appearance='black' link='/register/company'>GET FREE ACCESS NOW</ButtonLink>

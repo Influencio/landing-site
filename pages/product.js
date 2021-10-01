@@ -60,7 +60,7 @@ const Product = ({ metadata, global, pageContext }) => {
         <div className='-mt-8 md:-mt-16 z-10 w-full bg-black text-white text-center py-12 flex justify-center'>
           <div className='max-w-screen-sm flex flex-col justify-center space-y-4'>
             <h5 className='uppercase text-lg'>navigate with clarity.</h5>
-            <h4 className='uppercase text-3xl'>All-in-one solution to manage all your influencer marketing activities</h4>
+            <h4 className='uppercase text-3xl font-bold'>All-in-one solution to manage all your influencer marketing activities</h4>
           </div>
         </div>
 
