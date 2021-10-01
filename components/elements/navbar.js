@@ -33,20 +33,20 @@ const Navbar = ({ navbar, pageContext }) => {
                 />
               </a>
             </Link>
-            {/* List of links on desktop */}
-            <ul className="hidden list-none md:flex flex-row gap-4 items-baseline ml-10">
+          </div>
+          <div className="flex">
+          {/* List of links on desktop */}
+          <ul className="hidden list-none md:flex flex-row gap-4 mr-8 ml-10 items-center">
               {navbar.links.map((navLink) => (
                 <li key={navLink.id}>
                   <CustomLink link={navLink} locale={router.locale}>
-                    <div className="hover:text-gray-900 px-2 py-1">
+                    <div className="hover:text-gray-900 px-2 py-1 leading-3">
                       {navLink.text}
                     </div>
                   </CustomLink>
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="flex">
             {/* Locale Switch Mobile */}
             {pageContext.localizations && (
               <div className="md:hidden">
