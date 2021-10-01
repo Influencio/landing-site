@@ -32,7 +32,7 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='bg-black'>
-        <div className='container flex justify-around p-8 flex-wrap'>
+        <div className='container flex justify-around py-8 flex-wrap'>
           <Info num={1} title='Explore' text='Explore and connect with inspiring, creative, and professional influencers.' />
           <Info num={2} title='Create' text='Create lasting, impactful, and authentic collaborations together.' />
           <Info num={3} title='Influence' text='Share experiences, know-how, and expertise with your network and influence each other.' />
