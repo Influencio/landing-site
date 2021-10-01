@@ -3,7 +3,7 @@ import { getCustomPageData, getGlobalData } from "./api"
 export default slug => async context => {
   const { locale, locales, defaultLocale, preview = null } = context
 
-  const globalLocale = await getGlobalData(locale)
+  const globalLocale = await getGlobalData(locale || 'en')
 
   // Fetch pages. Include drafts if preview mode is on
   const pageData = await getCustomPageData(
