@@ -65,10 +65,10 @@ const Product = ({ metadata, global, pageContext }) => {
         </div>
 
         <div className='text-center mt-24 flex flex-col justify-center items-center container'>
-          <h1 className='uppercase text-5xl md:text-7xl'>all you need in one place</h1>
+          <h1 className='uppercase text-5xl md:text-8xl'>all you need in one place</h1>
           <h3 className='text-gray-500 text-xl'>Discover, run campaigns, recruit, and pay — everything in one place.</h3>
 
-          <img className='w-full md:w-10/12 mt-10' alt='the influencio platform' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.49 1.png`} />
+          <img className='w-full max-w-screen-lg md:w-10/12 mt-10' alt='the influencio platform' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.49 1.png`} />
         </div>
       </div>
 
@@ -95,7 +95,7 @@ const Product = ({ metadata, global, pageContext }) => {
             <h4 className='text-3xl'>Create your influencer campaign today, with Influencio.</h4>
           </div>
 
-          <ButtonLink link='/register'>TRY NOW - IT'S FREE</ButtonLink>
+          <ButtonLink appearance='spring-wood' link='/register'>TRY NOW - IT'S FREE</ButtonLink>
         </div>
       </div>
 
