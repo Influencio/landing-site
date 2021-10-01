@@ -129,7 +129,7 @@ const BrahTabs = () => {
   })
 
   return (
-    <div className="container w-full px-2 py-16 sm:px-0">
+    <div className="container w-full px-2 py-16 sm:px-0 max-w-screen-lg">
       <Tab.Group>
         <Tab.List className="flex p-1 space-x-4 rounded-xl">
           {Object.keys(categories).map((category) => (
