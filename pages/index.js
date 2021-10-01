@@ -52,7 +52,7 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='flex justify-center items-center my-24 mx-8 sm:mx-24'>
-        <Button>GET STARTED NOW</Button>
+        <ButtonLink link='/register' appearance='spring-wood' xl={true}>GET STARTED NOW</ButtonLink>
       </div>
 
       <div className='flex justify-center'>
@@ -66,7 +66,7 @@ const Landing = ({ metadata, global, pageContext }) => {
             <div className='justify-center items-center flex flex-col max-w-lg text-center space-y-4'>
               <h3 className='text-3xl font-bold'>Are you a business?</h3>
               <p className='text-lg'>Schedule a meeting with one of our experts and take a guided tour through the platform.</p>
-              <Button appearance='white'>BOOK A MEETING NOW</Button>
+              <ButtonLink link='mailto:admin@influencio.dk' appearance='spring-wood'>BOOK A MEETING NOW</ButtonLink>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div>
-        <div className='bg-gray-300'>
+        <div className='bg-spring-wood-100'>
           <div className='container px-8 md:px-16 py-32 space-y-12'>
             <h2 className='text-4xl md:text-7xl font-bold'>Join your professional influencer community now.</h2>
             <div className='space-x-8 flex'>
@@ -131,7 +131,7 @@ const ImageChange = () => {
   };
 
   return (
-    <div className="relative h-[400px] lg:h-[600px] w-full col-span-12 md:col-span-6 lg:col-span-8">
+    <div className="relative h-[300px] sm:h-[400px] lg:h-[600px] w-full col-span-12 md:col-span-6 lg:col-span-8">
       <h4 className="text-xl font-bold text-white m-4 uppercase absolute">
         {influencer ? "For Influencers" : "for businesses"}
       </h4>
@@ -154,8 +154,8 @@ const HowDoesItWork = () => {
   const [influencer, setInfluencer] = useState(true);
 
   const Element = ({ title, text, icon }) => (
-    <div>
-      <div className='bg-white text-black text-4xl flex justify-center items-center h-16 w-16 rounded-full my-4'>{icon}</div>
+    <div className='col-span-12 md:col-span-6 lg:col-span-3'>
+      <div className='bg-spring-wood-100 text-black text-4xl flex justify-center items-center h-16 w-16 rounded-full my-4'>{icon}</div>
       <h5 className='text-xl font-bold uppercase'>{title}</h5>
       <div className='text-gray-300'>{text}</div>
     </div>
@@ -165,7 +165,7 @@ const HowDoesItWork = () => {
     <div className='text-white bg-black p-16 max-w-screen-xl my-16 relative'>
       <h3 className='text-3xl font-bold my-2'>How does it work?</h3>
 
-      <div className='grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-4'>
+      <div className='grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-4 grid-cols-12'>
         {
           influencer ? (
             <>
@@ -185,7 +185,7 @@ const HowDoesItWork = () => {
         }
       </div>
 
-      <div onClick={() => setInfluencer(!influencer)} className='cursor-pointer absolute right-0 border border-black bg-white px-8 py-4 text-black flex space-x-4 items-center' style={{ bottom: -15 }}><span>{influencer ? 'businesses' : 'influencers'}</span> <AiOutlineRight /></div>
+      <div onClick={() => setInfluencer(!influencer)} className='cursor-pointer absolute right-0 bg-spring-wood-100 px-8 py-4 text-black flex space-x-4 items-center' style={{ bottom: -15 }}><span>{influencer ? 'businesses' : 'influencers'}</span> <AiOutlineRight /></div>
     </div>
   )
 }
