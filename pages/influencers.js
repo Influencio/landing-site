@@ -39,11 +39,11 @@ const Influencers = ({ metadata, global, pageContext }) => {
           <h4 className='text-xl text-blue-500'>A PLATFORM BUILT FOR YOU.</h4>
           <h1 className='text-6xl md:text-9xl uppercase text-center'>the future of the influencer industry</h1>
           <h2 className='text-2xl text-gray-400 text-center max-w-screen-md'>Content creator, SoMe Consultant, Influencer, Blogger, you name it - our community is for all the creators. Join the first professional community for influencers and help change the perception of the industry. </h2>
-          <ButtonLink link='/register/influencer'>GET STARTED FOR FREE NOW</ButtonLink>
+          <ButtonLink appearance='spring-wood' link='/register/influencer'>GET STARTED FOR FREE NOW</ButtonLink>
         </div>
       </div>
 
-      <div className='grid grid-rows-2 md:grid-rows-1 grid-flow-col gap-8 container'>
+      <div className='grid grid-rows-2 md:grid-rows-1 grid-flow-col gap-8 container max-w-screen-lg'>
         <img src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.47 1.png`} />
         <div className='space-y-4 p-1 lg:p-16'>
           <h3 className='text-4xl font-bold'>Build your own exclusive profile</h3>
@@ -60,7 +60,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
       <div className='container grid grid-rows-3 sm:grid-rows-2 md:grid-rows-1 grid-flow-col gap-8 my-32 grid-cols-12'>
         <h3 className='text-3xl font-bold col-span-12 md:col-span-4'>Join a community of professional influencers</h3>
         <div className='flex items-start space-x-4 col-span-12 sm:col-span-6 md:col-span-4'>
-          <div className='font-bold text-2xl p-3 rounded-full text-gray-600 bg-gray-100'><AiOutlineUsergroupAdd /></div>
+          <div className='font-bold text-2xl p-3 rounded-full text-gray-600 bg-spring-wood-100'><AiOutlineUsergroupAdd /></div>
           <div>
             <h6 className='font-bold'>Grow your network</h6>
             <p>Connect with other influencers and start growing your network. </p>
@@ -68,7 +68,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
         </div>
 
         <div className='flex items-start space-x-4 col-span-12 sm:col-span-6 md:col-span-4'>
-          <div className='font-bold text-2xl p-3 rounded-full text-gray-600 bg-gray-100'><AiOutlineShareAlt /></div>
+          <div className='font-bold text-2xl p-3 rounded-full text-gray-600 bg-spring-wood-100'><AiOutlineShareAlt /></div>
           <div>
             <h6 className='font-bold'>Share your experiences</h6>
             <p>Share your experiences as an influencer with other community members.</p>
@@ -119,7 +119,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
       <div className='container grid grid-rows-3 sm:grid-rows-2 md:grid-rows-1 grid-flow-col gap-8 my-32 grid-cols-12'>
         <h3 className='text-3xl font-bold col-span-12 md:col-span-4'>We’ll pay you to help us grow.</h3>
         <div className='flex items-start space-x-4 col-span-12 sm:col-span-6 md:col-span-4'>
-          <div className='text-xl py-3 px-4 rounded-full text-gray-600 bg-gray-100'>+1</div>
+          <div className='text-xl py-3 px-4 rounded-full text-gray-600 bg-spring-wood-100'>+1</div>
           <div>
             <h6 className='font-bold'>The bigger the better</h6>
             <p>A larger network is not only better for us, but it’s better for you. Onboard +1 of your fellow influencers and be invited to the following opportunity.</p>
@@ -127,7 +127,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
         </div>
 
         <div className='flex items-start space-x-4 col-span-12 sm:col-span-6 md:col-span-4'>
-          <div className='text-xl py-3 px-5 rounded-full text-gray-600 bg-gray-100'>$</div>
+          <div className='text-xl py-3 px-5 rounded-full text-gray-600 bg-spring-wood-100'>$</div>
           <div>
             <h6 className='font-bold'>Onboard and get paid!</h6>
             <p>Earn <strong>€100</strong> for every brand you onboard to Influencio Pro. All you have to do is put us in touch with the brand and we’ll pay you if they end up subscribing.</p>
@@ -135,7 +135,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
         </div>
       </div>
 
-      <div className='container text-center my-48'>
+      <div className='container text-center my-48 max-w-screen-lg'>
         <h3 className='text-4xl font-bold'>Eager to get started?</h3>
         <div className='text-xl'>Follow the steps below.</div>
 
@@ -148,7 +148,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
       </div>
 
       <div>
-        <div className='bg-gray-300'>
+        <div className='bg-spring-wood-100'>
           <div className='container px-8 md:px-16 py-32 space-y-12'>
             <h2 className='text-4xl md:text-7xl font-bold'>Join your professional influencer community now.</h2>
             <div className='flex'>
@@ -163,7 +163,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
 
 const ListItem = ({ icon, text }) => (
   <div className='flex space-x-4'>
-    <div className='bg-gray-100 rounded-full p-2 text-gray-700'>{icon}</div>
+    <div className='bg-spring-wood-100 rounded-full p-2 text-gray-700'>{icon}</div>
     <p className='font-bold'>{text}</p>
   </div>
 )
