@@ -20,10 +20,10 @@ const Landing = ({ metadata, global, pageContext }) => {
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <div className='flex flex-col items-center justify-center h-screen'>
-        <div className='w-10/12 max-w-screen-md space-y-6 flex flex-col items-center'>
-          <h1 className='text-6xl uppercase text-center'>Your proffessional influencer community</h1>
-          <h2 className='text-2xl text-gray-400 text-center'>Join a professional community of brands and influencers who aspire to collaborate and do great work together.</h2>
+      <div className='flex flex-col items-center justify-center my-72'>
+        <div className='w-10/12 max-w-screen-lg space-y-6 flex flex-col items-center'>
+          <h1 style={{ lineHeight: '1.25em' }} className='text-6xl uppercase text-center font-bold'>Your proffessional influencer community</h1>
+          <h2 className='text-2xl text-gray-400 text-center max-w-screen-sm'>Join a professional community of brands and influencers who aspire to collaborate and do great work together.</h2>
           <div className='space-x-8'>
             <Button appearance='black'>Find influencers</Button>
             <Button>Find work</Button>
@@ -39,10 +39,10 @@ const Landing = ({ metadata, global, pageContext }) => {
         </div>
       </div>
 
-      <div className='flex w-full my-16 justify-center'>
-        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32'>
-          <div className='p-8'>
-            <h3 className='text-4xl my-3 font-bold'>Influencer marketing is a two-way street</h3>
+      <div className='flex w-full my-16 justify-center container'>
+        <div className='grid grid-rows-2 md:grid-rows-1 grid-flow-col gap-4 grid-cols-12'>
+          <div className='p-8 col-span-12 md:col-span-6 lg:col-span-4'>
+            <h3 className='text-4xl my-3 font-bold mb-12'>Influencer marketing is a two-way street</h3>
             <strong>All-in-one and more to come</strong>
             <p>Influencio is for both influencers and businesses. Our mission is not only to simplify influencer marketing for brands, but to build a place for influencers to express all the work that happens behind the scenes.</p>
           </div>
@@ -131,13 +131,13 @@ const ImageChange = () => {
   };
 
   return (
-    <div className="relative w-full h-96 min-w-64">
+    <div className="relative h-[400px] lg:h-[600px] w-full col-span-12 md:col-span-6 lg:col-span-8">
       <h4 className="text-xl font-bold text-white m-4 uppercase absolute">
         {influencer ? "For Influencers" : "for businesses"}
       </h4>
       <Link href={`/register/${influencer ? "influencer" : "company"}`}>
         <div
-          className="w-full h-full cursor-pointer"
+          className="w-full h-full cursor-pointer bg-cover bg-center"
           style={{
             backgroundImage: `url("${urls.landing}/images/${
               influencer ? "pexels-plann-4549414 1.png" : "Businesses image.png"
