@@ -74,7 +74,7 @@ const Product = ({ metadata, global, pageContext }) => {
 
       <BrahTabs />
 
-      <div className='container my-24'>
+      <div className='container my-24 max-w-screen-lg'>
         <h3 className='text-3xl w-full md:w-6/12'>Create impactful and lasting collaborations with influencers</h3>
 
         <div className='mt-4 grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-4'>
@@ -171,7 +171,7 @@ const BrahTabs = () => {
 const InfoBox = ({ title, text, num }) => (
   <div>
     <h5 className='text-lg font-bold mb-2'>{title}</h5>
-    <div className='relative p-4 bg-gray-100'>
+    <div className='relative p-4 bg-gray-100 h-48'>
       <p className='text-gray-700'>{text}</p>
       <div className='absolute right-0 bottom-0 bg-white font-bold p-2'>{num}</div>
     </div>
