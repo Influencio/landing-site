@@ -4,11 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-h1, nav ul {
+h1, .navbar ul {
   font-family: 'Bebas Neue';
 }
 
-nav ul {
+.navbar ul {
   font-size: 1.25rem;
 }
 
