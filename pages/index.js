@@ -153,11 +153,14 @@ const ImageChange = () => {
 const HowDoesItWork = () => {
   const [influencer, setInfluencer] = useState(true);
 
-  const Element = ({ title, text, icon }) => (
+  const Element = ({ title, text, icon, linkText, linkPath }) => (
     <div className='col-span-12 md:col-span-6 lg:col-span-3'>
       <div className='bg-spring-wood-100 text-black text-4xl flex justify-center items-center h-16 w-16 rounded-full my-4'>{icon}</div>
       <h5 className='text-xl font-bold uppercase'>{title}</h5>
       <div className='text-gray-300'>{text}</div>
+      {
+        linkText ? <Link href={linkPath}><div className='flex space-x-2 items-center font-bold mt-4 cursor-pointer'><span>{linkText}</span> <AiOutlineRight className='text-xl' /></div></Link> : null
+      }
     </div>
   )
 
@@ -165,21 +168,23 @@ const HowDoesItWork = () => {
     <div className='text-white bg-black p-16 max-w-screen-xl my-16 relative'>
       <h3 className='text-3xl font-bold my-2'>How does it work?</h3>
 
+      <div className='absolute right-16 top-10'>{influencer ? '01' : '02'}/02</div>
+
       <div className='grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-4 grid-cols-12'>
         {
           influencer ? (
             <>
-              <Element icon={<AiOutlineUnorderedList />} title='sign up' text='Put your best foot forward by filling out your influencio profile with past collab experience, connect your Instagram, and personal info.' />
-              <Element icon={<AiOutlineSearch />} title='find opportunities' text='Search through the platform and find campaigns that match your interests. Businesses may also be on the lookout for you, so stay active!' />
-              <Element icon={<AiOutlineDollar />} title='make a living' text='You decide the boundaries for how much you earn. Work on fixed payments, organic advocacy, and/or commission based agreements.' />
-              <Element icon={<AiOutlineUserAdd />} title='grow your network' text='Share your experiences with other community members, inspire others and be inspired. Elevate your career and grow your profile.' />
+              <Element linkText='Sign up now' linkPath='/register/influencer' icon={<AiOutlineUnorderedList />} title='sign up' text='Put your best foot forward by filling out your influencio profile with past collab experience, connect your Instagram, and personal info.' />
+              <Element linkText='Find work now' linkPath='/register/influencer' icon={<AiOutlineSearch />} title='find opportunities' text='Search through the platform and find campaigns that match your interests. Businesses may also be on the lookout for you, so stay active!' />
+              <Element linkText='Start earning today' linkPath='/register/influencer' icon={<AiOutlineDollar />} title='make a living' text='You decide the boundaries for how much you earn. Work on fixed payments, organic advocacy, and/or commission based agreements.' />
+              <Element linkText='Become a member now' linkPath='/register/influencer' icon={<AiOutlineUserAdd />} title='grow your network' text='Share your experiences with other community members, inspire others and be inspired. Elevate your career and grow your profile.' />
             </>
           ) : (
             <>
-              <Element icon={<AiOutlineUnorderedList />} title='sign up' text='Create your account, add your logo and a brief description of your business.' />
-              <Element icon={<AiOutlineSearch />} title='find influencers' text='Discover influencers for your brand using 10+ demographic and audience filters. Manage communications directly on the platform.' />
-              <Element icon={<VscMegaphone />} title='post campaigns' text='Post campaigns and let influencers come to you. You decide the guidelines of your campaigns and the associated reward systems.' />
-              <Element icon={<AiOutlineBarChart />} title='Track performance' text='Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.' />
+              <Element linkText='' linkPath='/register/company' icon={<AiOutlineUnorderedList />} title='sign up' text='Create your account, add your logo and a brief description of your business.' />
+              <Element linkText='' linkPath='/register/company' icon={<AiOutlineSearch />} title='find influencers' text='Discover influencers for your brand using 10+ demographic and audience filters. Manage communications directly on the platform.' />
+              <Element linkText='' linkPath='/register/company' icon={<VscMegaphone />} title='post campaigns' text='Post campaigns and let influencers come to you. You decide the guidelines of your campaigns and the associated reward systems.' />
+              <Element linkText='' linkPath='/register/company' icon={<AiOutlineBarChart />} title='Track performance' text='Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.' />
             </>
           )
         }
