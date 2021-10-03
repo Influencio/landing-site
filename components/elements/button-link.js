@@ -25,6 +25,9 @@ const ButtonContent = ({ button, appearance, compact, xl }) => {
         {
           "bg-black text-white border-black": appearance === "black",
         },
+        {
+          "text-black border-black": appearance === "black-outline",
+        },
         // Specific to when the button is dark outlines
         {
           "text-blue-600 border-blue-600": appearance === "dark-outline",
@@ -66,6 +69,7 @@ ButtonLink.propTypes = {
     "white",
     "dark-outline",
     "black",
+    "black-outline",
     "spring-wood"
   ]),
   compact: PropTypes.bool,
