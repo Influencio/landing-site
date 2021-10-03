@@ -100,7 +100,7 @@ const Landing = ({ metadata, global, pageContext }) => {
 
 const Info = ({ num, title, text }) => (
   <div className='text-white flex w-72 space-x-4 items-start hover:opacity-100 opacity-50 my-4'>
-    <div className='border-2 border-white rounded-full p-4'>{'0' + num}</div>
+    <div className='border-2 border-white rounded-full h-[50px] flex justify-center items-center min-w-[50px]'><span>{'0' + num}</span></div>
     <div>
       <h5 className='text-xl font-bold'>{title}</h5>
       <p>{text}</p>
