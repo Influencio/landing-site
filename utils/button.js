@@ -17,6 +17,5 @@ export function getButtonAppearance(type, background) {
     return "white-outline";
   }
 
-  // Shouldn't happen, but default to dark button just in case
-  return "dark";
+  return type || "dark";
 }
