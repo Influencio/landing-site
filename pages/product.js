@@ -68,7 +68,7 @@ const Product = ({ metadata, global, pageContext }) => {
           <h1 className='uppercase text-5xl md:text-8xl'>all you need in one place</h1>
           <h3 className='text-gray-500 text-xl'>Discover, run campaigns, recruit, and pay — everything in one place.</h3>
 
-          <img className='w-full max-w-screen-lg md:w-10/12 mt-10' alt='the influencio platform' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.49 1.png`} />
+          <img className='w-full max-w-screen-lg md:w-10/12 mt-10' alt='the influencio platform' src={`${urls.landing}/images/Demonstration.png`} />
         </div>
       </div>
 
