@@ -24,9 +24,9 @@ const Landing = ({ metadata, global, pageContext }) => {
         <div className='w-10/12 max-w-screen-lg space-y-6 flex flex-col items-center'>
           <h1 className='text-6xl md:text-9xl uppercase text-center'>Your proffessional influencer community</h1>
           <h2 className='text-2xl text-gray-400 text-center max-w-screen-sm'>Join a professional community of brands and influencers who aspire to collaborate and do great work together.</h2>
-          <div className='space-x-8'>
-            <Button appearance='black'>Find influencers</Button>
-            <Button>Find work</Button>
+          <div className='space-x-8 flex'>
+            <ButtonLink link='/register/company' appearance='black'>Find influencers</ButtonLink>
+            <ButtonLink link='/register/influencer' appearance='black-outline'>Find work</ButtonLink>
           </div>
         </div>
       </div>
