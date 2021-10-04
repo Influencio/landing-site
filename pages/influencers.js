@@ -44,7 +44,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='grid grid-rows-2 md:grid-rows-1 grid-flow-col gap-8 container max-w-screen-lg'>
-        <img src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.47 1.png`} />
+        <img className='max-w-[400px] mx-auto' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.47 1.png`} />
         <div className='space-y-4 p-1 lg:p-16'>
           <h3 className='text-4xl font-bold'>Build your own exclusive profile</h3>
           <p>Create your exclusive profile and showcase the experience you’ve gained as an influencer. We know you spend a lot of time creating great content for brands and we want to acknowledge that. Let the world know what happens behind the scenes and contribute to professionalizing the industry.</p>
@@ -101,7 +101,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
       <FeatureRowsGroup data={featureRowsData} />
 
       <div className='container max-w-screen-lg grid grid-cols-12 grid-rows-2 md:grid-rows-1'>
-        <div className='md:space-y-12 space-x-4 md:space-x-0 col-start-1 col-end-12 md:col-end-3 flex flex-row md:flex-col justify-center overflow-hidden items-end'>
+        <div className='space-y-12 col-start-1 col-end-12 md:col-end-3 flex flex-col justify-center overflow-hidden items-center'>
           <img src={`${urls.landing}/images/pexels-cottonbro-2773521 1.png`} style={{height:'max-content'}} />
           <img src={`${urls.landing}/images/boxed-water-is-better-9eXP4VvhCl4-unsplash 1.png`} style={{height:'max-content'}} />
           <img src={`${urls.landing}/images/noah-naf-d3qemhQ7Mpg-unsplash 1.png`} style={{height:'max-content'}} />
