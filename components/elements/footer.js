@@ -7,7 +7,7 @@ import { AiOutlineInstagram } from 'react-icons/ai'
 const Footer = ({ footer }) => {
   return (
     <footer className="pt-24 bg-white flex flex-col items-center w-full">
-      <div className="max-w-screen-lg flex flex-col lg:flex-row lg:justify-between mb-32 w-full">
+      <div className="max-w-screen-lg flex flex-col lg:flex-row lg:justify-between mb-32 w-full container">
         <div className='space-y-4 text-gray-600 w-48'>
           {footer.logo && (
             <Image media={footer.logo} className="h-12 w-auto object-contain" />
