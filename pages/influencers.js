@@ -5,7 +5,7 @@ import imageMap from 'utils/image-map';
 import Link from "next/link"
 import Button from "@/components/elements/button";
 import urls from 'utils/urls';
-import { AiOutlineEdit, AiOutlineFileImage, AiOutlineCloudUpload, AiOutlineShareAlt, AiOutlineUsergroupAdd } from 'react-icons/ai'
+import { AiOutlineEdit, AiOutlineFileImage, AiOutlineCloudUpload, AiOutlineShareAlt, AiOutlineUsergroupAdd, AiOutlineRight } from 'react-icons/ai'
 import FeatureRowsGroup from "@/components/sections/feature-rows-group";
 
 import getCustomProps from "utils/custom-page-props";import ButtonLink from "@/components/elements/button-link";
@@ -73,6 +73,28 @@ const Influencers = ({ metadata, global, pageContext }) => {
             <h6 className='font-bold'>Share your experiences</h6>
             <p>Share your experiences as an influencer with other community members.</p>
           </div>
+        </div>
+      </div>
+
+      <div className='container my-48 max-w-screen-lg'>
+        <div className='bg-black text-white py-32 px-16 md:px-36 flex flex-col justify-center items-center relative'>
+          <div className='uppercase font-bold absolute top-16 left-24'>the edge of influence</div>
+
+          <div className='flex max-w-screen-sm flex-wrap justify-center space-y-8 md:space-y-0'>
+            <div className='space-y-6 w-auto md:w-4/12'>
+              <img src={`${urls.landing}/images/Screenshot 2021-10-04 at 13.38 1.png`} />
+              <div>
+                <div className='font-bold'>Camille Charriere</div>
+                <div className='font-bold text-sm text-gray-500'>Influencer & Blogger</div>
+              </div>
+            </div>
+
+            <div className='font-bold w-full md:w-8/12'>
+              “Our help is vital in selling your products and spreading your messages, even if you’ve turned what we do into a derogatory term. ‘Oh, she’s an influencer’ always seems to be said in an accusatory fashion, as if we are being deceitful and doing something to people despite their consent.”
+            </div>
+          </div>
+
+          <a target='_blank' rel="noopener noreferrer" className='cursor-pointer absolute right-0 bg-spring-wood-100 px-8 py-4 text-black flex space-x-4 items-center' style={{ bottom: -15 }} href='https://www.instagram.com/p/CQ530ewjcfu/'>Go to article <AiOutlineRight /></a>
         </div>
       </div>
 
