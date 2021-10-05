@@ -72,7 +72,7 @@ const LocaleSwitch = ({ pageContext }) => {
         className="hover:bg-blue-50 hover:text-blue-600 focus:bg-blue-50 focus:text-blue-600 focus:outline-none flex items-center justify-between px-2 py-2 cursor-pointer h-full rounded-md w-20"
         onClick={() => setShowing(!showing)}
       >
-        <FaGlobe className='text-xl text-black' />
+        <FaGlobe className='text-xl text-blue-500' />
         <span className="capitalize">{locale}</span>
         <MdExpandMore className="ml-1 text-blue-600" />
       </button>
