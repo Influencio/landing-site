@@ -30,12 +30,12 @@ const Button = ({
           },
           // Specific to when the button is fully dark
           {
-            'bg-blue-600 text-white border-blue-600':
+            'bg-blue-500 text-white border-blue-500':
               appearance === 'dark',
           },
           // Specific to when the button is dark outlines
           {
-            'text-blue-600 border-blue-600':
+            'text-blue-500 border-blue-500':
               appearance === 'dark-outline',
           },
           {
@@ -43,7 +43,7 @@ const Button = ({
           },
           // Specific to when the button is fully white
           {
-            'bg-white text-blue-600 border-white': appearance === 'white',
+            'bg-white text-blue-500 border-white': appearance === 'white',
           },
           // Specific to when the button is white outlines
           {
