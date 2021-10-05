@@ -22,7 +22,7 @@ const Landing = ({ metadata, global, pageContext }) => {
 
       <div className='flex flex-col items-center justify-center mt-48 mb-72'>
         <div className='w-10/12 max-w-screen-lg space-y-6 flex flex-col items-center'>
-          <h1 className='text-6xl md:text-9xl uppercase text-center'>Your proffessional influencer community</h1>
+          <h1 className='text-7xl md:text-9xl uppercase text-center'>Your proffessional influencer community</h1>
           <h2 className='text-2xl text-gray-400 text-center max-w-screen-sm'>Join a professional community of brands and influencers who aspire to collaborate and do great work together.</h2>
           <div className='space-x-8 flex'>
             <ButtonLink link='/register/company' appearance='black'>Find influencers</ButtonLink>
