@@ -79,7 +79,7 @@ const Landing = ({ metadata, global, pageContext }) => {
             {/* TODO: Add tags */}
           </div>
 
-          <img style={{ maxWidth: 400 }} className='w-full' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.45 1.png`} />
+          <img style={{ maxWidth: 400 }} className='w-full' src={`${urls.landing}/images/Group 720 1.png`} />
         </div>
       </div>
 

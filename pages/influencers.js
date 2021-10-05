@@ -44,8 +44,8 @@ const Influencers = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='grid grid-rows-2 md:grid-rows-1 grid-flow-col gap-8 container max-w-screen-lg'>
-        <img className='max-w-[400px] mx-auto' src={`${urls.landing}/images/Screenshot 2021-09-27 at 10.47 1.png`} />
-        <div className='space-y-4 p-1 lg:p-16'>
+        <img className='max-w-[400px] mx-auto' src={`${urls.landing}/images/Group 724 1.png`} />
+        <div className='space-y-4 p-1 lg:px-8'>
           <h3 className='text-4xl font-bold'>Build your own exclusive profile</h3>
           <p>Create your exclusive profile and showcase the experience you’ve gained as an influencer. We know you spend a lot of time creating great content for brands and we want to acknowledge that. Let the world know what happens behind the scenes and contribute to professionalizing the industry.</p>
 
