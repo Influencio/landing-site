@@ -2,7 +2,7 @@ import Image from "./image";
 import PropTypes from "prop-types";
 import { linkPropTypes, mediaPropTypes } from "utils/types";
 import CustomLink from "./custom-link";
-import { AiOutlineInstagram } from 'react-icons/ai'
+import { AiOutlineCopyrightCircle, AiOutlineFacebook, AiOutlineInstagram, AiOutlineLinkedin } from 'react-icons/ai'
 
 const Footer = ({ footer }) => {
   return (
@@ -44,14 +44,32 @@ const Footer = ({ footer }) => {
           ))}
         </nav>
       </div>
-      <div className="bg-gray-200 px-2 text-gray-700 flex items-end w-full">
-        <div className="container my-6 text-sm">{footer.smallText}</div>
+      <div className="bg-white px-2 text-gray-700 flex flex-col md:flex-row items-center md:items-end justify-around container">
+        {/* <div className="container my-6 text-sm">{footer.smallText}</div> */}
+
+        <div className='flex space-x-3 py-2'>
+          <a href='/terms-of-service'>Terms of Service</a>
+          <span>|</span>
+          <a href='/privacy-policy'>Privacy Policy</a>
+          <span>|</span>
+          <a href='/cookie-declaration'>Cookie Declaration</a>
+        </div>
         
-        <div>
-          <a href='https://www.instagram.com/influenc.io/' className='text-5xl text-black'>
-            <AiOutlineInstagram className='bg-white p-1' />
+        <div className='flex space-x-8 px-6 py-4 bg-spring-wood-200 text-black text-5xl'>
+          <a href='https://www.instagram.com/influenc.io/'>
+            <AiOutlineInstagram />
+          </a>
+
+          <a href='https://www.facebook.com'>
+            <AiOutlineFacebook/>
+          </a>
+
+          <a href='https://www.linkedin.com'>
+            <AiOutlineLinkedin />
           </a>
         </div>
+
+        <div className='py-2 flex items-center space-x-2'><AiOutlineCopyrightCircle /> <span>2021 All rights reserved.</span></div>
       </div>
     </footer>
   );
