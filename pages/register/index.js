@@ -19,17 +19,17 @@ const Index = ({ metadata, global, pageContext }) => {
 
       <h1 className='title my-32 text-center'>INFLUENCIO</h1>
 
-      <div className='flex w-full h-full lg:flex-row flex-col'>
+      <div className='w-full h-full flex flex-col md:flex-row md:space-x-16 justify-around container'>
         <Link href='/register/influencer'> 
-          <div className='w-full lg:w-6/12 text-center h-full flex flex-col items-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer'>
-            <img className='px-32 max-w-5xl w-full' alt='Company illustration' src={images.selectInfluencerImage.url} />
+          <div className='col-span-12 md:col-span-6 text-center h-full flex flex-col items-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer'>
+            <img className='h-auto md:h-[350px] max-w-5xl w-full' alt='Company illustration' src={images.selectInfluencerImage.url} />
             <div className='text-4xl my-12 text-gray-700'>{shortTexts.selectInfluencer}</div>
           </div>
         </Link>
 
         <Link href='/register/company'> 
-          <div className='w-full lg:w-6/12 text-center h-full flex flex-col items-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer'>
-            <img className='px-32 max-w-5xl w-full' alt='Company illustration' src={images.selectCompanyImage.url} />
+          <div className='col-span-12 md:col-span-6 text-center h-full flex flex-col items-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer'>
+            <img className='h-auto md:h-[350px] max-w-5xl w-full' alt='Company illustration' src={images.selectCompanyImage.url} />
             <div className='text-4xl my-12 text-gray-700'>{shortTexts.selectCompany}</div>
           </div>
         </Link>
