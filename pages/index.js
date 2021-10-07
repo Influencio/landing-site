@@ -76,7 +76,9 @@ const Landing = ({ metadata, global, pageContext }) => {
         <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-center'>
           <div className='p-8'>
             <h3 className='text-4xl my-3 font-bold'>Find influencers with experience in your market</h3>
-            {/* TODO: Add tags */}
+            <div className='flex space-x-3 flex-wrap'>
+              {['Fitness', 'Food', 'Education', 'Lifestyle', 'Adventure', 'Business', 'Fashion', 'Beauty', 'Gaming', 'Family'].map(t => <Tag className='my-2' text={t}/>)}
+            </div>
           </div>
 
           <img style={{ maxWidth: 400 }} className='w-full' src={`${urls.landing}/images/Group 720 1.png`} />
@@ -97,6 +99,10 @@ const Landing = ({ metadata, global, pageContext }) => {
     </Layout>
   )
 }
+
+const Tag = ({ text, className }) => (
+  <div className={`rounded-xl px-5 py-2 bg-spring-wood-100 text-black w-min hover:bg-spring-wood-200 cursor-default ${className || ''}`}>{text}</div>
+)
 
 const Info = ({ num, title, text }) => (
   <div className='text-white flex w-72 space-x-4 items-start hover:opacity-100 opacity-50 my-4'>
