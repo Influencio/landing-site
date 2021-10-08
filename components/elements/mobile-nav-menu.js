@@ -19,16 +19,16 @@ const MobileNavMenu = ({ navbar, closeSelf }) => {
     <div className="w-screen h-screen fixed top-0 left-0 overflow-y-scroll bg-white z-50 pb-6">
       <div className="container h-full flex flex-col justify-between">
         {/* Top section */}
-        <div className="flex flex-row justify-between py-2 items-center">
-          {/* Company logo */}
-          <Image media={navbar.logo} className="h-8 w-auto object-contain" />
-          {/* Close button */}
-          <button onClick={closeSelf} className="py-1 px-1">
-            <MdClose className="h-8 w-auto" />
-          </button>
-        </div>
-        {/* Bottom section */}
-        <div className="flex flex-col justify-end w-9/12 mx-auto">
+        <div>
+          <div className="flex flex-row justify-between py-2 items-center">
+            {/* Company logo */}
+            <Image media={navbar.logo} className="h-8 w-auto object-contain" />
+            {/* Close button */}
+            <button onClick={closeSelf} className="py-1 px-1">
+              <MdClose className="h-8 w-auto" />
+            </button>
+          </div>
+          
           <ul className="flex flex-col list-none gap-6 items-baseline text-xl mb-10">
             {navbar.links.map((navLink) => (
               <li key={navLink.id} className="block w-full">
@@ -41,6 +41,9 @@ const MobileNavMenu = ({ navbar, closeSelf }) => {
               </li>
             ))}
           </ul>
+        </div>
+        {/* Bottom section */}
+        <div className="flex flex-col justify-end w-9/12 mx-auto">
           {
             navbar.buttons?.length ? 
             <div className='space-y-2 flex flex-col'>
