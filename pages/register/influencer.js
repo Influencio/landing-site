@@ -86,7 +86,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
       <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
       <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
-      <div className="flex w-full flex-col items-center mb-10">
+      <div className="flex w-full flex-col items-center mb-10 container">
         <div>
           <FacebookLogin
             appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}

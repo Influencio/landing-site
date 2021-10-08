@@ -179,7 +179,7 @@ const Company = ({ metadata, global, pageContext }) => {
       <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
       <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center container">
         <div className="max-w-screen-xl w-full">
           <Steps steps={steps} currentStep={currentStep} />
         </div>
