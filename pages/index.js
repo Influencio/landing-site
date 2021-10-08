@@ -187,10 +187,10 @@ const HowDoesItWork = () => {
             </>
           ) : (
             <>
-              <Element linkText='' linkPath='/register/company' icon={<AiOutlineUnorderedList />} title='sign up' text='Create your account, add your logo and a brief description of your business.' />
-              <Element linkText='' linkPath='/register/company' icon={<AiOutlineSearch />} title='find influencers' text='Discover influencers for your brand using 10+ demographic and audience filters. Manage communications directly on the platform.' />
-              <Element linkText='' linkPath='/register/company' icon={<VscMegaphone />} title='post campaigns' text='Post campaigns and let influencers come to you. You decide the guidelines of your campaigns and the associated reward systems.' />
-              <Element linkText='' linkPath='/register/company' icon={<AiOutlineBarChart />} title='Track performance' text='Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.' />
+              <Element linkText='Sign up now' linkPath='/register/company' icon={<AiOutlineUnorderedList />} title='sign up' text='Create your account, add your logo and a brief description of your business.' />
+              <Element linkText='Find influencers now' linkPath='/register/company' icon={<AiOutlineSearch />} title='find influencers' text='Discover influencers for your brand using 10+ demographic and audience filters. Manage communications directly on the platform.' />
+              <Element linkText='Scale your business today' linkPath='/register/company' icon={<VscMegaphone />} title='post campaigns' text='Post campaigns and let influencers come to you. You decide the guidelines of your campaigns and the associated reward systems.' />
+              <Element linkText='Measure impact' linkPath='/register/company' icon={<AiOutlineBarChart />} title='Track performance' text='Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.' />
             </>
           )
         }
