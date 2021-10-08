@@ -6,6 +6,8 @@ import { DefaultSeo } from "next-seo"
 import { getStrapiMedia } from "utils/media"
 import { getGlobalData } from "utils/api"
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient()
 
@@ -45,6 +47,9 @@ const MyApp = ({ Component, pageProps }) => {
           handle: metadata.twitterUsername,
         }}
       />
+
+      <ToastContainer />
+
       {/* Display the content */}
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />

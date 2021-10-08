@@ -5,7 +5,7 @@ import textMap from 'utils/text-map';
 import imageMap from 'utils/image-map';
 import Link from "next/link"
 import urls from 'utils/urls'
-import { AiOutlineRight, AiOutlineUnorderedList, AiOutlineDollar, AiOutlineSearch, AiOutlineUserAdd, AiOutlineBarChart } from 'react-icons/ai'
+import { AiOutlineRight, AiOutlineUnorderedList, AiOutlineDollar, AiOutlineSearch, AiOutlineUserAdd, AiOutlineBarChart, AiOutlineArrowRight } from 'react-icons/ai'
 import { VscMegaphone } from 'react-icons/vsc';
 
 import getCustomProps from "utils/custom-page-props";
@@ -59,7 +59,7 @@ const Landing = ({ metadata, global, pageContext }) => {
         <HowDoesItWork />
       </div>
 
-      <div className='flex justify-center'>
+      <div className='flex justify-center my-32'>
         <div className='flex max-w-screen-xl flex-wrap'>
           <img style={{ maxWidth: 'unset'}} className='w-full md:w-6/12' src={`${urls.landing}/images/alizee-baudez-a4Nid9fLLlo-unsplash 1.png`} />
           <div className='bg-black text-white w-full md:w-6/12 flex flex-col p-8 justify-center items-center'>
@@ -73,12 +73,14 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='flex w-full my-16 justify-center'>
-        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-center'>
-          <div className='p-8'>
+        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-start'>
+          <div className='px-8'>
             <h3 className='text-4xl my-3 font-bold'>Find influencers with experience in your market</h3>
             <div className='flex space-x-3 flex-wrap'>
-              {['Fitness', 'Food', 'Education', 'Lifestyle', 'Adventure', 'Business', 'Fashion', 'Beauty', 'Gaming', 'Family'].map(t => <Tag className='my-2' text={t}/>)}
+              {['fashion', 'beauty', 'skincare', 'jewellery', 'travel', 'lifestyle', 'FMCG', 'fitness', 'sport', 'health', 'cooking', 'sustainability'].map(t => <Tag className='my-2' text={t}/>)}
             </div>
+
+            <Link href='/register/company'><div className='flex items-center my-3 cursor-pointer'><span>Discover now</span> <AiOutlineArrowRight /></div></Link>
           </div>
 
           <img style={{ maxWidth: 400 }} className='w-full' src={`${urls.landing}/images/Group 720 1.png`} />
@@ -187,10 +189,10 @@ const HowDoesItWork = () => {
             </>
           ) : (
             <>
-              <Element linkText='' linkPath='/register/company' icon={<AiOutlineUnorderedList />} title='sign up' text='Create your account, add your logo and a brief description of your business.' />
-              <Element linkText='' linkPath='/register/company' icon={<AiOutlineSearch />} title='find influencers' text='Discover influencers for your brand using 10+ demographic and audience filters. Manage communications directly on the platform.' />
-              <Element linkText='' linkPath='/register/company' icon={<VscMegaphone />} title='post campaigns' text='Post campaigns and let influencers come to you. You decide the guidelines of your campaigns and the associated reward systems.' />
-              <Element linkText='' linkPath='/register/company' icon={<AiOutlineBarChart />} title='Track performance' text='Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.' />
+              <Element linkText='Sign up now' linkPath='/register/company' icon={<AiOutlineUnorderedList />} title='sign up' text='Create your account, add your logo and a brief description of your business.' />
+              <Element linkText='Find influencers now' linkPath='/register/company' icon={<AiOutlineSearch />} title='find influencers' text='Discover influencers for your brand using 10+ demographic and audience filters. Manage communications directly on the platform.' />
+              <Element linkText='Scale your business today' linkPath='/register/company' icon={<VscMegaphone />} title='post campaigns' text='Post campaigns and let influencers come to you. You decide the guidelines of your campaigns and the associated reward systems.' />
+              <Element linkText='Measure impact' linkPath='/register/company' icon={<AiOutlineBarChart />} title='Track performance' text='Track, monitor, and optimize your influencer marketing investments through actionable performance reporting.' />
             </>
           )
         }

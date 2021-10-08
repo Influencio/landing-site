@@ -10,6 +10,8 @@ import { loginUrl } from 'utils/links';
 import urls from 'utils/urls';
 import { useRouter } from 'next/router'
 import textMap from 'utils/text-map';
+import FacebookLogin from 'react-facebook-login';
+import { toast } from 'react-toastify';
 
 import getCustomProps from "utils/custom-page-props";
 
@@ -50,6 +52,32 @@ const Influencer = ({ metadata, global, pageContext }) => {
   const { control, handleSubmit, formState: { errors }, watch, trigger } = useForm();
   const onSubmit = data => mutation.mutate(data);
 
+  const handleFacebookResponse = async data => {
+    if (!data?.accessToken) {
+      toast.warning('Facebook authentication failed')
+      return
+    }
+  console.log("🚀 ~ file: influencer.js ~ line 55 ~ Influencer ~ data", data)
+    try {
+      const res = await fetch(`${urls.accounts}/user/third-party/instagram`, {
+        method: "POST",
+        headers: {"content-type": "application/json"},
+        body: JSON.stringify({
+          access_token: data.accessToken
+        })
+      })
+      if (!res.ok) {
+        const json = await res.json();
+        toast.error(json?.message || 'Unable to create account using Facebook')
+        return;
+      }
+      router.push('/register/success');
+    } catch(err) {
+      console.error('Error occured during facebook response: ', err)
+      toast.error('Unable to create account using Facebook')
+    }
+  }
+
   return (
     <Layout global={global} pageContext={pageContext}>
       {/* Add meta tags for SEO*/}
@@ -59,6 +87,19 @@ const Influencer = ({ metadata, global, pageContext }) => {
       <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
       <div className="flex w-full flex-col items-center mb-10">
+        <div>
+          <FacebookLogin
+            appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
+            scope='instagram_basic,pages_show_list,email,instagram_manage_insights,pages_read_engagement'
+            fields="name,email,picture"
+            callback={handleFacebookResponse}
+            cssClass='px-12 py-4 rounded bg-[#4473C9] text-white font-bold'
+            // redirectUri={config.urls.accountService + 'media/instagram-callback'}
+          />
+        </div>
+
+        <div className='my-8 font-bold text-2xl'>or</div>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-screen-sm space-y-4"
