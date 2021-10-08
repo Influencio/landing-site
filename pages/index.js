@@ -73,8 +73,8 @@ const Landing = ({ metadata, global, pageContext }) => {
       </div>
 
       <div className='flex w-full my-16 justify-center'>
-        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-center'>
-          <div className='p-8'>
+        <div className='flex w-full max-w-screen-xl flex-col md:flex-row md:space-x-32 items-start'>
+          <div className='px-8'>
             <h3 className='text-4xl my-3 font-bold'>Find influencers with experience in your market</h3>
             <div className='flex space-x-3 flex-wrap'>
               {['fashion', 'beauty', 'skincare', 'jewellery', 'travel', 'lifestyle', 'FMCG', 'fitness', 'sport', 'health', 'cooking', 'sustainability'].map(t => <Tag className='my-2' text={t}/>)}
