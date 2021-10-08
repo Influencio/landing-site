@@ -24,7 +24,7 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
           >
             {/* Text section */}
             <div className="w-full lg:w-6/12 lg:pr-6 text-lg">
-              <h5 className='text-lg text-blue-500 uppercase font-bold'>{feature.subTitle}</h5>
+              <h5 className='text-lg text-light-blue-500 uppercase font-bold'>{feature.subTitle}</h5>
               <h4 className="text-3xl font-bold">{feature.title}</h4>
               <p className="my-3">{feature.description}</p>
 
@@ -33,7 +33,7 @@ const FeatureRowsGroup = ({ data, beforeEach }) => {
                 feature?.checks?.length ? feature.checks.map(check => (
                   <div className='flex space-x-3 items-center leading-5 h-16'>
                     <div className='h-8 w-8'>
-                      <AiOutlineCheckCircle className='text-blue-500 h-8 w-8' />
+                      <AiOutlineCheckCircle className='text-light-blue-500 h-8 w-8' />
                     </div>
                     <div className='text-gray-600'>{check}</div>
                   </div>
