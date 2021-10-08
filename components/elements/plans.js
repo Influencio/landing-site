@@ -20,7 +20,7 @@ const Plans = ({ annually, handleSelect, plansToExclude=[], plans }) => {
   }})
 
   return (
-    <div className='flex my-8 flex-wrap flex-col md:flex-row justify-center'>
+    <div className='flex my-8 flex-wrap flex-col md:flex-row items-center md:items-stretch justify-center'>
       {planArr.map(p => plansToExclude.includes(p.title) ? null : <Plan key={p.title} {...p} annually={annually} />)}
     </div>
   )
