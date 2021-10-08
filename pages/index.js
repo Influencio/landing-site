@@ -59,7 +59,7 @@ const Landing = ({ metadata, global, pageContext }) => {
         <HowDoesItWork />
       </div>
 
-      <div className='flex justify-center'>
+      <div className='flex justify-center my-32'>
         <div className='flex max-w-screen-xl flex-wrap'>
           <img style={{ maxWidth: 'unset'}} className='w-full md:w-6/12' src={`${urls.landing}/images/alizee-baudez-a4Nid9fLLlo-unsplash 1.png`} />
           <div className='bg-black text-white w-full md:w-6/12 flex flex-col p-8 justify-center items-center'>
