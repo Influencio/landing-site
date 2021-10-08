@@ -12,7 +12,7 @@ const TestimonialsGroup = ({ data }) => {
   return (
     <section className="text-lg pt-12 pb-16 flex flex-col md:flex-row mx-auto max-w-screen-xl justify-around container space-x-0 md:space-x-32">
       <div>
-      <h4 className='text-lg text-blue-500 uppercase font-bold'>{data.subTitle}</h4>
+      <h4 className='text-lg text-light-blue-500 uppercase font-bold'>{data.subTitle}</h4>
       <h2 className="title">{data.title}</h2>
       <p className="text-gray-700 mb-4">{data.description}</p>
       {/* Change selected testimonial (only if there is more than one) */}
@@ -26,7 +26,7 @@ const TestimonialsGroup = ({ data }) => {
                 "rounded-full h-3 w-3",
                 {
                   "bg-gray-300": index !== selectedTestimonialIndex,
-                  "bg-blue-600": index === selectedTestimonialIndex,
+                  "bg-light-blue-600": index === selectedTestimonialIndex,
                 }
               )}
               key={testimonial.id}
@@ -70,7 +70,7 @@ const TestimonialsGroup = ({ data }) => {
             {
               data?.testimonials?.length ?
               <div className='flex absolute space-x-2 right-5 bottom-3'>
-                <div onClick={() => setSelectedTestimonialIndex(Math.abs((selectedTestimonialIndex - 1) % data.testimonials.length))} className='bg-blue-500 text-white rounded-full flex justify-center items-center h-7 w-7 cursor-pointer'>{"<"}</div>
+                <div onClick={() => setSelectedTestimonialIndex(Math.abs((selectedTestimonialIndex - 1) % data.testimonials.length))} className='bg-light-blue-500 text-white rounded-full flex justify-center items-center h-7 w-7 cursor-pointer'>{"<"}</div>
                 <div onClick={() => setSelectedTestimonialIndex((selectedTestimonialIndex + 1) % data.testimonials.length)} className='bg-black text-white rounded-full flex justify-center items-center h-7 w-7 cursor-pointer'>{">"}</div>
               </div> : null
             }

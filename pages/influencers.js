@@ -36,7 +36,7 @@ const Influencers = ({ metadata, global, pageContext }) => {
 
       <div className='flex flex-col items-center justify-center h-screen'>
         <div className='w-10/12 max-w-screen-lg space-y-6 flex flex-col items-center'>
-          <h4 className='text-xl text-blue-500 font-bold'>A PLATFORM BUILT FOR YOU.</h4>
+          <h4 className='text-xl text-light-blue-500 font-bold'>A PLATFORM BUILT FOR YOU.</h4>
           <h1 className='text-6xl md:text-9xl uppercase text-center'>the future of the influencer industry</h1>
           <h2 className='text-2xl text-gray-400 text-center max-w-screen-md'>Content creator, SoMe Consultant, Influencer, Blogger, you name it - our community is for all the creators. Join the first professional community for influencers and help change the perception of the industry. </h2>
           <ButtonLink appearance='spring-wood' link='/register/influencer'>GET STARTED FOR FREE NOW</ButtonLink>

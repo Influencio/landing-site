@@ -35,6 +35,7 @@ module.exports = {
         "800": "#0f1348",
         "900": "#090b2a"
       },
+      'light-blue': colors.blue,
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
