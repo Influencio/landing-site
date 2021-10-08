@@ -5,7 +5,7 @@ import textMap from 'utils/text-map';
 import imageMap from 'utils/image-map';
 import Link from "next/link"
 import urls from 'utils/urls'
-import { AiOutlineRight, AiOutlineUnorderedList, AiOutlineDollar, AiOutlineSearch, AiOutlineUserAdd, AiOutlineBarChart } from 'react-icons/ai'
+import { AiOutlineRight, AiOutlineUnorderedList, AiOutlineDollar, AiOutlineSearch, AiOutlineUserAdd, AiOutlineBarChart, AiOutlineArrowRight } from 'react-icons/ai'
 import { VscMegaphone } from 'react-icons/vsc';
 
 import getCustomProps from "utils/custom-page-props";
@@ -77,8 +77,10 @@ const Landing = ({ metadata, global, pageContext }) => {
           <div className='p-8'>
             <h3 className='text-4xl my-3 font-bold'>Find influencers with experience in your market</h3>
             <div className='flex space-x-3 flex-wrap'>
-              {['Fitness', 'Food', 'Education', 'Lifestyle', 'Adventure', 'Business', 'Fashion', 'Beauty', 'Gaming', 'Family'].map(t => <Tag className='my-2' text={t}/>)}
+              {['fashion', 'beauty', 'skincare', 'jewellery', 'travel', 'lifestyle', 'FMCG', 'fitness', 'sport', 'health', 'cooking', 'sustainability'].map(t => <Tag className='my-2' text={t}/>)}
             </div>
+
+            <Link href='/register/company'><div className='flex items-center my-3 cursor-pointer'><span>Discover now</span> <AiOutlineArrowRight /></div></Link>
           </div>
 
           <img style={{ maxWidth: 400 }} className='w-full' src={`${urls.landing}/images/Group 720 1.png`} />
