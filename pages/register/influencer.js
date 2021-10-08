@@ -59,7 +59,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
     }
   console.log("🚀 ~ file: influencer.js ~ line 55 ~ Influencer ~ data", data)
     try {
-      const res = await fetch('http://localhost:3001/user/third-party/instagram', {
+      const res = await fetch(`${urls.accounts}/user/third-party/instagram`, {
         method: "POST",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({
