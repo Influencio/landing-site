@@ -12,8 +12,8 @@ const getLanding = () => {
 export default {
   hydra: 'https://auth.influencio.dk/hydra',
   helios: 'https://auth.influencio.dk/helios',
-  auth: 'https://auth.influencio.dk/auth',
-  accounts: 'https://api.influencio.dk/accounts',
+  auth: 'https://auth.staging.influencio.dk/auth',
+  accounts: 'https://api.staging.influencio.dk/accounts',
   webApp: 'https://influencio.dk',
   landing: getLanding()
 }
