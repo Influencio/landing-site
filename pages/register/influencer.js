@@ -226,7 +226,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
             {shortTexts.submitButton}
           </Button>
         </form>
-        <Link href={loginUrl}>{shortTexts.loginLink}</Link>
+        <Link href={loginUrl}><div className='mt-6'>{shortTexts.loginLink}</div></Link>
       </div>
     </Layout>
   );
