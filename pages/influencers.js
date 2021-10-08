@@ -197,7 +197,9 @@ const ListImageItem = ({ num, title, image }) => (
       <div className='p-2 bg-white text-black absolute left-0 bottom-0'>{num}</div>
     </div>
 
-    <h5 className='text-xl font-bold'>{title}</h5>
+    <h5 className='text-2xl' style={{
+      fontFamily: 'Bebas Neue'
+    }}>{title}</h5>
   </div>
 )
 
