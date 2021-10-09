@@ -29,13 +29,20 @@ const Failure = ({ metadata, global, pageContext }) => {
 
         <div className='text-lg my-3'>{shortTexts.registerFailureCTA}</div>
         {
-          error ? <div>{error}</div> : null
+          error ? <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6'>{error}</div> : null
         }
-        <Button
-          button={{url: loginUrl, text: 'Login', id: 'registerFailure'}}
-          appearance='dark'
-          compact
-        />
+        <div className='flex space-x-4'>
+          <Button
+            button={{url: '/', text: 'Home', id: 'registerFailureHome'}}
+            appearance='outline'
+            compact
+          />
+          <Button
+            button={{url: '/register', text: 'Sign Up', id: 'registerFailureRegister'}}
+            appearance='dark'
+            compact
+          />
+        </div>
       </div>
 
     </Layout>
