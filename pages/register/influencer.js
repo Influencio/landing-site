@@ -230,8 +230,8 @@ const FacebookSignUp = () => {
       if (data.message === 'disable') return;
       toast.error(data?.message || 'Unable to create account using Facebook')
     },
-    onSuccess: () => {
-      router.push('/register/success');
+    onSuccess: data => {
+      router.push(`/register/success?action=reset-password&email=${data.email}`);
     }
   });
   const { isLoading, isSuccess } = mutation;
