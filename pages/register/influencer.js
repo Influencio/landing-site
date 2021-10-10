@@ -253,7 +253,7 @@ const FacebookSignUp = () => {
       callback={callback}
       cssClass='px-12 py-4 rounded bg-[#4473C9] text-white font-bold'
       isDisabled={isLoading || isSuccess}
-      // redirectUri={config.urls.accountService + 'media/instagram-callback'}
+      redirectUri={urls.accounts + '/user/third-party/callback/instagram'}
     />
   )
 }
