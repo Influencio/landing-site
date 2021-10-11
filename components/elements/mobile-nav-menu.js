@@ -46,7 +46,7 @@ const MobileNavMenu = ({ navbar, closeSelf }) => {
         <div className="flex flex-col justify-end w-9/12 mx-auto">
           {
             navbar.buttons?.length ? 
-            <div className='space-y-2 flex flex-col'>
+            <div className='space-y-2 flex flex-col mb-24'>
             {
               navbar.buttons.map(btn => (
                 <ButtonLink
