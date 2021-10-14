@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import Input from 'components/atomic/input';
+import Date from 'components/atomic/date';
 import Button from 'components/elements/button';
 import Link from 'next/link';
 import { loginUrl } from 'utils/links';
@@ -103,6 +104,21 @@ const Influencer = ({ metadata, global, pageContext }) => {
             )}
           />
 
+        <Controller
+          name="dob"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Date
+              id="dob"
+              label="Date of birth (this is not public)"
+              error={errors?.dob}
+              {...field}
+            />
+          )}
+        />
+
           <Controller
             name="email"
             control={control}
@@ -116,6 +132,67 @@ const Influencer = ({ metadata, global, pageContext }) => {
                 placeholder="email@example.com"
                 type="email"
                 error={errors?.email}
+                {...field}
+              />
+            )}
+          />
+
+          <Controller
+            name="shipping.address"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                id="address"
+                label="Address"
+                error={errors?.shipping?.address}
+                {...field}
+              />
+            )}
+          />
+
+          <div className='flex flex-col md:flex-row md:space-x-3'>
+            <Controller
+              name="shipping.zip"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  id="zip"
+                  label="ZIP code"
+                  error={errors?.shipping?.zip}
+                  className='w-full md:w-3/12'
+                  {...field}
+                />
+              )}
+            />
+
+            <Controller
+              name="location.city"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  id="city"
+                  label="City"
+                  error={errors?.location?.city}
+                  className='w-full md:w-9/12'
+                  {...field}
+                />
+              )}
+            />
+          </div>
+
+          <Controller
+            name="nationality"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Select
+                id="nationality"
+                label="Nationality"
+                error={errors?.nationality}
+                data={['Fashion', 'Beauty & cosmetics', 'Health & Fitness', 'Travel & lifestyle', 'Technology', 'FMCG'].map(s => ({ key: s, value: s, name: s}))}
                 {...field}
               />
             )}
