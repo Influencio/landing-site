@@ -11,7 +11,7 @@ import Loader from 'components/elements/loader';
 import Button from "components/elements/button";
 
 const Input = React.forwardRef((props, ref) => {
-  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading, enterButton, onSubmit, description } = props;
+  const { label, type, id, error, suffix, validateIcon, value, debounceDelay, onChange, onSearch, autoComplete, onBlur, placeholder, isLoading, enterButton, onSubmit, description, className } = props;
 
   const originalInputType = type || "text";
   const [inputType, setInputType] = useState(type || "text");
@@ -98,7 +98,7 @@ const Input = React.forwardRef((props, ref) => {
             placeholder={placeholder}
             className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
               error ? "border-red-500" : ""
-            } ${enterButton ? "rounded-r-none" : ""}`}
+            } ${enterButton ? "rounded-r-none" : ""} ${className || ''}`}
             type={inputType}
             onChange={handleOnChange}
           />
