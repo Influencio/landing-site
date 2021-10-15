@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import Input from 'components/atomic/input';
+import Select from 'components/atomic/select';
 import Date from 'components/atomic/date';
 import Button from 'components/elements/button';
 import Link from 'next/link';
@@ -17,6 +18,8 @@ import { toast } from 'react-toastify';
 import getCustomProps from "utils/custom-page-props";
 
 export const getStaticProps = getCustomProps(['register', 'influencer'])
+
+const nationalities = [{"long":"Danish","short":"DK"}, {"long":"Swedish","short":"SE"}, {"long":"Norwegian","short":"NO"}, {"long":"English","short":"GB"}, {"long":"German","short":"DE"}, {"long":"Spanish","short":"ES"}, {"long":"French","short":"FR"}, {"long":"Italian","short":"IT"}, {"long":"Portuguese","short":"PT"}]
 
 const postUser = async user => {
     user.role = 'influencer'
@@ -161,7 +164,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
                   id="zip"
                   label="ZIP code"
                   error={errors?.shipping?.zip}
-                  className='w-full md:w-3/12'
+                  className='w-full'
                   {...field}
                 />
               )}
@@ -176,7 +179,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
                   id="city"
                   label="City"
                   error={errors?.location?.city}
-                  className='w-full md:w-9/12'
+                  className='w-full'
                   {...field}
                 />
               )}
@@ -191,8 +194,9 @@ const Influencer = ({ metadata, global, pageContext }) => {
               <Select
                 id="nationality"
                 label="Nationality"
+                width='full'
                 error={errors?.nationality}
-                data={['Fashion', 'Beauty & cosmetics', 'Health & Fitness', 'Travel & lifestyle', 'Technology', 'FMCG'].map(s => ({ key: s, value: s, name: s}))}
+                data={nationalities.map(nationality => ({ key: nationality.long, value: nationality, name: nationality.long}))}
                 {...field}
               />
             )}
