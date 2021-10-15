@@ -5,7 +5,7 @@ import Seo from "@/components/elements/seo"
 import Layout from "@/components/layout"
 import Input from 'components/atomic/input';
 import Select from 'components/atomic/select';
-import Date from 'components/atomic/date';
+import DatePicker from 'components/atomic/date';
 import Button from 'components/elements/button';
 import Link from 'next/link';
 import { loginUrl } from 'utils/links';
@@ -113,7 +113,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
           defaultValue=""
           rules={{ required: true }}
           render={({ field }) => (
-            <Date
+            <DatePicker
               id="dob"
               label="Date of birth (this is not public)"
               error={errors?.dob}
