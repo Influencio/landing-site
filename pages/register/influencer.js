@@ -41,6 +41,8 @@ const nationalities = [
   { long: "Portuguese", short: "PT" },
 ];
 
+const countries = [{"long":"Afghanistan","short":"AF"},{"long":"Albania","short":"AL"},{"long":"Algeria","short":"DZ"},{"long":"Argentina","short":"AR"},{"long":"Armenia","short":"AM"},{"long":"Australia","short":"AU"},{"long":"Austria","short":"AT"},{"long":"Azerbaijan","short":"AZ"},{"long":"Bahrain","short":"BH"},{"long":"Bangladesh","short":"BD"},{"long":"Belarus","short":"BY"},{"long":"Belgium","short":"BE"},{"long":"Belize","short":"BZ"},{"long":"Bolivarian Republic of Venezuela","short":"VE"},{"long":"Bolivia","short":"BO"},{"long":"Bosnia and Herzegovina","short":"BA"},{"long":"Brazil","short":"BR"},{"long":"Brunei Darussalam","short":"BN"},{"long":"Bulgaria","short":"BG"},{"long":"Cambodia","short":"KH"},{"long":"Canada","short":"CA"},{"long":"Chile","short":"CL"},{"long":"Colombia","short":"CO"},{"long":"Costa Rica","short":"CR"},{"long":"Croatia","short":"HR"},{"long":"Czech Republic","short":"CZ"},{"long":"Denmark","short":"DK"},{"long":"Dominican Republic","short":"DO"},{"long":"Ecuador","short":"EC"},{"long":"Egypt","short":"EG"},{"long":"El Salvador","short":"SV"},{"long":"Estonia","short":"EE"},{"long":"Ethiopia","short":"ET"},{"long":"Faroe Islands","short":"FO"},{"long":"Finland","short":"FI"},{"long":"France","short":"FR"},{"long":"Georgia","short":"GE"},{"long":"Germany","short":"DE"},{"long":"Greece","short":"GR"},{"long":"Greenland","short":"GL"},{"long":"Guatemala","short":"GT"},{"long":"Honduras","short":"HN"},{"long":"Hong Kong S.A.R.","short":"HK"},{"long":"Hungary","short":"HU"},{"long":"Iceland","short":"IS"},{"long":"India","short":"IN"},{"long":"Indonesia","short":"ID"},{"long":"Iran","short":"IR"},{"long":"Iraq","short":"IQ"},{"long":"Ireland","short":"IE"},{"long":"Islamic Republic of Pakistan","short":"PK"},{"long":"Israel","short":"IL"},{"long":"Italy","short":"IT"},{"long":"Jamaica","short":"JM"},{"long":"Japan","short":"JP"},{"long":"Jordan","short":"JO"},{"long":"Kazakhstan","short":"KZ"},{"long":"Kenya","short":"KE"},{"long":"Korea","short":"KR"},{"long":"Kuwait","short":"KW"},{"long":"Kyrgyzstan","short":"KG"},{"long":"Lao P.D.R.","short":"LA"},{"long":"Latvia","short":"LV"},{"long":"Lebanon","short":"LB"},{"long":"Libya","short":"LY"},{"long":"Liechtenstein","short":"LI"},{"long":"Lithuania","short":"LT"},{"long":"Luxembourg","short":"LU"},{"long":"Macao S.A.R.","short":"MO"},{"long":"Macedonia (FYROM)","short":"MK"},{"long":"Malaysia","short":"MY"},{"long":"Maldives","short":"MV"},{"long":"Malta","short":"MT"},{"long":"Mexico","short":"MX"},{"long":"Mongolia","short":"MN"},{"long":"Montenegro","short":"ME"},{"long":"Morocco","short":"MA"},{"long":"Nepal","short":"NP"},{"long":"Netherlands","short":"NL"},{"long":"New Zealand","short":"NZ"},{"long":"Nicaragua","short":"NI"},{"long":"Nigeria","short":"NG"},{"long":"Norway","short":"NO"},{"long":"Oman","short":"OM"},{"long":"Panama","short":"PA"},{"long":"Paraguay","short":"PY"},{"long":"People's Republic of China","short":"CN"},{"long":"Peru","short":"PE"},{"long":"Philippines","short":"PH"},{"long":"Poland","short":"PL"},{"long":"Portugal","short":"PT"},{"long":"Principality of Monaco","short":"MC"},{"long":"Puerto Rico","short":"PR"},{"long":"Qatar","short":"QA"},{"long":"Republic of the Philippines","short":"PH"},{"long":"Romania","short":"RO"},{"long":"Russia","short":"RU"},{"long":"Rwanda","short":"RW"},{"long":"Saudi Arabia","short":"SA"},{"long":"Senegal","short":"SN"},{"long":"Serbia","short":"RS"},{"long":"Singapore","short":"SG"},{"long":"Slovakia","short":"SK"},{"long":"Slovenia","short":"SI"},{"long":"South Africa","short":"ZA"},{"long":"Spain","short":"ES"},{"long":"Sri Lanka","short":"LK"},{"long":"Sweden","short":"SE"},{"long":"Switzerland","short":"CH"},{"long":"Syria","short":"SY"},{"long":"Taiwan","short":"TW"},{"long":"Tajikistan","short":"TJ"},{"long":"Thailand","short":"TH"},{"long":"Trinidad and Tobago","short":"TT"},{"long":"Tunisia","short":"TN"},{"long":"Turkey","short":"TR"},{"long":"Turkmenistan","short":"TM"},{"long":"U.A.E.","short":"AE"},{"long":"Ukraine","short":"UA"},{"long":"United Kingdom","short":"GB"},{"long":"United States","short":"US"},{"long":"Uruguay","short":"UY"},{"long":"Uzbekistan","short":"UZ"},{"long":"Vietnam","short":"VN"},{"long":"Yemen","short":"YE"},{"long":"Zimbabwe","short":"ZW"}]
+
 const postUser = async (user) => {
   user.role = "influencer";
   user.tags = user?.tags?.map((tag) => tag.value);
@@ -48,6 +50,22 @@ const postUser = async (user) => {
   const res = await fetch(`${urls.auth}/auth/register`, {
     method: "POST",
     body: JSON.stringify(user),
+    headers: { "content-type": "application/json" },
+  });
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    throw new Error(json?.message);
+  }
+
+  return json;
+};
+
+const postCollab = async (collab, id) => {
+  const res = await fetch(`${urls.accounts}/collaboration/influencer/${id}`, {
+    method: "POST",
+    body: JSON.stringify(collab),
     headers: { "content-type": "application/json" },
   });
 
@@ -73,7 +91,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
       icon: <AiOutlineIdcard />
     },
     {
-      content: <div>test</div>,
+      content: <CollabForm />,
       title: 'Collaboration',
       icon: <AiOutlineProfile />
     },
@@ -378,11 +396,148 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
   );
 };
 
+const CollabForm = ({ onSuccess }) => {
+  const account = getCookie('account');
+
+  const mutation = useMutation((collab) => postCollab(collab, account), {
+    onSuccess: data => {
+      onSuccess && onSuccess()
+    }
+  });
+  const { isLoading, isSuccess } = mutation;
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => mutation.mutate(data);
+
+  return (
+    <div className='flex w-full flex-col items-center mb-10 container max-w-xl'>
+    <h3 className='font-bold text-xl text-center my-16'>Create your first collaboration!</h3>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-screen-sm space-y-4"
+      >
+        <Controller
+          name="title"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="title"
+              label="Title"
+              error={errors?.title}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="companyName"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="companyName"
+              label="Company name"
+              error={errors?.companyName}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="description"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="description"
+              placeholder="Describe what the collaboration was about"
+              label="Description"
+              error={errors?.companyName}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="country"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Select
+              id="country"
+              label="Country"
+              width="full"
+              defaultValue={{key: "Denmark", value: { long: "Denmark", short: "DK" }, name: "Denmark" }}
+              error={errors?.country}
+              data={countries.map((country) => ({
+                key: country.long,
+                value: country,
+                name: country.long,
+              }))}
+              {...field}
+            />
+          )}
+        />
+
+
+        <Controller
+          name="startDate"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <DatePicker
+              id="startDate"
+              label="Start date"
+              error={errors?.startDate}
+              description='Leave blank if it was a one time collaboration'
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="date"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <DatePicker
+              id="date"
+              label="End date"
+              error={errors?.startDate}
+              description="Leave blank if it's still ongoing"
+              {...field}
+            />
+          )}
+        />
+
+        <Button
+          appearance="dark"
+          compact
+          type="submit"
+          disabled={isLoading || isSuccess}
+          loading={isLoading}
+        >
+          Next
+        </Button>
+      </form>
+      </div>
+  )
+}
+
 const AddIg = () => {
 
   return (
-    <div className='flex justify-center items-center flex-col container max-w-xl'>
-      <h3 className='font-bold text-xl text-center my-16'>You’ll be all set up in just a minute, we just need some information from you first.</h3>
+    <div className='flex justify-center items-center flex-col container max-w-xl mb-16'>
+      <h3 className='font-bold text-xl text-center my-16'>Now you’re only seconds away from being a member of Influencio, you just need to connect your Instagram.</h3>
 
       <FacebookSignUp />
     </div>
