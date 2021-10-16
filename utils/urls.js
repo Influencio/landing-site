@@ -14,6 +14,7 @@ export default {
   helios: 'https://auth.influencio.dk/helios',
   auth: 'https://auth.staging.influencio.dk/auth',
   accounts: 'https://api.staging.influencio.dk/accounts',
+  tags: 'https://api.influencio.dk/tags',
   webApp: 'https://influencio.dk',
   landing: getLanding()
 }
