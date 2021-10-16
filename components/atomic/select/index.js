@@ -3,11 +3,10 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
 const Select = forwardRef((props, ref) => {
-  const { data, onChange, label, id, width, defaultValue, defaultValueIndex, selectMultiple, maxSelectable } = props
+  const { data, onChange, label, id, width, defaultValue, defaultValueIndex, selectMultiple, maxSelectable, error } = props
   const [selected, setSelected] = useState(null);
-  const [open, setOpen] = useState(false);
 
-  const isSelected = (value) => selectMultiple ? !!selected.find((el) => el.key === value.key) : selected.key === value.key
+  const isSelected = (value) => selectMultiple ? !!selected?.find((el) => el.key === value.key) : selected.key === value.key
 
   const handleSelect = res => {
     if (selectMultiple) {
@@ -22,7 +21,6 @@ const Select = forwardRef((props, ref) => {
       } else {
         handleDeselect(res);
       }
-      setOpen(true)
     } else {
       setSelected(res);
       onChange && onChange(res);
@@ -31,8 +29,8 @@ const Select = forwardRef((props, ref) => {
 
   function handleDeselect(value) {
     const selectedUpdated = selected.filter((el) => el.key !== value.key);
-    setSelected(selectedUpdated);
-    setOpen(true);
+    setSelected(selectedUpdated.length ? selectedUpdated : []);
+    onChange && onChange(selectedUpdated);
   }
 
   useEffect(() => {
@@ -58,10 +56,9 @@ const Select = forwardRef((props, ref) => {
       <Listbox
         value={selected}
         onChange={handleSelect}
-        open={open}
       >
         <div className="relative mt-1">
-          <Listbox.Button className="border relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+          <Listbox.Button className={`border relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm ${error ? "border-red-500" : ""}`}>
             <span className="block truncate">{selectMultiple ? (selected?.length ? 'Selected: ' + selected.length : 'Select') : (selected?.name || "")}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <CgSelect
@@ -110,8 +107,15 @@ const Select = forwardRef((props, ref) => {
         </div>
       </Listbox>
 
+      {error ? (
+        <p className="text-red-500 text-xs italic">
+          {error.message ||
+            (error.type === "required" ? `${label} is required` : null)}
+        </p>
+      ) : null}
+
       <div className='flex space-x-2 mt-4'>
-        {selected && Array.isArray(selected) ? selected.map(el => <div className='bg-black px-4 py-2 rounded-full w-max text-white'>{el.name}</div>) : null}
+        {selected && Array.isArray(selected) ? selected.map((el, i) => <div key={el.key || i} className='bg-black px-4 py-2 rounded-full w-max text-white'>{el.name}</div>) : null}
       </div>
     </div>
   );
