@@ -30,8 +30,9 @@ export const getStaticProps = async args => {
 const nationalities = [{"long":"Danish","short":"DK"}, {"long":"Swedish","short":"SE"}, {"long":"Norwegian","short":"NO"}, {"long":"English","short":"GB"}, {"long":"German","short":"DE"}, {"long":"Spanish","short":"ES"}, {"long":"French","short":"FR"}, {"long":"Italian","short":"IT"}, {"long":"Portuguese","short":"PT"}]
 
 const postUser = async user => {
-    user.role = 'influencer'
-
+  user.role = 'influencer'
+  user.tags = user?.tags?.map(tag => tag.value);
+  user.nationality = user?.nationality?.value
     const res = await fetch(`${urls.auth}/auth/register`, {
       method: "POST",
       body: JSON.stringify(user),
@@ -48,21 +49,7 @@ const postUser = async user => {
   }
 
 const Influencer = ({ metadata, global, pageContext }) => {
-  const router = useRouter()
-
   const shortTexts = textMap(pageContext.texts.shortTexts)
-
-  const mutation = useMutation((user) => postUser(user));
-  const { isLoading, isError, error, isSuccess } = mutation;
-  
-  useEffect(() => {
-    if (isSuccess) {
-      router.push('/register/success')
-    }
-  }, [isSuccess])
-
-  const { control, handleSubmit, formState: { errors }, watch, trigger } = useForm();
-  const onSubmit = data => mutation.mutate(data);
 
   return (
     <Layout global={global} pageContext={pageContext}>
@@ -72,7 +59,27 @@ const Influencer = ({ metadata, global, pageContext }) => {
       <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
       <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
-      <div className="flex w-full flex-col items-center mb-10 container">
+      <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} />
+    </Layout>
+  );
+}
+
+const InfoForm = ({ shortTexts, tags }) => {
+
+  const mutation = useMutation((user) => postUser(user));
+  const { isLoading, isError, error, isSuccess } = mutation;
+  
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     // router.push('/register/success')
+  //   }
+  // }, [isSuccess])
+
+  const { control, handleSubmit, formState: { errors }, watch, trigger } = useForm();
+  const onSubmit = data => mutation.mutate(data);
+
+  return (
+<div className="flex w-full flex-col items-center mb-10 container">
         <div>
           <FacebookSignUp />
         </div>
@@ -275,7 +282,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
           <Controller
             name="tags"
             control={control}
-            defaultValue=""
+            rules={{ required: { value: true, message: 'Please select atleast one category' }}}
             render={({ field }) => (
               <Select
                 id="tags"
@@ -284,7 +291,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
                 label="Select your niche categories (Choose up to 5)"
                 width='full'
                 error={errors?.tags}
-                data={pageContext.tags.map(({tag}) => ({ key: tag, value: tag, name: tag}))}
+                data={tags.map(({tag}) => ({ key: tag, value: tag, name: tag}))}
                 {...field}
               />
             )}
@@ -302,8 +309,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
         </form>
         <Link href={loginUrl}><div className='mt-6'>{shortTexts.loginLink}</div></Link>
       </div>
-    </Layout>
-  );
+  )
 }
 
 const FacebookSignUp = () => {
