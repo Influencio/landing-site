@@ -3,16 +3,44 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CgSelect, CgCheck } from "react-icons/cg";
 
 const Select = forwardRef((props, ref) => {
-  const { data, onChange, label, id, width, defaultValue, defaultValueIndex } = props
+  const { data, onChange, label, id, width, defaultValue, defaultValueIndex, selectMultiple, maxSelectable } = props
   const [selected, setSelected] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const isSelected = (value) => selectMultiple ? !!selected.find((el) => el.key === value.key) : selected.key === value.key
 
   const handleSelect = res => {
-    setSelected(res);
-    onChange && onChange(res);
+    if (selectMultiple) {
+      if (!isSelected(res)) {
+        if (maxSelectable && selected?.length >= maxSelectable) return
+        const selectedUpdated = [
+          ...selected,
+          data.find((el) => el === res)
+        ];
+        setSelected(selectedUpdated);
+        onChange && onChange(selectedUpdated);
+      } else {
+        handleDeselect(res);
+      }
+      setOpen(true)
+    } else {
+      setSelected(res);
+      onChange && onChange(res);
+    }
   };
 
+  function handleDeselect(value) {
+    const selectedUpdated = selected.filter((el) => el.key !== value.key);
+    setSelected(selectedUpdated);
+    setOpen(true);
+  }
+
   useEffect(() => {
-    handleSelect(defaultValue ? defaultValue : data[defaultValueIndex || 0])
+    if (selectMultiple) {
+      setSelected(defaultValue ? defaultValue : [])
+    } else {
+      handleSelect(defaultValue ? defaultValue : data[defaultValueIndex || 0])
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -30,10 +58,11 @@ const Select = forwardRef((props, ref) => {
       <Listbox
         value={selected}
         onChange={handleSelect}
+        open={open}
       >
         <div className="relative mt-1">
           <Listbox.Button className="border relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-            <span className="block truncate">{selected?.name || ""}</span>
+            <span className="block truncate">{selectMultiple ? (selected?.length ? 'Selected: ' + selected.length : 'Select') : (selected?.name || "")}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <CgSelect
                 className="w-5 h-5 text-gray-400"
@@ -56,10 +85,12 @@ const Select = forwardRef((props, ref) => {
                   className={({ active }) => `${active ? "text-amber-900 bg-amber-100" : "text-gray-900"} select-none relative py-2 pl-10 pr-4 hover:bg-blue-100 cursor-pointer`}
                   value={d}
                 >
-                  {({ selected, active }) => (
+                  {({ active }) => {
+                    const selected = isSelected(d);
+                    return (
                     <>
                       <span
-                        className={`${selected ? "font-medium" : "font-normal"} block truncate`}
+                        className={`${selected ? "font-bold" : "font-normal"} block truncate`}
                       >
                         {name}
                       </span>
@@ -71,13 +102,17 @@ const Select = forwardRef((props, ref) => {
                         </span>
                       ) : null}
                     </>
-                  )}
+                  )}}
                 </Listbox.Option>
               )})}
             </Listbox.Options>
           </Transition>
         </div>
       </Listbox>
+
+      <div className='flex space-x-2 mt-4'>
+        {selected && Array.isArray(selected) ? selected.map(el => <div className='bg-black px-4 py-2 rounded-full w-max text-white'>{el.name}</div>) : null}
+      </div>
     </div>
   );
 });
