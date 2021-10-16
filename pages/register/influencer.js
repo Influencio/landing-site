@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 import Seo from "@/components/elements/seo";
 import Layout from "@/components/layout";
 import Input from "components/atomic/input";
+import Textarea from "components/atomic/textarea";
 import Select from "components/atomic/select";
 import DatePicker from "components/atomic/date";
 import Button from "components/elements/button";
@@ -457,7 +458,7 @@ const CollabForm = ({ onSuccess }) => {
           defaultValue=""
           rules={{ required: true }}
           render={({ field }) => (
-            <Input
+            <Textarea
               id="description"
               placeholder="Describe what the collaboration was about"
               label="Description"
