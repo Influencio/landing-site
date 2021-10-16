@@ -17,7 +17,15 @@ import { toast } from 'react-toastify';
 
 import getCustomProps from "utils/custom-page-props";
 
-export const getStaticProps = getCustomProps(['register', 'influencer'])
+export const getStaticProps = async args => {
+  const data = await getCustomProps(['register', 'influencer'])(args)
+  const res = await fetch(urls.tags)
+  if (res.ok) {
+    const json = await res.json();
+    data.props.pageContext.tags = json;
+  }
+  return data;
+}
 
 const nationalities = [{"long":"Danish","short":"DK"}, {"long":"Swedish","short":"SE"}, {"long":"Norwegian","short":"NO"}, {"long":"English","short":"GB"}, {"long":"German","short":"DE"}, {"long":"Spanish","short":"ES"}, {"long":"French","short":"FR"}, {"long":"Italian","short":"IT"}, {"long":"Portuguese","short":"PT"}]
 
@@ -263,6 +271,24 @@ const Influencer = ({ metadata, global, pageContext }) => {
               </div>
             </div>
           ) : null}
+
+          <Controller
+            name="tags"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Select
+                id="tags"
+                selectMultiple={1}
+                maxSelectable={5}
+                label="Select your niche categories (Choose up to 5)"
+                width='full'
+                error={errors?.tags}
+                data={pageContext.tags.map(({tag}) => ({ key: tag, value: tag, name: tag}))}
+                {...field}
+              />
+            )}
+          />
 
           <Button
             appearance="dark"
