@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useMutation } from "react-query";
 import Seo from "@/components/elements/seo";
@@ -14,6 +14,8 @@ import { useRouter } from "next/router";
 import textMap from "utils/text-map";
 import FacebookLogin from "react-facebook-login";
 import { toast } from "react-toastify";
+import Steps from "components/atomic/step";
+import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard } from "react-icons/ai";
 
 import getCustomProps from "utils/custom-page-props";
 
@@ -60,29 +62,59 @@ const postUser = async (user) => {
 
 const Influencer = ({ metadata, global, pageContext }) => {
   const shortTexts = textMap(pageContext.texts.shortTexts);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      content: (
+        <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => setCurrentStep(1)} />
+      ),
+      title: 'Info',
+      icon: <AiOutlineIdcard />
+    },
+    {
+      content: <div>test</div>,
+      title: 'Collaboration',
+      icon: <AiOutlineProfile />
+    },
+    {
+      content: <AddIg />,
+      title: 'Media',
+      icon: <AiOutlineInstagram />
+    }
+  ]
 
   return (
     <Layout global={global} pageContext={pageContext}>
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
 
-      <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
-      <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
+      <div className='container max-w-6xl'>
+        <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
+        <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
-      <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} />
+        <Steps steps={steps} currentStep={currentStep} />
+        <div onClick={() => setCurrentStep(currentStep + 1)}>next</div>
+        <div onClick={() => setCurrentStep(currentStep - 1)}>prev</div>
+      </div>
     </Layout>
   );
 };
 
-const InfoForm = ({ shortTexts, tags }) => {
-  const mutation = useMutation((user) => postUser(user));
-  const { isLoading, isError, error, isSuccess } = mutation;
+const InfoForm = ({ shortTexts, tags, onSuccess }) => {
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     // router.push('/register/success')
-  //   }
-  // }, [isSuccess])
+  const mutation = useMutation((user) => postUser(user), {
+    onSuccess: data => {
+      onSuccess && onSuccess()
+
+      // Set cookie
+      const date = new Date();
+      date.setTime(date.getTime() + (60 * 60 * 1000)); // 1 hour
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = "account=" + data.account + "; " + expires + "; path=/";
+    }
+  });
+  const { isLoading, isError, error, isSuccess } = mutation;
 
   const {
     control,
@@ -93,13 +125,16 @@ const InfoForm = ({ shortTexts, tags }) => {
   } = useForm();
   const onSubmit = (data) => mutation.mutate(data);
 
+  useEffect(() => {
+    if (getCookie('account')) {
+      onSuccess && onSuccess()
+    }
+  }, [])
+  
   return (
-    <div className="flex w-full flex-col items-center mb-10 container">
-      <div>
-        <FacebookSignUp />
-      </div>
+    <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
 
-      <div className="my-8 font-bold text-2xl">or</div>
+      <h3 className='font-bold text-xl text-center my-16'>You’ll be all set up in just a minute, we just need some information from you first.</h3>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -343,8 +378,20 @@ const InfoForm = ({ shortTexts, tags }) => {
   );
 };
 
+const AddIg = () => {
+
+  return (
+    <div className='flex justify-center items-center flex-col container max-w-xl'>
+      <h3 className='font-bold text-xl text-center my-16'>You’ll be all set up in just a minute, we just need some information from you first.</h3>
+
+      <FacebookSignUp />
+    </div>
+  )
+}
+
 const FacebookSignUp = () => {
   const router = useRouter();
+  const account = getCookie('account');
 
   const handleFacebookResponse = async (data) => {
     if (!data?.accessToken) {
@@ -352,7 +399,7 @@ const FacebookSignUp = () => {
       throw new Error("disable");
     }
 
-    const res = await fetch(`${urls.accounts}/user/third-party/instagram`, {
+    const res = await fetch(`${urls.accounts}/media/${account}/instagram`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -372,11 +419,11 @@ const FacebookSignUp = () => {
   const mutation = useMutation((data) => handleFacebookResponse(data), {
     onError: (data) => {
       if (data.message === "disable") return;
-      toast.error(data?.message || "Unable to create account using Facebook");
+      toast.error(data?.message || "Unable to add Facebook");
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       router.push(
-        `/register/success?action=reset-password&email=${data.email}`
+        `/register/success`
       );
     },
   });
@@ -399,9 +446,21 @@ const FacebookSignUp = () => {
       callback={callback}
       cssClass="px-12 py-4 rounded bg-[#4473C9] text-white font-bold"
       isDisabled={isLoading || isSuccess}
-      redirectUri={urls.accounts + "/user/third-party/callback/instagram"}
+      redirectUri={urls.accounts + '/media/instagram-callback'}
+      textButton='Continue with Facebook'
     />
   );
 };
+
+function getCookie(cName) {
+  const name = cName + "=";
+  const cDecoded = decodeURIComponent(document.cookie); //to be careful
+  const cArr = cDecoded .split('; ');
+  let res;
+  cArr.forEach(val => {
+      if (val.indexOf(name) === 0) res = val.substring(name.length);
+  })
+  return res;
+}
 
 export default Influencer;
