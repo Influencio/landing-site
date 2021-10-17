@@ -50,6 +50,7 @@ const postUser = async (user) => {
   user.nationality = user?.nationality?.value;
   const res = await fetch(`${urls.auth}/auth/register`, {
     method: "POST",
+    credentials: 'include',
     body: JSON.stringify(user),
     headers: { "content-type": "application/json" },
   });
@@ -66,6 +67,7 @@ const postUser = async (user) => {
 const postCollab = async (collab, id) => {
   const res = await fetch(`${urls.accounts}/collaboration/influencer/${id}`, {
     method: "POST",
+    credentials: 'include',
     body: JSON.stringify(collab),
     headers: { "content-type": "application/json" },
   });
@@ -341,18 +343,6 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
           }}
         />
 
-        {isError ? (
-          <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
-            role="alert"
-          >
-            <div>
-              {shortTexts.errorMessage}{" "}
-              <span className="font-bold">{error.message}</span>
-            </div>
-          </div>
-        ) : null}
-
         <Controller
           name="tags"
           control={control}
@@ -379,6 +369,18 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
             />
           )}
         />
+
+        {isError ? (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
+            role="alert"
+          >
+            <div>
+              {shortTexts.errorMessage}{" "}
+              <span className="font-bold">{error.message}</span>
+            </div>
+          </div>
+        ) : null}
 
         <Button
           appearance="dark"
@@ -557,6 +559,7 @@ const FacebookSignUp = () => {
 
     const res = await fetch(`${urls.accounts}/media/${account}/instagram`, {
       method: "POST",
+      credentials: 'include',
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         access_token: data.accessToken,
