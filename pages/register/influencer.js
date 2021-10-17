@@ -16,7 +16,8 @@ import textMap from "utils/text-map";
 import FacebookLogin from "react-facebook-login";
 import { toast } from "react-toastify";
 import Steps from "components/atomic/step";
-import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard } from "react-icons/ai";
+import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard, AiOutlineSmile } from "react-icons/ai";
+import Redirect from 'components/other/redirect'
 
 import getCustomProps from "utils/custom-page-props";
 
@@ -64,12 +65,12 @@ const postUser = async (user) => {
   return json;
 };
 
-const postCollab = async (collab, id) => {
+const postCollab = async (collab, id, access_token) => {
   const res = await fetch(`${urls.accounts}/collaboration/influencer/${id}`, {
     method: "POST",
     credentials: 'include',
     body: JSON.stringify(collab),
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "application/json", authorization: access_token ? `Bearer ${access_token}` : null },
   });
 
   const json = await res.json();
@@ -102,7 +103,12 @@ const Influencer = ({ metadata, global, pageContext }) => {
       content: <AddIg />,
       title: 'Media',
       icon: <AiOutlineInstagram />
-    }
+    },
+    {
+      title: 'Done',
+      icon: <AiOutlineSmile />,
+      content: <Redirect title="Hold on, we're redirecting you!" stuckText='Stuck? Click here' />
+    },
   ]
 
   return (
@@ -133,6 +139,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
       date.setTime(date.getTime() + (60 * 60 * 1000)); // 1 hour
       const expires = "expires=" + date.toUTCString();
       document.cookie = "account=" + data.account + "; " + expires + "; path=/";
+      document.cookie = "influencio_temp_access_token=" + data.token + "; " + expires + "; path=/";
     }
   });
   const { isLoading, isError, error, isSuccess } = mutation;
@@ -401,8 +408,9 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
 
 const CollabForm = ({ onSuccess }) => {
   const account = getCookie('account');
+  const access_token = getCookie('influencio_temp_access_token')
 
-  const mutation = useMutation((collab) => postCollab(collab, account), {
+  const mutation = useMutation((collab) => postCollab(collab, account, access_token), {
     onSuccess: data => {
       onSuccess && onSuccess()
     }
@@ -550,6 +558,7 @@ const AddIg = () => {
 const FacebookSignUp = () => {
   const router = useRouter();
   const account = getCookie('account');
+  const access_token = getCookie('influencio_temp_access_token')
 
   const handleFacebookResponse = async (data) => {
     if (!data?.accessToken) {
@@ -560,7 +569,7 @@ const FacebookSignUp = () => {
     const res = await fetch(`${urls.accounts}/media/${account}/instagram`, {
       method: "POST",
       credentials: 'include',
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json", authorization: `Bearer ${access_token}` },
       body: JSON.stringify({
         access_token: data.accessToken,
       }),
