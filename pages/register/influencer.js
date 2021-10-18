@@ -15,9 +15,9 @@ import { useRouter } from "next/router";
 import textMap from "utils/text-map";
 import FacebookLogin from "react-facebook-login";
 import { toast } from "react-toastify";
-import Steps from "components/atomic/step";
-import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard, AiOutlineSmile } from "react-icons/ai";
-import Redirect from 'components/other/redirect'
+// import Steps from "components/atomic/step";
+// import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard, AiOutlineSmile } from "react-icons/ai";
+// import Redirect from 'components/other/redirect'
 
 import getCustomProps from "utils/custom-page-props";
 
@@ -84,32 +84,34 @@ const postCollab = async (collab, id, access_token) => {
 
 const Influencer = ({ metadata, global, pageContext }) => {
   const shortTexts = textMap(pageContext.texts.shortTexts);
-  const [currentStep, setCurrentStep] = useState(0);
+  // const [currentStep, setCurrentStep] = useState(0);
 
-  const steps = [
-    {
-      content: (
-        <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => setCurrentStep(1)} />
-      ),
-      title: 'Info',
-      icon: <AiOutlineIdcard />
-    },
-    {
-      content: <CollabForm />,
-      title: 'Collaboration',
-      icon: <AiOutlineProfile />
-    },
-    {
-      content: <AddIg />,
-      title: 'Media',
-      icon: <AiOutlineInstagram />
-    },
-    {
-      title: 'Done',
-      icon: <AiOutlineSmile />,
-      content: <Redirect title="Hold on, we're redirecting you!" stuckText='Stuck? Click here' />
-    },
-  ]
+  const router = useRouter()
+
+  // const steps = [
+  //   {
+  //     content: (
+  //       <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => setCurrentStep(1)} />
+  //     ),
+  //     title: 'Info',
+  //     icon: <AiOutlineIdcard />
+  //   },
+  //   {
+  //     content: <CollabForm />,
+  //     title: 'Collaboration',
+  //     icon: <AiOutlineProfile />
+  //   },
+  //   {
+  //     content: <AddIg />,
+  //     title: 'Media',
+  //     icon: <AiOutlineInstagram />
+  //   },
+  //   {
+  //     title: 'Done',
+  //     icon: <AiOutlineSmile />,
+  //     content: <Redirect title="Hold on, we're redirecting you!" stuckText='Stuck? Click here' />
+  //   },
+  // ]
 
   return (
     <Layout global={global} pageContext={pageContext}>
@@ -120,9 +122,8 @@ const Influencer = ({ metadata, global, pageContext }) => {
         <h1 className="title mt-16 text-center">{shortTexts.title}</h1>
         <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
-        <Steps steps={steps} currentStep={currentStep} />
-        <div onClick={() => setCurrentStep(currentStep + 1)}>next</div>
-        <div onClick={() => setCurrentStep(currentStep - 1)}>prev</div>
+        {/* <Steps steps={steps} currentStep={currentStep} /> */}
+        <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
       </div>
     </Layout>
   );
@@ -134,12 +135,12 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
     onSuccess: data => {
       onSuccess && onSuccess()
 
-      // Set cookie
-      const date = new Date();
-      date.setTime(date.getTime() + (60 * 60 * 1000)); // 1 hour
-      const expires = "expires=" + date.toUTCString();
-      document.cookie = "account=" + data.account + "; " + expires + "; path=/";
-      document.cookie = "influencio_temp_access_token=" + data.token + "; " + expires + "; path=/";
+      // // Set cookie
+      // const date = new Date();
+      // date.setTime(date.getTime() + (60 * 60 * 1000)); // 1 hour
+      // const expires = "expires=" + date.toUTCString();
+      // document.cookie = "account=" + data.account + "; " + expires + "; path=/";
+      // document.cookie = "influencio_temp_access_token=" + data.token + "; " + expires + "; path=/";
     }
   });
   const { isLoading, isError, error, isSuccess } = mutation;
@@ -162,7 +163,9 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
   return (
     <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
 
-      <h3 className='font-bold text-xl text-center my-16'>You’ll be all set up in just a minute, we just need some information from you first.</h3>
+      <FacebookSignUp />
+
+      <h3 className='font-bold text-3xl text-center my-16'>Or</h3>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -247,7 +250,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
           )}
         />
 
-        <div className="flex flex-col md:flex-row md:space-x-3">
+        <div className="flex flex-col md:flex-row md:space-x-3 space-y-4 md:space-y-0">
           <Controller
             name="shipping.zip"
             control={control}
@@ -557,8 +560,6 @@ const AddIg = () => {
 
 const FacebookSignUp = () => {
   const router = useRouter();
-  const account = getCookie('account');
-  const access_token = getCookie('influencio_temp_access_token')
 
   const handleFacebookResponse = async (data) => {
     if (!data?.accessToken) {
@@ -566,10 +567,10 @@ const FacebookSignUp = () => {
       throw new Error("disable");
     }
 
-    const res = await fetch(`${urls.accounts}/media/${account}/instagram`, {
+    const res = await fetch(`${urls.accounts}/user/third-party/instagram`, {
       method: "POST",
       credentials: 'include',
-      headers: { "content-type": "application/json", authorization: `Bearer ${access_token}` },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({
         access_token: data.accessToken,
       }),
@@ -587,13 +588,11 @@ const FacebookSignUp = () => {
   const mutation = useMutation((data) => handleFacebookResponse(data), {
     onError: (data) => {
       if (data.message === "disable") return;
-      toast.error(data?.message || "Unable to add Facebook");
+      toast.error(data?.message || "Unable to create account with Facebook");
     },
-    onSuccess: () => {
-      router.push(
-        `/register/success`
-      );
-    },
+    onSuccess: data => {
+      router.push(`/register/success?action=reset-password&email=${data.email}`);
+    }
   });
   const { isLoading, isSuccess } = mutation;
 
@@ -609,12 +608,12 @@ const FacebookSignUp = () => {
   return (
     <FacebookLogin
       appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
-      scope="instagram_basic,pages_show_list,email,instagram_manage_insights,pages_read_engagement"
+      scope='instagram_basic,pages_show_list,email,instagram_manage_insights,pages_read_engagement'
       fields="name,email,picture"
       callback={callback}
-      cssClass="px-12 py-4 rounded bg-[#4473C9] text-white font-bold"
+      cssClass='px-12 py-4 rounded bg-[#4473C9] text-white font-bold'
       isDisabled={isLoading || isSuccess}
-      redirectUri={urls.accounts + '/media/instagram-callback'}
+      redirectUri={urls.accounts + '/user/third-party/callback/instagram'}
       textButton='Continue with Facebook'
     />
   );
