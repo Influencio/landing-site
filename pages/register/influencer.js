@@ -48,7 +48,9 @@ const countries = [{"long":"Afghanistan","short":"AF"},{"long":"Albania","short"
 const postUser = async (user) => {
   user.role = "influencer";
   user.tags = user?.tags?.map((tag) => tag.value);
-  user.nationality = user?.nationality?.value;
+  if (user.location && user.location.country) {
+    user.location.country = user.location.country.value
+  }
   const res = await fetch(`${urls.auth}/auth/register`, {
     method: "POST",
     credentials: 'include',
@@ -283,19 +285,20 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
         </div>
 
         <Controller
-          name="nationality"
+          name="location.country"
           control={control}
           defaultValue=""
           render={({ field }) => (
             <Select
-              id="nationality"
-              label="Nationality"
+              id="country"
+              label="Country"
               width="full"
-              error={errors?.nationality}
-              data={nationalities.map((nationality) => ({
-                key: nationality.long,
-                value: nationality,
-                name: nationality.long,
+              defaultValue={{key: 'Denmark', value: { long: 'Denmark', short: 'DK'}, name: 'Denmark'}}
+              error={errors?.location?.country}
+              data={countries.map((country) => ({
+                key: country.long,
+                value: country,
+                name: country.long,
               }))}
               {...field}
             />
