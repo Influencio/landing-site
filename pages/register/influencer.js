@@ -594,7 +594,7 @@ const FacebookSignUp = () => {
       toast.error(data?.message || "Unable to create account with Facebook");
     },
     onSuccess: data => {
-      router.push(`/register/success?action=reset-password&email=${data.email}`);
+      router.push(data.passwordResetUrl || `/register/success`);
     }
   });
   const { isLoading, isSuccess } = mutation;
