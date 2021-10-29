@@ -16,7 +16,7 @@ const getApi = () => {
     case 'staging':
       return 'https://api.staging.influencio.dk'
     default:
-      return 'http://localhost:3001'
+      return 'https://api.influenc.io'
   }
 }
 
@@ -27,7 +27,7 @@ const getAuth = () => {
     case 'staging':
       return 'https://auth.staging.influencio.dk'
     default:
-      return 'http://localhost:3002'
+      return 'https://auth.influenc.io'
   }
 }
 
