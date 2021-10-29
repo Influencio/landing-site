@@ -1,5 +1,5 @@
 const getLanding = () => {
-  switch (process.env.NODE_ENV) {
+  switch (process.env.APP_ENV) {
     case 'production':
       return 'https://influenc.io'
     case 'staging':
@@ -10,7 +10,7 @@ const getLanding = () => {
 }
 
 const getApi = () => {
-  switch (process.env.NODE_ENV) {
+  switch (process.env.APP_ENV) {
     case 'production':
       return 'https://api.influenc.io'
     case 'staging':
@@ -21,7 +21,7 @@ const getApi = () => {
 }
 
 const getAuth = () => {
-  switch (process.env.NODE_ENV) {
+  switch (process.env.APP_ENV) {
     case 'production':
       return 'https://auth.influenc.io'
     case 'staging':
