@@ -2,8 +2,8 @@
   "name": "influencio",
   "version": "1.0.0",
   "scripts": {
-    "dev": "export NODE_ENV=development && next",
-    "develop": "export NODE_ENV=development && next",
+    "dev": "export APP_ENV=staging && next",
+    "develop": "export APP_ENV=staging && next",
     "build": "chmod +x ./slug.sh && ./slug.sh && next build",
     "start": "next start"
   },
