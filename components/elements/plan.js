@@ -1,6 +1,6 @@
 // import { CheckOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { IoIosCheckmarkCircle } from 'react-icons/io';
+import { IoIosCheckmarkCircle, IoIosCloseCircle } from 'react-icons/io';
 import classNames from 'classnames'
 
 
@@ -44,9 +44,9 @@ const Plan = ({ title, link, linkTitle, price, subtitle, benefits, annually, han
         <p className="my-4">{subtitle}</p>
         <div className="my-8">
           {benefits.map((b) => (
-            <div key={b} className="text-left w-full my-3 flex items-start">
-              <IoIosCheckmarkCircle style={{ minWidth: 22.5 }} className="text-blue-400 text-2xl" />{' '}
-              <div className="ml-2">{b}</div>
+            <div key={b.name} className="text-left w-full my-3 flex items-start">
+              {b.inPlan ? <IoIosCheckmarkCircle style={{ minWidth: 22.5 }} className="text-blue-400 text-2xl" /> : <IoIosCloseCircle style={{ minWidth: 22.5 }} className="text-blue-400 text-2xl" /> }{' '}
+              <div className="ml-2">{b.name}</div>
             </div>
           ))}
         </div>
