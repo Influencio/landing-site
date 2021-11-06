@@ -184,9 +184,6 @@ const Company = ({ metadata, global, pageContext }) => {
         <div className="max-w-screen-xl w-full">
           <Steps steps={steps} currentStep={currentStep} />
         </div>
-
-        <button onClick={() => handleChange(currentStep - 1)}>back</button>
-        <button onClick={() => handleChange(currentStep + 1)}>forward</button>
       </div>
     </Layout>
   );
