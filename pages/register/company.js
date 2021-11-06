@@ -9,6 +9,7 @@ import PricingContent from "@/components/elements/pricing-content";
 import { useRouter } from "next/router";
 import { useForm, Controller } from "react-hook-form";
 import Input from "components/atomic/input";
+import Textarea from "components/atomic/textarea";
 import Select from "components/atomic/select";
 import Button from "components/elements/button";
 import urls from 'utils/urls'
@@ -285,6 +286,36 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) =>
         ) : null}
 
         <Controller
+          name="company.website"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="companyWebsite"
+              label="Website"
+              error={errors?.company?.website}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="company.vat"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="companyVat"
+              label="Vat No."
+              error={errors?.company?.website}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
           name="company.country"
           control={control}
           defaultValue=""
@@ -306,7 +337,7 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) =>
           defaultValue=""
           rules={{ required: true }}
           render={({ field }) => (
-            <Input
+            <Textarea
               id="companyDescription"
               label="Description"
               placeholder="eg. We make cool products for cool people"
@@ -362,6 +393,22 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) =>
               placeholder="email@example.com"
               type="email"
               error={errors?.user?.email}
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="user.phone.number"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              id="phoneNumber"
+              label="Phone number"
+              placeholder="+45 88888888"
+              error={errors?.user?.phone?.number}
               {...field}
             />
           )}
