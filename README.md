@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://influencio.dk">
+  <a href="https://influenc.io">
     <img alt="Influencio" src="https://storage.googleapis.com/assets.influencio.dk/logo/influencio-logo.png" width="100" />
   </a>
 </p>
@@ -11,7 +11,7 @@
 
 Presentational site for influencio.
 
-This frontend relies on Next's [Static Generation](https://nextjs.org/docs/basic-features/pages) using [Strapi](https://strapi.io/) as the data source. Make sure Strapi is running in parallel when you run this app (runs on [content.influencio.dk/landing-page-content](https://content.influencio.dk/landing-page-content)).
+This frontend relies on Next's [Static Generation](https://nextjs.org/docs/basic-features/pages) using [Strapi](https://strapi.io/) as the data source. Make sure Strapi is running in parallel when you run this app (runs on [content.influenc.io/landing-page-content](https://content.influenc.io/landing-page-content)).
 
 ## Routes
 
