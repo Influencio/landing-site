@@ -32,12 +32,12 @@ const getAuth = () => {
 }
 
 export default {
-  hydra: 'https://auth.influencio.dk/hydra',
-  helios: 'https://auth.influencio.dk/helios',
+  hydra: 'https://auth.influenc.io/hydra',
+  helios: 'https://auth.influenc.io/helios',
   auth: getAuth() + '/auth',
   accounts: getApi() + '/accounts',
   // accountsOld: 'https://api.influencio.dk/accounts',
-  tags: 'https://api.influencio.dk/tags',
-  webApp: 'https://influencio.dk',
+  tags: 'https://api.influenc.io/tags',
+  webApp: 'https://app.influenc.io',
   landing: getLanding()
 }
