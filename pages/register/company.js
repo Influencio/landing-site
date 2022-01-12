@@ -507,23 +507,69 @@ const ValidCompanyName = ({ isNameValid, failure, success }) => {
 };
 
 const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
+
+  const postPayment = async data => {
+    const res = await fetch(`${urls.payment}/auth/register/company`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {"content-type": "application/json"}
+    })
+
+    const json = await res.json();
+    
+    if (!res.ok) {
+      throw new Error(json?.message)
+    }
+
+    onSuccess && onSuccess()
+
+    return json; 
+  }
+
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    onSuccess(data)
+
+  const onSubmit = (data) => mutation.mutate(data);
+
+  const mutation = useMutation((data) => postPayment(data));
+
+
+  const [discountCode, setDiscountCode] = useState(null);
+  const [discountCodeError, setDiscountCodeError] = useState(null);
+
+  const checkCode = async search => {
+    try {
+      const response = await fetch(`${urls.payment}/auth/register/company/check`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        }
+      })
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        throw new Error(json?.message)
+      }
+
+      setDiscountCode(json);
+    } catch (error) {
+      setDiscountCodeError(error.message || 'Invalid code');
+    }
   }
 
   return (
     <div className="text-center flex flex-col items-center">
+      <div>You need a discount code to upgrade currently</div>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-screen-sm space-y-4 text-left my-4"
       >
-        <div className='flex w-full md:space-x-8 flex-col space-y-4 md:space-y-0 md:flex-row'>
+        {/* <div className='flex w-full md:space-x-8 flex-col space-y-4 md:space-y-0 md:flex-row'>
           <Controller
             name="address.city"
             control={control}
@@ -647,7 +693,7 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
               />
             )}
           />
-        </div>
+        </div> */}
 
         <Controller
           name="code"
@@ -660,16 +706,58 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
               placeholder="WELCOME20"
               type='search'
               enterButton='Apply'
-              onSubmit={search => console.log('submit', search)}
+              onSubmit={search => checkCode(search)}
               {...field}
             />
           )}
         />
 
+        {discountCodeError && (
+          <div className="bg-red-200 border-2 border-red-300 text-gray-700 p-2 mt-2 rounded">
+            {discountCodeError}
+          </div>
+        )}
+
+        {discountCode && (
+          <div className="bg-green-200 border-2 border-green-300 text-green-700 p-2 mt-2 rounded">
+            <div>
+              Applied code:{' '}
+              <span>
+                {discountCode.code}
+              </span>{' '}
+              {discountCode.calculatedPrice ||
+              !discountCode.duration_in_months ? (
+                <span>
+                  gives you a discount of {discountCode.yourDiscount} off,
+                  resulting in a total price of {discountCode.currency || '€'}{' '}
+                  {discountCode.calculatedPrice}!
+                </span>
+              ) : (
+                <span>
+                  {' '}
+                  permits access to Influencio for{' '}
+                  {discountCode.duration_in_months} months at no cost
+                </span>
+              )}
+            </div>
+            <div>
+              {discountCode.calculatedPrice && discountCode.duration_in_months
+                ? 'Code is applicable for ' +
+                  discountCode.duration_in_months +
+                  ' months'
+                : null}
+            </div>
+          </div>
+        )}
+
         {/* TODO: Add stripe payment integration */}
 
-        <Button type='submit' appearance='dark' compact>
-          {shortTexts.submitPayButton}
+        <Button type='submit' appearance='dark' compact
+            disabled={mutation.isSuccess || mutation.isLoading}
+            loading={mutation.isLoading}
+          >
+          Continue
+          {/* {shortTexts.submitPayButton} */}
         </Button>
       </form>
 
