@@ -80,6 +80,7 @@ export const getStaticProps = async (context) => {
 const Company = ({ metadata, global, pageContext }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [registeredCompanyId, setRegisteredCompanyId] = useState(null);
 
   const shortTexts = textMap(pageContext.texts.shortTexts)
   
@@ -123,6 +124,12 @@ const Company = ({ metadata, global, pageContext }) => {
     localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan))
   }, [currentStep])
 
+  useEffect(() => {
+    if (registeredCompanyId || registeredCompanyId === '') {
+      setCurrentStep(selectedPlan.skipPayment ? 3 : 2)
+    }
+  }, [registeredCompanyId])
+
   const steps = [
     {
       content: (
@@ -142,8 +149,8 @@ const Company = ({ metadata, global, pageContext }) => {
             setSelectedPlan(null)
             setCurrentStep(0)
           }}
-          onSuccess={() => {
-            setCurrentStep(selectedPlan.skipPayment ? 3 : 2)
+          onSuccess={(data) => {
+            setRegisteredCompanyId(data.company?._id || '')
           }}
           shortTexts={shortTexts}
         />
@@ -154,6 +161,8 @@ const Company = ({ metadata, global, pageContext }) => {
     {
       content: (
         <Pay
+          selectedPlan={selectedPlan}
+          company={registeredCompanyId}
           taxIdTypes={pageContext.taxIdTypes}
           onSuccess={() => {
             setCurrentStep(currentStep+1)
@@ -206,7 +215,7 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) =>
       throw new Error(json?.message)
     }
 
-    onSuccess && onSuccess()
+    onSuccess && onSuccess(json)
 
     return json; 
   }
@@ -506,10 +515,13 @@ const ValidCompanyName = ({ isNameValid, failure, success }) => {
   );
 };
 
-const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
+const Pay = ({ taxIdTypes, onSuccess, shortTexts, selectedPlan, company }) => {
 
   const postPayment = async data => {
-    const res = await fetch(`${urls.payment}/auth/register/company`, {
+
+    data.planName = selectedPlan.title;
+
+    const res = await fetch(`${urls.payment}/subscription/company/${company}`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {"content-type": "application/json"}
@@ -539,10 +551,12 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
 
   const [discountCode, setDiscountCode] = useState(null);
   const [discountCodeError, setDiscountCodeError] = useState(null);
+  const [isApplyingCode, setIsApplyingCode] = useState(false);
 
   const checkCode = async search => {
+    setIsApplyingCode(true)
     try {
-      const response = await fetch(`${urls.payment}/auth/register/company/check`, {
+      const response = await fetch(`${urls.payment}/code/check/${search}?type=subscription&id=${selectedPlan?.title || ''}&user_id=${company}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -556,9 +570,20 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
       }
 
       setDiscountCode(json);
+      setDiscountCodeError(null);
     } catch (error) {
       setDiscountCodeError(error.message || 'Invalid code');
+      setDiscountCode(null)
     }
+    setIsApplyingCode(false)
+  }
+
+  if (!company) {
+    onSuccess && onSuccess();
+
+    return (
+      <div>Unable to handle payment currently</div>
+    )
   }
 
   return (
@@ -696,7 +721,7 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
         </div> */}
 
         <Controller
-          name="code"
+          name="promotion_code"
           control={control}
           defaultValue=""
           render={({ field }) => (
@@ -707,6 +732,7 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts }) => {
               type='search'
               enterButton='Apply'
               onSubmit={search => checkCode(search)}
+              isLoading={isApplyingCode}
               {...field}
             />
           )}
