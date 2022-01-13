@@ -588,7 +588,7 @@ const Pay = ({ taxIdTypes, onSuccess, shortTexts, selectedPlan, company }) => {
 
   return (
     <div className="text-center flex flex-col items-center">
-      <div>You need a discount code to upgrade currently</div>
+      <div>Enter your discount code to get access</div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
