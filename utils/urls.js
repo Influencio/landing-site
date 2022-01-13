@@ -38,6 +38,7 @@ export default {
   accounts: getApi() + '/accounts',
   // accountsOld: 'https://api.influencio.dk/accounts',
   tags: 'https://api.influenc.io/tags',
+  payment: getApi() + '/payment',
   webApp: 'https://app.influenc.io',
   landing: getLanding()
 }
