@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
+    "@radix-ui/react-checkbox": "^0.1.4",
     "@tailwindcss/typography": "^0.3.1",
     "autoprefixer": "^10.2.6",
     "babel-plugin-macros": "^3.1.0",
