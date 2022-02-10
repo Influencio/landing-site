@@ -16,6 +16,8 @@ import urls from 'utils/urls'
 import { useQuery, useMutation } from "react-query";
 import textMap from 'utils/text-map';
 import Redirect from 'components/other/redirect'
+import Checkbox from "@/components/atomic/checkbox";
+import Link from "next/link";
 
 export const getStaticProps = async (context) => {
   const { locale, locales, defaultLocale, preview = null } = context;
@@ -481,6 +483,29 @@ const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) =>
             </div>
           </div>
         ) : null}
+
+        <Controller
+          name='terms'
+          control={control}
+          rules={{
+            validate: (value) => value || "You must accept the terms and conditions",
+          }}
+          render={({ field }) => (
+            <Checkbox
+              id="terms"
+              label={
+                <>
+                  I have read, understood and agreed to the{" "}
+                  <Link href="/terms-of-service"><a className='text-blue-500'>terms of service</a></Link>
+                  {" "} and the {" "}
+                  <Link href="/privacy-policy"><a className='text-blue-500'>privacy policy</a></Link>.
+                </>
+              }
+              error={errors?.terms}
+              {...field}
+            />
+          )}
+        />
 
         <Button
           appearance="dark"

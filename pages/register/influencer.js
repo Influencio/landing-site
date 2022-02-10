@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 // import Redirect from 'components/other/redirect'
 
 import getCustomProps from "utils/custom-page-props";
+import Checkbox from "@/components/atomic/checkbox";
 
 export const getStaticProps = async (args) => {
   const data = await getCustomProps(["register", "influencer"])(args);
@@ -154,6 +155,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
     watch,
     trigger,
   } = useForm();
+    console.log("🚀 ~ file: influencer.js ~ line 158 ~ InfoForm ~ errors", errors)
   const onSubmit = (data) => mutation.mutate(data);
 
   useEffect(() => {
@@ -362,7 +364,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
           rules={{
             required: {
               value: true,
-              message: "Please select atleast one category",
+              message: "Please select at least one category",
             },
           }}
           render={({ field }) => (
@@ -394,6 +396,29 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
             </div>
           </div>
         ) : null}
+
+        <Controller
+          name='terms'
+          control={control}
+          rules={{
+            validate: (value) => value || "You must accept the terms and conditions",
+          }}
+          render={({ field }) => (
+            <Checkbox
+              id="terms"
+              label={
+                <>
+                  I have read, understood and agreed to the{" "}
+                  <Link href="/terms-of-service"><a className='text-blue-500'>terms of service</a></Link>
+                  {" "} and the {" "}
+                  <Link href="/privacy-policy"><a className='text-blue-500'>privacy policy</a></Link>.
+                </>
+              }
+              error={errors?.terms}
+              {...field}
+            />
+          )}
+        />
 
         <Button
           appearance="dark"
