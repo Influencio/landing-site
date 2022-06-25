@@ -46,13 +46,13 @@ const nationalities = [
 
 const countries = [{"long":"Afghanistan","short":"AF"},{"long":"Albania","short":"AL"},{"long":"Algeria","short":"DZ"},{"long":"Argentina","short":"AR"},{"long":"Armenia","short":"AM"},{"long":"Australia","short":"AU"},{"long":"Austria","short":"AT"},{"long":"Azerbaijan","short":"AZ"},{"long":"Bahrain","short":"BH"},{"long":"Bangladesh","short":"BD"},{"long":"Belarus","short":"BY"},{"long":"Belgium","short":"BE"},{"long":"Belize","short":"BZ"},{"long":"Bolivarian Republic of Venezuela","short":"VE"},{"long":"Bolivia","short":"BO"},{"long":"Bosnia and Herzegovina","short":"BA"},{"long":"Brazil","short":"BR"},{"long":"Brunei Darussalam","short":"BN"},{"long":"Bulgaria","short":"BG"},{"long":"Cambodia","short":"KH"},{"long":"Canada","short":"CA"},{"long":"Chile","short":"CL"},{"long":"Colombia","short":"CO"},{"long":"Costa Rica","short":"CR"},{"long":"Croatia","short":"HR"},{"long":"Czech Republic","short":"CZ"},{"long":"Denmark","short":"DK"},{"long":"Dominican Republic","short":"DO"},{"long":"Ecuador","short":"EC"},{"long":"Egypt","short":"EG"},{"long":"El Salvador","short":"SV"},{"long":"Estonia","short":"EE"},{"long":"Ethiopia","short":"ET"},{"long":"Faroe Islands","short":"FO"},{"long":"Finland","short":"FI"},{"long":"France","short":"FR"},{"long":"Georgia","short":"GE"},{"long":"Germany","short":"DE"},{"long":"Greece","short":"GR"},{"long":"Greenland","short":"GL"},{"long":"Guatemala","short":"GT"},{"long":"Honduras","short":"HN"},{"long":"Hong Kong S.A.R.","short":"HK"},{"long":"Hungary","short":"HU"},{"long":"Iceland","short":"IS"},{"long":"India","short":"IN"},{"long":"Indonesia","short":"ID"},{"long":"Iran","short":"IR"},{"long":"Iraq","short":"IQ"},{"long":"Ireland","short":"IE"},{"long":"Islamic Republic of Pakistan","short":"PK"},{"long":"Israel","short":"IL"},{"long":"Italy","short":"IT"},{"long":"Jamaica","short":"JM"},{"long":"Japan","short":"JP"},{"long":"Jordan","short":"JO"},{"long":"Kazakhstan","short":"KZ"},{"long":"Kenya","short":"KE"},{"long":"Korea","short":"KR"},{"long":"Kuwait","short":"KW"},{"long":"Kyrgyzstan","short":"KG"},{"long":"Lao P.D.R.","short":"LA"},{"long":"Latvia","short":"LV"},{"long":"Lebanon","short":"LB"},{"long":"Libya","short":"LY"},{"long":"Liechtenstein","short":"LI"},{"long":"Lithuania","short":"LT"},{"long":"Luxembourg","short":"LU"},{"long":"Macao S.A.R.","short":"MO"},{"long":"Macedonia (FYROM)","short":"MK"},{"long":"Malaysia","short":"MY"},{"long":"Maldives","short":"MV"},{"long":"Malta","short":"MT"},{"long":"Mexico","short":"MX"},{"long":"Mongolia","short":"MN"},{"long":"Montenegro","short":"ME"},{"long":"Morocco","short":"MA"},{"long":"Nepal","short":"NP"},{"long":"Netherlands","short":"NL"},{"long":"New Zealand","short":"NZ"},{"long":"Nicaragua","short":"NI"},{"long":"Nigeria","short":"NG"},{"long":"Norway","short":"NO"},{"long":"Oman","short":"OM"},{"long":"Panama","short":"PA"},{"long":"Paraguay","short":"PY"},{"long":"People's Republic of China","short":"CN"},{"long":"Peru","short":"PE"},{"long":"Philippines","short":"PH"},{"long":"Poland","short":"PL"},{"long":"Portugal","short":"PT"},{"long":"Principality of Monaco","short":"MC"},{"long":"Puerto Rico","short":"PR"},{"long":"Qatar","short":"QA"},{"long":"Republic of the Philippines","short":"PH"},{"long":"Romania","short":"RO"},{"long":"Russia","short":"RU"},{"long":"Rwanda","short":"RW"},{"long":"Saudi Arabia","short":"SA"},{"long":"Senegal","short":"SN"},{"long":"Serbia","short":"RS"},{"long":"Singapore","short":"SG"},{"long":"Slovakia","short":"SK"},{"long":"Slovenia","short":"SI"},{"long":"South Africa","short":"ZA"},{"long":"Spain","short":"ES"},{"long":"Sri Lanka","short":"LK"},{"long":"Sweden","short":"SE"},{"long":"Switzerland","short":"CH"},{"long":"Syria","short":"SY"},{"long":"Taiwan","short":"TW"},{"long":"Tajikistan","short":"TJ"},{"long":"Thailand","short":"TH"},{"long":"Trinidad and Tobago","short":"TT"},{"long":"Tunisia","short":"TN"},{"long":"Turkey","short":"TR"},{"long":"Turkmenistan","short":"TM"},{"long":"U.A.E.","short":"AE"},{"long":"Ukraine","short":"UA"},{"long":"United Kingdom","short":"GB"},{"long":"United States","short":"US"},{"long":"Uruguay","short":"UY"},{"long":"Uzbekistan","short":"UZ"},{"long":"Vietnam","short":"VN"},{"long":"Yemen","short":"YE"},{"long":"Zimbabwe","short":"ZW"}]
 
-const postUser = async (user) => {
+const postUser = async (user, managedAccess) => {
   user.role = "influencer";
   user.tags = user?.tags?.map((tag) => tag.value);
   if (user.location && user.location.country) {
     user.location.country = user.location.country.value
   }
-  const res = await fetch(`${urls.auth}/auth/register`, {
+  const res = await fetch(`${urls.auth}/auth/register${managedAccess ? `?managedAccess=${managedAccess}` : ''}`, {
     method: "POST",
     credentials: 'include',
     body: JSON.stringify(user),
@@ -126,15 +126,15 @@ const Influencer = ({ metadata, global, pageContext }) => {
         <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
         {/* <Steps steps={steps} currentStep={currentStep} /> */}
-        <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
+        <InfoForm managedAccess={router.query.managedAccess} shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
       </div>
     </Layout>
   );
 };
 
-const InfoForm = ({ shortTexts, tags, onSuccess }) => {
+const InfoForm = ({ shortTexts, tags, onSuccess, managedAccess }) => {
 
-  const mutation = useMutation((user) => postUser(user), {
+  const mutation = useMutation((user) => postUser(user, managedAccess), {
     onSuccess: data => {
       onSuccess && onSuccess()
 
@@ -167,7 +167,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
   return (
     <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
 
-      <FacebookSignUp />
+      <FacebookSignUp managedAccess={managedAccess} />
 
       <h3 className='font-bold text-3xl text-center my-16'>Or</h3>
 
@@ -351,7 +351,6 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
                   onChange(value);
                   trigger("confirm");
                 }}
-                validateIcon={1}
                 value={value}
               />
             );
@@ -586,7 +585,7 @@ const AddIg = () => {
   )
 }
 
-const FacebookSignUp = () => {
+const FacebookSignUp = ({ managedAccess }) => {
   const router = useRouter();
 
   const handleFacebookResponse = async (data) => {
@@ -601,6 +600,7 @@ const FacebookSignUp = () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         access_token: data.accessToken,
+        managedAccess: managedAccess
       }),
     });
 
@@ -641,7 +641,7 @@ const FacebookSignUp = () => {
       callback={callback}
       cssClass='px-12 py-4 rounded bg-[#4473C9] text-white font-bold'
       isDisabled={isLoading || isSuccess}
-      redirectUri={(urls.accountsOld || urls.accounts) + '/user/third-party/callback/instagram'}
+      redirectUri={(urls.accountsOld || urls.accounts) + `/user/third-party/callback/instagram${managedAccess ? `?managedAccess=${managedAccess}` : ''}`}
       textButton='Continue with Facebook'
     />
   );
