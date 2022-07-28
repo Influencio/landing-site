@@ -18,7 +18,7 @@ import Redirect from 'components/other/redirect'
 import Checkbox from "@/components/atomic/checkbox";
 import Link from "next/link";
 
-const Company = ({ metadata, global, pageContext }) => {
+const Company = ({ metadata, global, pageContext, type }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [registeredCompanyId, setRegisteredCompanyId] = useState(null);
@@ -94,6 +94,7 @@ const Company = ({ metadata, global, pageContext }) => {
             setRegisteredCompanyId(data.company?._id || '')
           }}
           shortTexts={shortTexts}
+          type={type}
         />
       ),
       title: shortTexts.step2Title,
@@ -140,11 +141,11 @@ const Company = ({ metadata, global, pageContext }) => {
 };
 
 
-const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts }) => {
+const RegisterCompany = ({ selectedPlan, changePlan, onSuccess, shortTexts, type }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const postCompany = async data => {
-    const res = await fetch(`${urls.auth}/auth/register/company`, {
+    const res = await fetch(`${urls.auth}/auth/register/${type || 'company'}`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {"content-type": "application/json"}
