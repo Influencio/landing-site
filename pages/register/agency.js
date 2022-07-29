@@ -17,7 +17,7 @@ export const getStaticProps = async (context) => {
   );
 
   // Get pricing data from pricing page
-  const priceData = await getPageData({ slug: ["pricing"] }, locale, preview);
+  const priceData = await getPageData({ slug: ["pricing/agency"] }, locale, preview);
 
   // Get tax id types
   const taxIdTypesRaw = await (await fetch(`${urls.landing}/static/tax-id-countries.json`, {headers: {"content-type": "application/json"}})).json()
