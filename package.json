@@ -19,6 +19,7 @@
     "dayjs": "^1.10.6",
     "formik": "^2.2.6",
     "js-cookie": "^2.2.1",
+    "jwt-decode": "^3.1.2",
     "next": "^11.1.2",
     "next-seo": "^4.7.1",
     "postcss": "^8.3.2",
