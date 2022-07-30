@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import textMap from "utils/text-map";
 import FacebookLogin from "react-facebook-login";
 import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
 // import Steps from "components/atomic/step";
 // import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard, AiOutlineSmile } from "react-icons/ai";
 // import Redirect from 'components/other/redirect'
@@ -91,6 +92,8 @@ const Influencer = ({ metadata, global, pageContext }) => {
 
   const router = useRouter()
 
+  const { managedAccess } = router.query
+
   // const steps = [
   //   {
   //     content: (
@@ -126,7 +129,7 @@ const Influencer = ({ metadata, global, pageContext }) => {
         <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
         {/* <Steps steps={steps} currentStep={currentStep} /> */}
-        <InfoForm managedAccess={router.query.managedAccess} shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
+        <InfoForm managedAccess={managedAccess} shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
       </div>
     </Layout>
   );
@@ -163,9 +166,42 @@ const InfoForm = ({ shortTexts, tags, onSuccess, managedAccess }) => {
       onSuccess && onSuccess()
     }
   }, [])
+
+  let managedAccessPayload
+  if (managedAccess) {
+    managedAccessPayload = jwtDecode(managedAccess)
+  }
   
   return (
     <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
+
+      {
+        managedAccess && managedAccessPayload ? (
+          <div className="border border-gray-100 shadow-md px-6 py-4 absolute right-12 top-[150px] bg-white rounded-xl">
+            <h3 className="font-bold text-xl">Managed Access</h3>
+            <div className="mb-4">Your account will be managed by</div>
+
+            <h4 className="font-bold text-lg text-center my-2">{managedAccessPayload.company?.name}</h4>
+            <div>
+              {
+                managedAccessPayload.agentsData?.map(agent => (
+                  <div className="flex space-x-3 items-center">
+                    {
+                      agent.avatar ? (
+                        <img src={agent.avatar} className='rounded-full h-8 w-8' />
+                      ) : (
+                        <div className="h-8 w-8 bg-gray-200 rounded-full" />
+                      )
+                    }
+
+                    <div>{agent.name?.fullName}</div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        ) : null
+      }
 
       <FacebookSignUp managedAccess={managedAccess} />
 
