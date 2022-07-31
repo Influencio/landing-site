@@ -17,12 +17,14 @@ import textMap from "utils/text-map";
 import FacebookLogin from "react-facebook-login";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
+import { HttpError } from "utils/errors";
 // import Steps from "components/atomic/step";
 // import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard, AiOutlineSmile } from "react-icons/ai";
 // import Redirect from 'components/other/redirect'
 
 import getCustomProps from "utils/custom-page-props";
 import Checkbox from "@/components/atomic/checkbox";
+import Confirm from "@/components/atomic/confirm";
 
 export const getStaticProps = async (args) => {
   const data = await getCustomProps(["register", "influencer"])(args);
@@ -64,7 +66,7 @@ const postUser = async (user, managedAccess) => {
   const json = await res.json();
 
   if (!res.ok) {
-    throw new Error(json?.message);
+    throw new HttpError(json?.message, res.status, json);
   }
 
   return json;
@@ -92,8 +94,6 @@ const Influencer = ({ metadata, global, pageContext }) => {
   // const [currentStep, setCurrentStep] = useState(0);
 
   const router = useRouter()
-
-  const { managedAccess } = router.query
 
   // const steps = [
   //   {
@@ -130,13 +130,15 @@ const Influencer = ({ metadata, global, pageContext }) => {
         <h2 className="text-2xl my-8 text-center">{shortTexts.subTitle}</h2>
 
         {/* <Steps steps={steps} currentStep={currentStep} /> */}
-        <InfoForm managedAccess={managedAccess} shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
+        <InfoForm shortTexts={shortTexts} tags={pageContext?.tags} onSuccess={() => router.push('/register/success')} />
       </div>
     </Layout>
   );
 };
 
-const InfoForm = ({ shortTexts, tags, onSuccess, managedAccess }) => {
+const InfoForm = ({ shortTexts, tags, onSuccess }) => {
+
+  const router = useRouter();
 
   const mutation = useMutation((user) => postUser(user, managedAccess), {
     onSuccess: data => {
@@ -168,13 +170,34 @@ const InfoForm = ({ shortTexts, tags, onSuccess, managedAccess }) => {
     }
   }, [])
 
+  const { managedAccess } = router.query
+
   let managedAccessPayload
   if (managedAccess) {
     managedAccessPayload = jwtDecode(managedAccess)
   }
+
+  const isInvalidManagedRequest = 
+    (new Date(managedAccessPayload?.exp * 1000) < new Date()) ||
+    error?.data?.code === 'InvalidManagedAccessToken'
   
   return (
     <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
+
+      <Confirm 
+        type='danger'
+        open={isInvalidManagedRequest}
+        title='Invalid request'
+        text={
+          <div>
+            Your request for joining under management of <strong>{managedAccessPayload?.company.name}</strong> is invalid. Please reach out to {managedAccessPayload?.company.name} to request a new link.
+          </div>
+        }
+        onOk={() => {
+          router.push('/register/influencer')
+        }}
+        cancelText='Close'
+      />
 
       {
         managedAccess && managedAccessPayload ? (
