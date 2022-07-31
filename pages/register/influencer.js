@@ -8,6 +8,7 @@ import Textarea from "components/atomic/textarea";
 import Select from "components/atomic/select";
 import DatePicker from "components/atomic/date";
 import Button from "components/elements/button";
+import { AiOutlineUser } from 'react-icons/ai';
 import Link from "next/link";
 import { loginUrl } from "utils/links";
 import urls from "utils/urls";
@@ -177,9 +178,15 @@ const InfoForm = ({ shortTexts, tags, onSuccess, managedAccess }) => {
 
       {
         managedAccess && managedAccessPayload ? (
-          <div className="border border-gray-100 shadow-md px-6 py-4 absolute right-12 top-[150px] bg-white rounded-xl">
+          <div className="border border-gray-100 shadow-md px-8 py-6 xl:absolute w-full xl:w-auto mb-8 right-12 top-[150px] bg-white rounded-xl">
             <h3 className="font-bold text-xl">Managed Access</h3>
             <div className="mb-4">Your account will be managed by</div>
+
+            {
+              managedAccessPayload.company.logo ? (
+                <img src={managedAccessPayload.company.logo} alt={`${managedAccessPayload.company.name} logo`} className="h-20 w-20 rounded-full mx-auto" />
+              ) : null
+            }
 
             <h4 className="font-bold text-lg text-center my-2">{managedAccessPayload.company?.name}</h4>
             <div>
@@ -188,9 +195,9 @@ const InfoForm = ({ shortTexts, tags, onSuccess, managedAccess }) => {
                   <div className="flex space-x-3 items-center">
                     {
                       agent.avatar ? (
-                        <img src={agent.avatar} className='rounded-full h-8 w-8' />
+                        <img alt={`profile picture of ${agent.name?.fullName}`} src={agent.avatar} className='rounded-full h-8 w-8' />
                       ) : (
-                        <div className="h-8 w-8 bg-gray-200 rounded-full" />
+                        <AiOutlineUser className="h-8 w-8 p-1 bg-gray-200 rounded-full" />
                       )
                     }
 
