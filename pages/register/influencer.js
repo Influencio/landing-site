@@ -177,9 +177,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
     managedAccessPayload = jwtDecode(managedAccess)
   }
 
-  const isInvalidManagedRequest = 
-    (new Date(managedAccessPayload?.exp * 1000) < new Date()) ||
-    error?.data?.code === 'InvalidManagedAccessToken'
+  const isInvalidManagedRequest = (new Date(managedAccessPayload?.exp * 1000) < new Date())
   
   return (
     <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
