@@ -194,7 +194,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
         onOk={() => {
           router.push('/register/influencer')
         }}
-        cancelText='Close'
+        disableCancel
       />
 
       {
