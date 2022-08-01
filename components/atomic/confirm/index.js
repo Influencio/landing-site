@@ -6,7 +6,7 @@ import { BiError } from 'react-icons/bi'
 import Button from '../button'
 
 
-const Confirm = ({ children, title, type, text, onOk, icon, okText='Ok', cancelText='Cancel', open }) => {
+const Confirm = ({ children, title, type, text, onOk, icon, okText='Ok', cancelText='Cancel', open, disableCancel }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   if (!icon) {
@@ -33,7 +33,6 @@ const Confirm = ({ children, title, type, text, onOk, icon, okText='Ok', cancelT
   }
 
   useEffect(() => {
-    console.log("🚀 ~ file: index.js ~ line 37 ~ useEffect ~ open", open)
     if (open !== undefined) {
       setIsOpen(open)
     }
@@ -60,7 +59,9 @@ const Confirm = ({ children, title, type, text, onOk, icon, okText='Ok', cancelT
         <div>{text}</div>
 
         <div className='flex justify-end space-x-2'>
-          <Button onClick={() => setIsOpen(false)}>{cancelText}</Button>
+          {
+            !disableCancel ? <Button onClick={() => setIsOpen(false)}>{cancelText}</Button> : null
+          }
           <Button onClick={handleOk} danger={type === 'danger'} type='primary'>{okText}</Button>
         </div>
       </div>
