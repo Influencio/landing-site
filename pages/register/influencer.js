@@ -161,7 +161,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
     watch,
     trigger,
   } = useForm();
-    console.log("🚀 ~ file: influencer.js ~ line 158 ~ InfoForm ~ errors", errors)
+  
   const onSubmit = (data) => mutation.mutate(data);
 
   useEffect(() => {
