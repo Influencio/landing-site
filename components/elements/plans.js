@@ -18,7 +18,7 @@ const Plans = ({ annually, handleSelect, plansToExclude=[], plans }) => {
     benefits: p.features.map(f => ({name: f.name, inPlan: f.inPlan})),
     isRecommended: p.isRecommended
   }})
-
+  
   return (
     <div className='flex my-8 flex-wrap flex-col md:flex-row items-center md:items-stretch justify-center'>
       {planArr.map(p => plansToExclude.includes(p.title) ? null : <Plan key={p.title} {...p} annually={annually} />)}
