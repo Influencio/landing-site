@@ -210,7 +210,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
             }
 
             <h4 className="font-bold text-lg text-center my-2">{managedAccessPayload.company?.name}</h4>
-            <div>
+            <div className='space-y-2'>
               {
                 managedAccessPayload.agentsData?.map(agent => (
                   <div className="flex space-x-3 items-center">
