@@ -8,6 +8,7 @@ import Textarea from "components/atomic/textarea";
 import Select from "components/atomic/select";
 import DatePicker from "components/atomic/date";
 import Button from "components/elements/button";
+import { AiOutlineUser } from 'react-icons/ai';
 import Link from "next/link";
 import { loginUrl } from "utils/links";
 import urls from "utils/urls";
@@ -15,12 +16,15 @@ import { useRouter } from "next/router";
 import textMap from "utils/text-map";
 import FacebookLogin from "react-facebook-login";
 import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
+import { HttpError } from "utils/errors";
 // import Steps from "components/atomic/step";
 // import { AiOutlineProfile, AiOutlineInstagram, AiOutlineIdcard, AiOutlineSmile } from "react-icons/ai";
 // import Redirect from 'components/other/redirect'
 
 import getCustomProps from "utils/custom-page-props";
 import Checkbox from "@/components/atomic/checkbox";
+import Confirm from "@/components/atomic/confirm";
 
 export const getStaticProps = async (args) => {
   const data = await getCustomProps(["register", "influencer"])(args);
@@ -46,13 +50,13 @@ const nationalities = [
 
 const countries = [{"long":"Afghanistan","short":"AF"},{"long":"Albania","short":"AL"},{"long":"Algeria","short":"DZ"},{"long":"Argentina","short":"AR"},{"long":"Armenia","short":"AM"},{"long":"Australia","short":"AU"},{"long":"Austria","short":"AT"},{"long":"Azerbaijan","short":"AZ"},{"long":"Bahrain","short":"BH"},{"long":"Bangladesh","short":"BD"},{"long":"Belarus","short":"BY"},{"long":"Belgium","short":"BE"},{"long":"Belize","short":"BZ"},{"long":"Bolivarian Republic of Venezuela","short":"VE"},{"long":"Bolivia","short":"BO"},{"long":"Bosnia and Herzegovina","short":"BA"},{"long":"Brazil","short":"BR"},{"long":"Brunei Darussalam","short":"BN"},{"long":"Bulgaria","short":"BG"},{"long":"Cambodia","short":"KH"},{"long":"Canada","short":"CA"},{"long":"Chile","short":"CL"},{"long":"Colombia","short":"CO"},{"long":"Costa Rica","short":"CR"},{"long":"Croatia","short":"HR"},{"long":"Czech Republic","short":"CZ"},{"long":"Denmark","short":"DK"},{"long":"Dominican Republic","short":"DO"},{"long":"Ecuador","short":"EC"},{"long":"Egypt","short":"EG"},{"long":"El Salvador","short":"SV"},{"long":"Estonia","short":"EE"},{"long":"Ethiopia","short":"ET"},{"long":"Faroe Islands","short":"FO"},{"long":"Finland","short":"FI"},{"long":"France","short":"FR"},{"long":"Georgia","short":"GE"},{"long":"Germany","short":"DE"},{"long":"Greece","short":"GR"},{"long":"Greenland","short":"GL"},{"long":"Guatemala","short":"GT"},{"long":"Honduras","short":"HN"},{"long":"Hong Kong S.A.R.","short":"HK"},{"long":"Hungary","short":"HU"},{"long":"Iceland","short":"IS"},{"long":"India","short":"IN"},{"long":"Indonesia","short":"ID"},{"long":"Iran","short":"IR"},{"long":"Iraq","short":"IQ"},{"long":"Ireland","short":"IE"},{"long":"Islamic Republic of Pakistan","short":"PK"},{"long":"Israel","short":"IL"},{"long":"Italy","short":"IT"},{"long":"Jamaica","short":"JM"},{"long":"Japan","short":"JP"},{"long":"Jordan","short":"JO"},{"long":"Kazakhstan","short":"KZ"},{"long":"Kenya","short":"KE"},{"long":"Korea","short":"KR"},{"long":"Kuwait","short":"KW"},{"long":"Kyrgyzstan","short":"KG"},{"long":"Lao P.D.R.","short":"LA"},{"long":"Latvia","short":"LV"},{"long":"Lebanon","short":"LB"},{"long":"Libya","short":"LY"},{"long":"Liechtenstein","short":"LI"},{"long":"Lithuania","short":"LT"},{"long":"Luxembourg","short":"LU"},{"long":"Macao S.A.R.","short":"MO"},{"long":"Macedonia (FYROM)","short":"MK"},{"long":"Malaysia","short":"MY"},{"long":"Maldives","short":"MV"},{"long":"Malta","short":"MT"},{"long":"Mexico","short":"MX"},{"long":"Mongolia","short":"MN"},{"long":"Montenegro","short":"ME"},{"long":"Morocco","short":"MA"},{"long":"Nepal","short":"NP"},{"long":"Netherlands","short":"NL"},{"long":"New Zealand","short":"NZ"},{"long":"Nicaragua","short":"NI"},{"long":"Nigeria","short":"NG"},{"long":"Norway","short":"NO"},{"long":"Oman","short":"OM"},{"long":"Panama","short":"PA"},{"long":"Paraguay","short":"PY"},{"long":"People's Republic of China","short":"CN"},{"long":"Peru","short":"PE"},{"long":"Philippines","short":"PH"},{"long":"Poland","short":"PL"},{"long":"Portugal","short":"PT"},{"long":"Principality of Monaco","short":"MC"},{"long":"Puerto Rico","short":"PR"},{"long":"Qatar","short":"QA"},{"long":"Republic of the Philippines","short":"PH"},{"long":"Romania","short":"RO"},{"long":"Russia","short":"RU"},{"long":"Rwanda","short":"RW"},{"long":"Saudi Arabia","short":"SA"},{"long":"Senegal","short":"SN"},{"long":"Serbia","short":"RS"},{"long":"Singapore","short":"SG"},{"long":"Slovakia","short":"SK"},{"long":"Slovenia","short":"SI"},{"long":"South Africa","short":"ZA"},{"long":"Spain","short":"ES"},{"long":"Sri Lanka","short":"LK"},{"long":"Sweden","short":"SE"},{"long":"Switzerland","short":"CH"},{"long":"Syria","short":"SY"},{"long":"Taiwan","short":"TW"},{"long":"Tajikistan","short":"TJ"},{"long":"Thailand","short":"TH"},{"long":"Trinidad and Tobago","short":"TT"},{"long":"Tunisia","short":"TN"},{"long":"Turkey","short":"TR"},{"long":"Turkmenistan","short":"TM"},{"long":"U.A.E.","short":"AE"},{"long":"Ukraine","short":"UA"},{"long":"United Kingdom","short":"GB"},{"long":"United States","short":"US"},{"long":"Uruguay","short":"UY"},{"long":"Uzbekistan","short":"UZ"},{"long":"Vietnam","short":"VN"},{"long":"Yemen","short":"YE"},{"long":"Zimbabwe","short":"ZW"}]
 
-const postUser = async (user) => {
+const postUser = async (user, managedAccess) => {
   user.role = "influencer";
   user.tags = user?.tags?.map((tag) => tag.value);
   if (user.location && user.location.country) {
     user.location.country = user.location.country.value
   }
-  const res = await fetch(`${urls.auth}/auth/register`, {
+  const res = await fetch(`${urls.auth}/auth/register${managedAccess ? `?managedAccess=${managedAccess}` : ''}`, {
     method: "POST",
     credentials: 'include',
     body: JSON.stringify(user),
@@ -62,7 +66,7 @@ const postUser = async (user) => {
   const json = await res.json();
 
   if (!res.ok) {
-    throw new Error(json?.message);
+    throw new HttpError(json?.message, res.status, json);
   }
 
   return json;
@@ -134,7 +138,9 @@ const Influencer = ({ metadata, global, pageContext }) => {
 
 const InfoForm = ({ shortTexts, tags, onSuccess }) => {
 
-  const mutation = useMutation((user) => postUser(user), {
+  const router = useRouter();
+
+  const mutation = useMutation((user) => postUser(user, managedAccess), {
     onSuccess: data => {
       onSuccess && onSuccess()
 
@@ -155,7 +161,7 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
     watch,
     trigger,
   } = useForm();
-    console.log("🚀 ~ file: influencer.js ~ line 158 ~ InfoForm ~ errors", errors)
+  
   const onSubmit = (data) => mutation.mutate(data);
 
   useEffect(() => {
@@ -163,11 +169,69 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
       onSuccess && onSuccess()
     }
   }, [])
+
+  const { managedAccess } = router.query
+
+  let managedAccessPayload
+  if (managedAccess) {
+    managedAccessPayload = jwtDecode(managedAccess)
+  }
+
+  const isInvalidManagedRequest = (new Date(managedAccessPayload?.exp * 1000) < new Date())
   
   return (
     <div className="flex w-full flex-col items-center mb-10 container max-w-xl">
 
-      <FacebookSignUp />
+      <Confirm 
+        type='danger'
+        open={isInvalidManagedRequest}
+        title='Invalid request'
+        text={
+          <div>
+            Your request for joining under management of <strong>{managedAccessPayload?.company.name}</strong> is invalid. Please reach out to {managedAccessPayload?.company.name} to request a new link.
+          </div>
+        }
+        onOk={() => {
+          router.push('/register/influencer')
+        }}
+        disableCancel
+      />
+
+      {
+        managedAccess && managedAccessPayload ? (
+          <div className="border border-gray-100 shadow-md px-8 py-6 xl:absolute w-full xl:w-auto mb-8 right-12 top-[150px] bg-white rounded-xl">
+            <h3 className="font-bold text-xl">Managed Access</h3>
+            <div className="mb-4">Your account will be managed by</div>
+
+            {
+              managedAccessPayload.company.logo ? (
+                <img src={managedAccessPayload.company.logo} alt={`${managedAccessPayload.company.name} logo`} className="h-20 w-20 rounded-full mx-auto" />
+              ) : null
+            }
+
+            <h4 className="font-bold text-lg text-center my-2">{managedAccessPayload.company?.name}</h4>
+            <div className='space-y-2'>
+              {
+                managedAccessPayload.agentsData?.map(agent => (
+                  <div className="flex space-x-3 items-center">
+                    {
+                      agent.avatar ? (
+                        <img alt={`profile picture of ${agent.name?.fullName}`} src={agent.avatar} className='rounded-full h-8 w-8' />
+                      ) : (
+                        <AiOutlineUser className="h-8 w-8 p-1 bg-gray-200 rounded-full" />
+                      )
+                    }
+
+                    <div>{agent.name?.fullName}</div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        ) : null
+      }
+
+      <FacebookSignUp managedAccess={managedAccess} />
 
       <h3 className='font-bold text-3xl text-center my-16'>Or</h3>
 
@@ -351,7 +415,6 @@ const InfoForm = ({ shortTexts, tags, onSuccess }) => {
                   onChange(value);
                   trigger("confirm");
                 }}
-                validateIcon={1}
                 value={value}
               />
             );
@@ -586,7 +649,7 @@ const AddIg = () => {
   )
 }
 
-const FacebookSignUp = () => {
+const FacebookSignUp = ({ managedAccess }) => {
   const router = useRouter();
 
   const handleFacebookResponse = async (data) => {
@@ -601,6 +664,7 @@ const FacebookSignUp = () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         access_token: data.accessToken,
+        managedAccess: managedAccess
       }),
     });
 
@@ -641,7 +705,7 @@ const FacebookSignUp = () => {
       callback={callback}
       cssClass='px-12 py-4 rounded bg-[#4473C9] text-white font-bold'
       isDisabled={isLoading || isSuccess}
-      redirectUri={(urls.accountsOld || urls.accounts) + '/user/third-party/callback/instagram'}
+      redirectUri={(urls.accountsOld || urls.accounts) + `/user/third-party/callback/instagram${managedAccess ? `?managedAccess=${managedAccess}` : ''}`}
       textButton='Continue with Facebook'
     />
   );

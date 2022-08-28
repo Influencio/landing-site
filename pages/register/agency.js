@@ -11,13 +11,13 @@ export const getStaticProps = async (context) => {
 
   // Fetch pages. Include drafts if preview mode is on
   const pageData = await getCustomPageData(
-    { slug: ["register", "company"] },
+    { slug: ["register", "agency"] },
     locale,
     preview
   );
 
   // Get pricing data from pricing page
-  const priceData = await getPageData({ slug: ["pricing"] }, locale, preview);
+  const priceData = await getPageData({ slug: ["pricing/agency"] }, locale, preview);
 
   // Get tax id types
   const taxIdTypesRaw = await (await fetch(`${urls.landing}/static/tax-id-countries.json`, {headers: {"content-type": "application/json"}})).json()
@@ -43,7 +43,7 @@ export const getStaticProps = async (context) => {
       preview,
       metadata: {
         ...metadata,
-        companyType: 'default'
+        companyType: 'agency'
       },
       global: globalLocale,
       pageContext: {
@@ -63,10 +63,11 @@ export const getStaticProps = async (context) => {
         ).plans,
         taxIdTypes
       },
+      type: 'agency'
     },
   };
 };
 
-const RegisterCompany = props => <Company {...props} />
+const RegisterAgency = props => <Company {...props} />
 
-export default RegisterCompany;
+export default RegisterAgency;
